@@ -389,7 +389,16 @@ saveBtn.addEventListener("click", function () {
 
   let patterns = JSON.parse(localStorage.getItem("patterns")) || [];
 
-  patterns.push(pattern);
+// check duplicate
+const exists = patterns.some(p => p.name === name);
+
+if (exists) {
+  if (!confirm("Pattern exists. Overwrite?")) return;
+
+  patterns = patterns.filter(p => p.name !== name);
+}
+
+patterns.push(pattern);
 
   localStorage.setItem("patterns", JSON.stringify(patterns));
 
