@@ -255,19 +255,25 @@ fields.forEach(id => {
 
   function getPatternData() {
   return {
+    Waist: Number(m.waist),
+    Hip: Number(m.hip),
+    Crotch: Number(m.rise),
+    Length: Number(m.outseam),
+    Inseam: Number(m.inseam),
+    Thigh: Number(m.thigh),
+    Knee: Number(m.knee),
+    Bottom: Number(m.leg_opening.value),
     frontCrotch: Number(frontCrotchSlider.value),
     backCrotch: Number(backCrotchSlider.value),
-    waist: Number(waistSlider.value),
-    hip: Number(hipSlider.value),
+    waistShift: Number(waistSlider.value),
+    hipShift: Number(hipSlider.value),
     crotchShift: Number(crotchShiftSlider.value),
     crotchDepth: Number(crotchSlider.value),
-
-    frontWaist: Number(frontWaistSlider.value),
-    frontHip: Number(frontHipSlider.value),
-
-    thigh: Number(thighSlider.value),
-    knee: Number(kneeSlider.value),
-    bottom: Number(bottomSlider.value)
+    frontWaistAdj: Number(frontWaistSlider.value),
+    frontHipAdj: Number(frontHipSlider.value),
+    thighAdj: Number(thighSlider.value),
+    kneeAdj: Number(kneeSlider.value),
+    bottomAdj: Number(bottomSlider.value)
   };
   }
 
