@@ -267,7 +267,7 @@ function debug(msg) {
     panel.scrollTop = panel.scrollHeight;
   }
 }
-
+/////////////////////////////////////////////////
 // Load from URL
 const fields = ["waist", "hip", "rise", "outseam", "inseam", "thigh", "knee", "leg_opening"];
 
@@ -278,7 +278,7 @@ fields.forEach(id => {
     localStorage.setItem(id, this.value);
   });
 });
-
+/////////////////////////////////////////////////
   const loadBtn = document.getElementById("loadPatternBtn");
 const container = document.getElementById("patternListContainer");
 
@@ -288,7 +288,7 @@ loadBtn.addEventListener("click", () => {
 
   renderPatternList();
 });
-
+/////////////////////////////////////////////////////
 function renderPatternList() {
   const list = document.getElementById("patternList");
   list.innerHTML = "";
@@ -317,7 +317,7 @@ function renderPatternList() {
     list.appendChild(item);
   });
 }
-
+///////////////////////////////////////////////
   function loadPattern(pattern) {
   const d = pattern.data;
 
@@ -346,7 +346,7 @@ function renderPatternList() {
 
   updatePattern(); // redraw
   }
-  
+  ///////////////////////////////////////////
   function getPatternData() {
   return {
     Waist: Number(waist),
@@ -392,7 +392,7 @@ saveBtn.addEventListener("click", function () {
 
   alert("Saved! ✅");
 });
-  
+  /////////////////////////////////////////////
   function loadData() {
   document.getElementById("waist").value = localStorage.getItem("waist") || "";
   document.getElementById("hip").value = localStorage.getItem("hip") || "";
@@ -404,7 +404,7 @@ saveBtn.addEventListener("click", function () {
   document.getElementById("leg_opening").value = localStorage.getItem("leg_opening") || "";
  updatePattern();
 }
-
+////////////////////////////////////////////////
 // Sliders
 const frontCrotchSlider = document.getElementById("frontCrotchCurve");
 const backCrotchSlider = document.getElementById("backCrotchCurve");
@@ -477,7 +477,7 @@ frontWaistSlider.addEventListener("input", function() {
 
 
   
-
+//////////////////////////////////////////////
 function getPointAtDistance(p1, y2, d, side = "left") {
   const dy = y2 - p1.y;
   const dx = Math.sqrt(d * d - dy * dy);
@@ -487,7 +487,7 @@ function getPointAtDistance(p1, y2, d, side = "left") {
     y: y2
   };
 }
-
+/////////////////////////////////////////////
 function getPointAtY(p1, p2, y) 
 {
    const t = (y - p1.y) / (p2.y - p1.y);
@@ -502,7 +502,7 @@ function getPointAtY(p1, p2, y)
   //const p2 = { x: 10, y: 100 };
 
   //const px = getPointAtY(p1, p2, 75);
-
+//////////////////////////////////////////////
 function getPointAtX(p1, p2, x) 
 {
    const t = (x - p1.x) / (p2.x - p1.x);
@@ -517,7 +517,7 @@ function getPointAtX(p1, p2, x)
   //const p2 = { x: 10, y: 100 };
 
   //const px = getPointAtY(p1, p2, 75);
-
+//////////////////////////////////////////////
   function updatePattern() {
   const m = {
     waist: parseFloat(document.getElementById("waist").value) || 0,
