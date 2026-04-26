@@ -153,11 +153,13 @@ const auth = firebase.auth();
 
 const createPasswordInput = document.getElementById("createPassword");
 const createToggleBtn = document.getElementById("toggleCreatePassword");
+const createPasswordInput = document.getElementById("createPassword");
+const createToggleBtn = document.getElementById("toggleCreatePassword");
 
 createToggleBtn.addEventListener("click", function () {
-  if (createPasswordInput.type === "createPassword") {
+  if (createPasswordInput.type === "password") {
     createPasswordInput.type = "text";
-    this.textContent = "🙈"; // optional icon change
+    this.textContent = "🙈";
   } else {
     createPasswordInput.type = "password";
     this.textContent = "👁️";
@@ -168,9 +170,9 @@ const confirmPasswordInput = document.getElementById("confirmPassword");
 const confirmToggleBtn = document.getElementById("toggleConfirmPassword");
 
 confirmToggleBtn.addEventListener("click", function () {
-  if (confirmPasswordInput.type === "confirmPassword") {
-    passwordInput.type = "text";
-    this.textContent = "🙈"; // optional icon change
+  if (confirmPasswordInput.type === "password") {
+    confirmPasswordInput.type = "text";
+    this.textContent = "🙈";
   } else {
     confirmPasswordInput.type = "password";
     this.textContent = "👁️";
