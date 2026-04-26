@@ -252,6 +252,24 @@ fields.forEach(id => {
     localStorage.setItem(id, this.value);
   });
 });
+
+  function getPatternData() {
+  return {
+    frontCrotch: Number(frontCrotchSlider.value),
+    backCrotch: Number(backCrotchSlider.value),
+    waist: Number(waistSlider.value),
+    hip: Number(hipSlider.value),
+    crotchShift: Number(crotchSlider.value),
+    crotchDepth: Number(crotchDepthSlider.value),
+
+    frontWaist: Number(frontWaistSlider.value),
+    frontHip: Number(frontHipSlider.value),
+
+    thigh: Number(thighSlider.value),
+    knee: Number(kneeSlider.value),
+    bottom: Number(bottomSlider.value)
+  };
+  }
   
   function loadData() {
   document.getElementById("waist").value = localStorage.getItem("waist") || "";
