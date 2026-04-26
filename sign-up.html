@@ -155,7 +155,7 @@ const createPasswordInput = document.getElementById("createPassword");
 const createToggleBtn = document.getElementById("toggleCreatePassword");
 
 createToggleBtn.addEventListener("click", function () {
-  if (createPasswordInput.type === "password") {
+  if (createPasswordInput.type === "createPassword") {
     createPasswordInput.type = "text";
     this.textContent = "🙈"; // optional icon change
   } else {
@@ -168,7 +168,7 @@ const confirmPasswordInput = document.getElementById("confirmPassword");
 const confirmToggleBtn = document.getElementById("toggleConfirmPassword");
 
 confirmToggleBtn.addEventListener("click", function () {
-  if (confirmPasswordInput.type === "password") {
+  if (confirmPasswordInput.type === "confirmPassword") {
     passwordInput.type = "text";
     this.textContent = "🙈"; // optional icon change
   } else {
