@@ -460,10 +460,12 @@ function drawPattern(m) {
   const fp12 = { x: center - Hthigh - thighOffset, y: thighLine };
   // adjust crotch point
   const fp13 = { x: center - Hcrotch - crotchDepth + crotchShift, y: crotchLine};
-  const fp15 = { x: center - HFhip + frontHipShift - hipOffset - (HFhip - Hthigh), y: frontHipLine };
-  const fc2h = getPointAtY(fp13, fp15, frontHipLine + (((crotchLine - frontHipLine) / 3) * 2))
+  const fp16 = { x: center - HFhip + frontHipShift - hipOffset - (HFhip - Hthigh), y: frontHipLine };
+  const fc2h = getPointAtY(fp13, fp16, frontHipLine + (((crotchLine - frontHipLine) / 3) * 2))
   const fp14 = { x: fc2h.x + (frontCrotchCurve / 2), y: fc2h.y };
-  const fp16 = { x: center - (3 * scale) + waistShift, y: frontWaistLine };
+  const fc2h2 = getPointAtY(fp14, fp16, frontHipLine + ((fc2.y - frontHipLine) / 2));
+  const fp15 = { x: fc2h2.x + (frontCrotchCurve), y: fc2h2.y };
+  const fp17 = { x: center - (3 * scale) + waistShift, y: frontWaistLine };
   
   
   const fpath = `
@@ -481,6 +483,7 @@ function drawPattern(m) {
     L ${fp14.x} ${fp14.y}
     L ${fp15.x} ${fp15.y}
     L ${fp16.x} ${fp16.y}
+    L ${fp17.x} ${fp17.y}
     Z
   `;
   
