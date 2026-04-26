@@ -135,8 +135,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <script>
-
-
  const firebaseConfig = {
   apiKey: "AIzaSyAdQ7By9HrCbNhy2pT9cEVVcD-YCdHEuSs",
   authDomain: "deegees-a23ec.firebaseapp.com",
@@ -150,9 +148,7 @@
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 </script>
-
-const createPasswordInput = document.getElementById("createPassword");
-const createToggleBtn = document.getElementById("toggleCreatePassword");
+  <script>
 const createPasswordInput = document.getElementById("createPassword");
 const createToggleBtn = document.getElementById("toggleCreatePassword");
 
@@ -179,7 +175,6 @@ confirmToggleBtn.addEventListener("click", function () {
   }
 });
    
-
 function signup() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -204,7 +199,7 @@ function signup() {
       alert(error.message);
     });
 }
-   </script>
+  </script>
 
  
 </body>
