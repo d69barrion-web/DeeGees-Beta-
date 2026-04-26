@@ -376,7 +376,7 @@ document.getElementById("leg_opening").value = d.Bottom;
 
 saveBtn.addEventListener("click", function () {
 
-  const name = prompt("Pattern name?","My Pattern");
+  const name = prompt("Pattern name?");
   if (!name) return;
 
   const pattern = {
@@ -387,16 +387,11 @@ saveBtn.addEventListener("click", function () {
 
   let patterns = JSON.parse(localStorage.getItem("patterns")) || [];
 
-// check duplicate
-const exists = patterns.some(p => p.name === name);
+  patterns.push(pattern);
 
-if (exists) {
-  if (!confirm("Pattern exists. Overwrite?")) return;
+  localStorage.setItem("patterns", JSON.stringify(patterns));
 
-  patterns = patterns.filter(p => p.name !== name);
-}
-
-patterns.push(pattern);
+  alert("Saved! ✅");
 });
   /////////////////////////////////////////////
   function loadData() {
