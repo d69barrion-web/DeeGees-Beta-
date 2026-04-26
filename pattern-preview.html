@@ -119,6 +119,10 @@
     <div class="card">
       <h2>(FRONT PART)</h2>
       <svg id="svgCanvasFront"></svg> 
+      <div class="form-group">
+          <label>Front Crotch Curve: <span id="frontCrotchVal">0</span></label>
+          <input type="range" id="frontCrotchCurve" min="-50" max="50" value="0">
+      </div>
       <button class="btn" onclick="downloadFront()">Download as PNG</button>
     </div>
 
@@ -250,7 +254,7 @@ fields.forEach(id => {
 }
 
 // Sliders
-
+const frontCrotchSlider = document.getElementById("frontCrotchCurve");
 const backCrotchSlider = document.getElementById("backCrotchCurve");
 const waistSlider = document.getElementById("waistShift");
 const hipSlider = document.getElementById("hipShift");
@@ -262,6 +266,7 @@ const bottomSlider = document.getElementById("bottomAdj");
 const frontHipSlider = document.getElementById("frontHipAdj");
 const frontWaistSlider = document.getElementById("frontWaistAdj");
 
+frontCrotchSlider.value = Number(localStorage.getItem("frontCrotchCurve")) || 0;
 backCrotchSlider.value = Number(localStorage.getItem("backCrotchCurve")) || 0;
 waistSlider.value = Number(localStorage.getItem("waistShift")) || 0;
 hipSlider.value = Number(localStorage.getItem("hipShift")) || 0;
@@ -272,7 +277,11 @@ kneeSlider.value = Number(localStorage.getItem("kneeAdj")) || 0;
 bottomSlider.value = Number(localStorage.getItem("bottomAdj")) || 0;
 frontHipSlider.value = Number(localStorage.getItem("frontHipAdj")) || 0;
 frontWaistSlider.value = Number(localStorage.getItem("frontWaistAdj")) || 0;
-  
+
+frontCrotchSlider.addEventListener("input", function() {
+  localStorage.setItem("frontCrotchCurve", this.value);
+  updatePattern();
+});
 backCrotchSlider.addEventListener("input", function() {
   localStorage.setItem("backCrotchCurve", this.value);
   updatePattern();
@@ -368,6 +377,7 @@ function getPointAtX(p1, p2, x)
     knee: parseFloat(document.getElementById("knee").value) || 0,
     leg_opening: parseFloat(document.getElementById("leg_opening").value) || 0,
 
+    frontCrotch_curve: parseInt(frontCrotchSlider.value),
     backCrotch_curve: parseInt(backCrotchSlider.value),
     waist_shift: parseInt(waistSlider.value),
     hip_shift: parseInt(hipSlider.value),
@@ -380,6 +390,7 @@ function getPointAtX(p1, p2, x)
     frontWaist_adj: parseInt(frontWaistSlider.value)
   };
 
+  document.getElementById("frontCrotchVal").textContent = m.frontCrotch_curve;
   document.getElementById("backCrotchVal").textContent = m.backCrotch_curve;
   document.getElementById("waistShiftVal").textContent = m.waist_shift;
   document.getElementById("hipShiftVal").textContent = m.hip_shift;
@@ -405,6 +416,7 @@ function drawPattern(m) {
   
   const waistShift = m.waist_shift;
   const frontHipShift = m.hip_shift;
+  const frontCrotchCurve = m.frontCrotch_curve;
   const crotchShift = m.crotch_shift;
   const thighOffset = m.thigh_adj;
   const kneeOffset = m.knee_adj;
@@ -449,7 +461,9 @@ function drawPattern(m) {
   // adjust crotch point
   const fp13 = { x: center - Hcrotch - crotchDepth + crotchShift, y: crotchLine};
   const fp14 = { x: center - HFhip + frontHipShift - hipOffset - (HFhip - Hthigh), y: frontHipLine };
-  const fp15 = { x: center - (3 * scale) + waistShift, y: frontWaistLine };
+  const fc2h = getPointAtY(p13, p14, frontHipLine + ((crotchLine - frontHipLine) / 2))
+  const fp15 = { x: fc2h.x + (frontCrotchCurve / 2), y: fc2h.y };
+  const fp16 = { x: center - (3 * scale) + waistShift, y: frontWaistLine };
 
   const fpath = `
     M ${fp1.x} ${fp1.y}
@@ -465,6 +479,7 @@ function drawPattern(m) {
     Q ${fp12.x} ${fp12.y} ${fp13.x} ${fp13.y}
     L ${fp14.x} ${fp14.y}
     L ${fp15.x} ${fp15.y}
+    L ${fp16.x} ${fp16.y}
     Z
   `;
   
