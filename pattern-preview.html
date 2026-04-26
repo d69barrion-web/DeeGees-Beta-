@@ -461,7 +461,7 @@ function drawPattern(m) {
   // adjust crotch point
   const fp13 = { x: center - Hcrotch - crotchDepth + crotchShift, y: crotchLine};
   const fp14 = { x: center - HFhip + frontHipShift - hipOffset - (HFhip - Hthigh), y: frontHipLine };
-  const fc2h = getPointAtY(p13, p14, frontHipLine + ((crotchLine - frontHipLine) / 2))
+  const fc2h = getPointAtY(fp13, fp14, frontHipLine + ((crotchLine - frontHipLine) / 2))
   const fp15 = { x: fc2h.x + (frontCrotchCurve / 2), y: fc2h.y };
   const fp16 = { x: center - (3 * scale) + waistShift, y: frontWaistLine };
 
