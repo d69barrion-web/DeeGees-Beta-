@@ -330,7 +330,21 @@ function renderPatternList() {
   knee = d.Knee;
   leg_opening = d.Bottom;
     
+  waistSlider.value = d.waistShift;
+  hipSlider.value = d.hipShift;
+  crotchSlider.value = d.crotchDepth;
+  crotchShiftSlider.value = d.crotchShift;
+
+  frontWaistSlider.value = d.frontWaistAdj;
+  frontHipSlider.value = d.frontHipAdj;
+
+  thighSlider.value = d.thighAdj;
+  kneeSlider.value = d.kneeAdj;
+  bottomSlider.value = d.bottomAdj;
+    
   
+
+  updatePattern(); // redraw
   }
   
   function getPatternData() {
