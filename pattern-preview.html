@@ -151,6 +151,16 @@
               ">
               💾 Save
           </button>
+          <button id="deletePatternBtn" style="
+              padding: 6px 12px;
+              border: none;
+              border-radius: 6px;
+              background: #4CAF50;
+              color: white;
+              cursor: pointer;
+              ">
+              🗑️
+          </button>
           <button id="loadPatternBtn" style="
               padding: 6px 12px;
               border: none;
@@ -267,6 +277,18 @@ function debug(msg) {
     panel.scrollTop = panel.scrollHeight;
   }
 }
+
+let selectedCreatedAt = null;
+function deletePatternByTime(createdAt) {
+  if (!confirm("Delete this pattern?")) return;
+
+  let patterns = JSON.parse(localStorage.getItem("patterns")) || [];
+
+  patterns = patterns.filter(p => p.createdAt !== createdAt);
+
+  localStorage.setItem("patterns", JSON.stringify(patterns));
+}
+  
 /////////////////////////////////////////////////
 // Load from URL
 const fields = ["waist", "hip", "rise", "outseam", "inseam", "thigh", "knee", "leg_opening"];
@@ -321,6 +343,8 @@ function renderPatternList() {
   function loadPattern(pattern) {
   const d = pattern.data;
 
+selectedCreatedAt = pattern.createdAt; // ⭐ important
+    
 document.getElementById("waist").value = d.Waist;
 document.getElementById("hip").value = d.Hip;
 document.getElementById("rise").value = d.Crotch;
