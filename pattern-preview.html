@@ -279,6 +279,72 @@ fields.forEach(id => {
   });
 });
 
+  const loadBtn = document.getElementById("loadPatternBtn");
+const container = document.getElementById("patternListContainer");
+
+loadBtn.addEventListener("click", () => {
+  container.style.display =
+    container.style.display === "none" ? "block" : "none";
+
+  renderPatternList();
+});
+
+function renderPatternList() {
+  const list = document.getElementById("patternList");
+  list.innerHTML = "";
+
+  const patterns = JSON.parse(localStorage.getItem("patterns")) || [];
+
+  if (patterns.length === 0) {
+    list.innerHTML = "<p>No saved patterns</p>";
+    return;
+  }
+
+  patterns.forEach((p, index) => {
+    const item = document.createElement("div");
+
+    item.style.padding = "6px";
+    item.style.borderBottom = "1px solid #ddd";
+    item.style.cursor = "pointer";
+
+    item.textContent = p.name;
+
+    item.addEventListener("click", () => {
+      loadPattern(p);
+      container.style.display = "none";
+    });
+
+    list.appendChild(item);
+  });
+}
+
+  function loadPattern(pattern) {
+  const d = pattern.data;
+
+  waistSlider.value = d.waistShift;
+  hipSlider.value = d.hipShift;
+  crotchlider.value = d.crotchDepth;
+  crotchShiftSlider.value = d.crotchShift;
+
+  frontWaistSlider.value = d.frontWaistAdj;
+  frontHipSlider.value = d.frontHipAdj;
+
+  thighSlider.value = d.thighAdj;
+  kneeSlider.value = d.kneeAdj;
+  bottomSlider.value = d.bottomAdj;
+    
+  waist = Waist;
+  hip = Hip;
+  rise = Crotch;
+  outseam = Length;
+  inseam = Inseam;
+  thigh = Thigh;
+  knee = Knee;
+  leg_opening = Bottom;
+
+  updatePattern(); // redraw
+  }
+  
   function getPatternData() {
   return {
     Waist: Number(waist),
