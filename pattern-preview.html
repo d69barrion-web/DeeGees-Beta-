@@ -321,14 +321,14 @@ function renderPatternList() {
   function loadPattern(pattern) {
   const d = pattern.data;
 
-  waist = d.Waist;
-  hip = d.Hip;
-  rise = d.Crotch;
-  outseam = d.Length;
-  inseam = d.Inseam;
-  thigh = d.Thigh;
-  knee = d.Knee;
-  leg_opening = d.Bottom;
+document.getElementById("waist").value = d.Waist;
+document.getElementById("hip").value = d.Hip;
+document.getElementById("rise").value = d.Crotch;
+document.getElementById("outseam").value = d.Length;
+document.getElementById("inseam").value = d.Inseam;
+document.getElementById("thigh").value = d.Thigh;
+document.getElementById("knee").value = d.Knee;
+document.getElementById("leg_opening").value = d.Bottom;
     
   waistSlider.value = d.waistShift;
   hipSlider.value = d.hipShift;
@@ -349,14 +349,15 @@ function renderPatternList() {
   ///////////////////////////////////////////
   function getPatternData() {
   return {
-    Waist: Number(waist),
-    Hip: Number(hip),
-    Crotch: Number(rise),
-    Length: Number(outseam),
-    Inseam: Number(inseam),
-    Thigh: Number(thigh),
-    Knee: Number(knee),
-    Bottom: Number(leg_opening),
+    Waist: Number(document.getElementById("waist").value),
+    Hip: Number(document.getElementById("hip").value),
+    Crotch: Number(document.getElementById("rise").value),
+    Length: Number(document.getElementById("outseam").value),
+    Inseam: Number(document.getElementById("inseam").value),
+    Thigh: Number(document.getElementById("thigh").value),
+    Knee: Number(document.getElementById("knee").value),
+    Bottom: Number(document.getElementById("leg_opening").value),
+
     frontCrotch: Number(frontCrotchSlider.value),
     backCrotch: Number(backCrotchSlider.value),
     waistShift: Number(waistSlider.value),
@@ -386,11 +387,16 @@ saveBtn.addEventListener("click", function () {
 
   let patterns = JSON.parse(localStorage.getItem("patterns")) || [];
 
-  patterns.push(pattern);
+// check duplicate
+const exists = patterns.some(p => p.name === name);
 
-  localStorage.setItem("patterns", JSON.stringify(patterns));
+if (exists) {
+  if (!confirm("Pattern exists. Overwrite?")) return;
 
-  alert("Saved! ✅");
+  patterns = patterns.filter(p => p.name !== name);
+}
+
+patterns.push(pattern);
 });
   /////////////////////////////////////////////
   function loadData() {
