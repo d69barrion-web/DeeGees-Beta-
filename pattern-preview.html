@@ -463,7 +463,7 @@ function drawPattern(m) {
   const fp16 = { x: center - HFhip + frontHipShift - hipOffset - (HFhip - Hthigh), y: frontHipLine };
   const fc2h = getPointAtY(fp13, fp16, frontHipLine + (((crotchLine - frontHipLine) / 3) * 2))
   const fp14 = { x: fc2h.x + (frontCrotchCurve / 2), y: fc2h.y };
-  const fc2h2 = getPointAtY(fp14, fp16, frontHipLine + ((fc2.y - frontHipLine) / 2));
+  const fc2h2 = getPointAtY(fp14, fp16, frontHipLine + ((fc2h.y - frontHipLine) / 2));
   const fp15 = { x: fc2h2.x + (frontCrotchCurve), y: fc2h2.y };
   const fp17 = { x: center - (3 * scale) + waistShift, y: frontWaistLine };
   
