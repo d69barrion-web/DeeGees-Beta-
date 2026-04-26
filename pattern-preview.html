@@ -270,6 +270,28 @@ fields.forEach(id => {
     bottom: Number(bottomSlider.value)
   };
   }
+
+  const saveBtn = document.getElementById("savePatternBtn");
+
+saveBtn.addEventListener("click", function () {
+
+  const name = prompt("Pattern name?");
+  if (!name) return;
+
+  const pattern = {
+    name: name,
+    data: getPatternData(),
+    createdAt: Date.now()
+  };
+
+  let patterns = JSON.parse(localStorage.getItem("patterns")) || [];
+
+  patterns.push(pattern);
+
+  localStorage.setItem("patterns", JSON.stringify(patterns));
+
+  alert("Saved! ✅");
+});
   
   function loadData() {
   document.getElementById("waist").value = localStorage.getItem("waist") || "";
