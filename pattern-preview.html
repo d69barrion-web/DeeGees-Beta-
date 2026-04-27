@@ -1687,6 +1687,17 @@ function drawPattern(m) {
   // init
 loadData();
 
+  let showFrontMeasurements = true;
+let isFrontVisible = true;
+let isBackVisible = false;
+toggleFront.addEventListener("change", function () {
+  showFrontMeasurements = this.checked;
+  isBackVisible = this.checked;
+  isFrontVisible = this.checked;
+  bCenter = center;
+  updatePattern();
+});
+
 function downloadFront() {
   const svg = document.getElementById("svgCanvasFront");
 
@@ -1765,16 +1776,7 @@ function downloadFront() {
   img.src = url;
 }
 
-let showFrontMeasurements = true;
-let isFrontVisible = true;
-let isBackVisible = false;
-toggleFront.addEventListener("change", function () {
-  showFrontMeasurements = this.checked;
-  isBackVisible = this.checked;
-  isFrontVisible = this.checked;
-  bCenter = center;
-  updatePattern();
-});
+
 </script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
