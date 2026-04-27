@@ -389,7 +389,6 @@ function debug(msg) {
   
 let selectedCreatedAt = null;
 let showFrontMeasurements = true;
-let isFrontVisible = true;
 let isBackVisible = false;
 toggleFront.addEventListener("change", function () {
   showFrontMeasurements = this.checked;
@@ -1473,7 +1472,7 @@ function drawPattern(m) {
   </text>
 </g>
 
-<g id="isBackVisible" opacity="${isBackVisible ? 0 : 1}"> 
+<g id="isBackVisible" opacity="${isBackVisible ? 1 : 0}"> 
   <path 
     d="${mbpath}" 
     fill="none" 
