@@ -1095,6 +1095,7 @@ function drawPattern(m) {
   
   svgFront.innerHTML = 
   `
+  //front centerline
   <line 
     x1="${center}" 
     y1="${topY}" 
@@ -1103,17 +1104,8 @@ function drawPattern(m) {
     stroke="white"
     stroke-width="1"
     stroke-dasharray="5,5"
-  />
-  <line 
-    x1="${bCenter}" 
-    y1="${topY}" 
-    x2="${bCenter}" 
-    y2="${bottomY}" 
-    stroke="white"
-    stroke-width="1"
-    stroke-dasharray="5,5"
-  />
-  <line 
+/>
+<line 
     x1="${waistLineXo}" 
     y1="${frontWaistLine}" 
     x2="${waistLineXi}" 
@@ -1140,7 +1132,7 @@ function drawPattern(m) {
     stroke-width="1"
     stroke-dasharray="5,5"
   />
-    <line 
+  <line
     x1="${thighLineXo}" 
     y1="${thighLine}" 
     x2="${thighLineXi}" 
@@ -1176,7 +1168,18 @@ function drawPattern(m) {
     stroke-width="1"
     stroke-dasharray="5,5"
   />
-
+  
+  
+  //back centerline
+  <line 
+    x1="${bCenter}" 
+    y1="${topY}" 
+    x2="${bCenter}" 
+    y2="${bottomY}" 
+    stroke="white"
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
   <line 
     x1="${backWaistLineXo}" 
     y1="${backWaistLine}" 
@@ -1195,6 +1198,12 @@ function drawPattern(m) {
     stroke-width="1"
     stroke-dasharray="5,5"
   />
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="white" />
+    </marker>
+  </defs>
+  
   
   <path 
     d="${fpath}" 
@@ -1210,11 +1219,7 @@ function drawPattern(m) {
     stroke-width="2"
   /> 
 
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-      <path d="M0,0 L10,5 L0,10 Z" fill="white" />
-    </marker>
-  </defs>
+  
 
   <line
     x1="${230}" 
@@ -1266,7 +1271,6 @@ function drawPattern(m) {
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
   />
-  
   <line 
     x1="${waistCenterPoint.x}" 
     y1="${waistCenterPoint.y}" 
@@ -1387,8 +1391,7 @@ function drawPattern(m) {
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
   />
-  
-  <text x="${center - 68}" y="${20}" fill="yellow" font-size="10">
+  <text x="${center - 8}" y="${20}" fill="yellow" font-size="10">
     center
   </text>
   <text x="${300}" y="${LwmidY}" fill="white" font-size="10">
@@ -1403,10 +1406,6 @@ function drawPattern(m) {
   <text x="${300}" y="${LhmidY}" fill="white" font-size="10">
     front hipLine
   </text>
-  <text x="${230}" y="${waistToHipCenterPoint}" fill="yellow" font-size="10">
-   ${hipY.toFixed(2)} "
-  </text>
-  
   <text x="${LhmidX}" y="${LhmidY}" fill="yellow" font-size="10">
     ${Lhdistance.toFixed(2)} "
   </text>
@@ -1422,6 +1421,13 @@ function drawPattern(m) {
   <text x="${RcmidX}" y="${RcmidY}" fill="yellow" font-size="10">
     ${Rcdistance.toFixed(2)} "
   </text>
+
+
+  
+  <text x="${230}" y="${waistToHipCenterPoint}" fill="yellow" font-size="10">
+   ${hipY.toFixed(2)} "
+  </text>
+  
   
   <text x="${20}" y="${waistToCrotchCenterPoint}" fill="yellow" font-size="10">
     ${crotchY.toFixed(2)} "
