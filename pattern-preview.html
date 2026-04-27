@@ -121,18 +121,7 @@
 
         <button class="btn" onclick="updatePattern()">Generate Pattern</button>
       </div>
-    </div>
 
-    <!-- FRONT PART -->
-    <div class="card">
-      <h2>(FRONT PART)</h2>
-      <svg id="svgCanvasFront"></svg> 
-      <div class="form-group">
-          <label>Front Crotch Curve: <span id="frontCrotchVal">0</span></label>
-          <input type="range" id="frontCrotchCurve" min="-50" max="50" value="0">
-      </div>
-      <button class="btn" onclick="downloadFront()">Download as PNG</button>
-    
       <div class="form-group">
           <label>Waist Shift: <span id="waistShiftVal">0</span></label>
           <input type="range" id="waistShift" min="-50" max="50" value="0">
@@ -178,6 +167,17 @@
            <input type="range" id="bottomAdj" min="-20" max="20" value="0">
         </div>
       
+    </div>
+
+    <!-- FRONT PART -->
+    <div class="card">
+      <h2>(FRONT PART)</h2>
+      <svg id="svgCanvasFront"></svg> 
+      <div class="form-group">
+          <label>Front Crotch Curve: <span id="frontCrotchVal">0</span></label>
+          <input type="range" id="frontCrotchCurve" min="-50" max="50" value="0">
+      </div>
+      <button class="btn" onclick="downloadFront()">Download as PNG</button>
     </div>
 
     <!-- FRONT & BACK PART -->
