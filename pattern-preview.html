@@ -386,9 +386,11 @@ function debug(msg) {
 }
   
 let showFrontMeasurements = true;
-let isFrontVisible = true
+let isFrontVisible = true;
+let isBackVisible = false;
 toggleFront.addEventListener("change", function () {
   showFrontMeasurements = this.checked;
+  isBackVisible = this.checked;
   isFrontVisible = this.checked;
   updatePattern();
 });
@@ -1104,7 +1106,15 @@ function drawPattern(m) {
  
   
   svgFront.innerHTML =  `
-  <g id="showFrontMeasurements" opacity="${showFrontMeasurements ? 0 : 1}">
+<g id="isFrontVisible" opacity="${isFrontVisible ? 1 : 0}">
+<path 
+    d="${fpath}" 
+    fill="none" 
+    stroke="#38bdf8" 
+    stroke-width="2"
+  />
+</g>
+<g id="showFrontMeasurements" opacity="${showFrontMeasurements ? 1 : 0}">
   //front centerline
   <line 
     x1="${center}" 
@@ -1422,14 +1432,16 @@ function drawPattern(m) {
   </text>
 </g>
 
-<g id="isFrontVisible" opacity="${isFrontVisible ? 0 : 1}">
-<path 
-    d="${fpath}" 
+<g id="isBackVisible" opacity="${isBackVisible ? 0 : 1}"> 
+  <path 
+    d="${bpath}" 
     fill="none" 
-    stroke="#38bdf8" 
+    stroke="white" 
     stroke-width="2"
-  />
+  /> 
 </g>
+
+
   
   //back centerline
   <line 
@@ -1465,15 +1477,7 @@ function drawPattern(m) {
     </marker>
   </defs>
   
-  
-  
 
-  <path 
-    d="${bpath}" 
-    fill="none" 
-    stroke="white" 
-    stroke-width="2"
-  /> 
 
   
 
