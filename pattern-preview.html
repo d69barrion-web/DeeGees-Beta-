@@ -611,7 +611,33 @@ frontWaistSlider.addEventListener("input", function() {
   updatePattern();
 });
 
+function openDeleteModal() {
+  if (!selectedCreatedAt) {
+    alert("No pattern selected!");
+    return;
+  }
 
+  document.getElementById("deleteModal").style.display = "flex";
+}
+
+function closeDeleteModal() {
+  document.getElementById("deleteModal").style.display = "none";
+}
+
+function confirmDelete() {
+  let patterns = JSON.parse(localStorage.getItem("patterns")) || [];
+
+  patterns = patterns.filter(p => p.createdAt !== selectedCreatedAt);
+
+  localStorage.setItem("patterns", JSON.stringify(patterns));
+
+  selectedCreatedAt = null;
+
+  closeDeleteModal();
+  alert("Deleted! 🗑️");
+
+  renderPatternList(); // optional kung may list UI ka
+                                   }
   
 //////////////////////////////////////////////
 function getPointAtDistance(p1, y2, d, side = "left") {
