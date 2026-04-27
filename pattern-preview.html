@@ -1104,7 +1104,7 @@ function drawPattern(m) {
  
   
   svgFront.innerHTML =  `
-  <g id="showFrontMeasurements" opacity="${showFrontMeasurements ? 1 : 0}">
+  <g id="showFrontMeasurements" opacity="${showFrontMeasurements ? 0 : 1}">
   //front centerline
   <line 
     x1="${center}" 
@@ -1422,7 +1422,7 @@ function drawPattern(m) {
   </text>
 </g>
 
-<g id="isFrontVisible" opacity="${isFrontVisible ? 1 : 0}">
+<g id="isFrontVisible" opacity="${isFrontVisible ? 0 : 1}">
 <path 
     d="${fpath}" 
     fill="none" 
