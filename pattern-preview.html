@@ -719,6 +719,7 @@ function drawPattern(m) {
 
   const scale = 10;
   const center = 150;
+  const bCenter = 300;
   
   
   const waistShift = m.waist_shift;
@@ -954,19 +955,19 @@ function drawPattern(m) {
   const backHipLineXo = 0;
   const backHipLineXi = 300;
   
-  const bp1 = {x: center - scale, y: backWaistLine};
+  const bp1 = {x: bCenter - scale, y: backWaistLine};
   const bp2 = getPointAtDistance(bp1, frontWaistLine, (BHwaist - waistOffset), "right");
-  const bp5 = {x: center + Hthigh - thighOffset + (1.25 * scale) , y: thighLine};
+  const bp5 = {x: bCenter + Hthigh - thighOffset + (1.25 * scale) , y: thighLine};
   const bp3 = getPointAtY(bp2, bp5, frontHipLine);
   const bp4 = getPointAtY(bp2, bp5, backCrotchLine);
-  const bp6 = {x: center + Hknee - kneeOffset + (1.125 * scale), y: kneeLine };
-  const bp7 = {x: center + Hbottom - bottomOffset + scale, y: bottomLine1};
-  const bp8 = {x: center + Hbottom - bottomOffset + scale, y: bottomLine0};
-  const bp9 = {x: center - Hbottom + bottomOffset - scale, y: bottomLine0};
-  const bp10 = {x: center - Hbottom + bottomOffset - scale, y: bottomLine1};
-  const bp11 = {x: center - Hknee + kneeOffset - (1.125 * scale), y: kneeLine };
-  const bp12 = {x: center - Hthigh + thighOffset - (1.25 * scale), y: thighLine };
-  const bpx =  {x: center - Hcrotch - crotchDepth + crotchShift - (scale * 1.375), y: crotchLine};
+  const bp6 = {x: bCenter + Hknee - kneeOffset + (1.125 * scale), y: kneeLine };
+  const bp7 = {x: bCenter + Hbottom - bottomOffset + scale, y: bottomLine1};
+  const bp8 = {x: bCenter + Hbottom - bottomOffset + scale, y: bottomLine0};
+  const bp9 = {x: bCenter - Hbottom + bottomOffset - scale, y: bottomLine0};
+  const bp10 = {x: bCenter - Hbottom + bottomOffset - scale, y: bottomLine1};
+  const bp11 = {x: bCenter - Hknee + kneeOffset - (1.125 * scale), y: kneeLine };
+  const bp12 = {x: bCenter - Hthigh + thighOffset - (1.25 * scale), y: thighLine };
+  const bpx =  {x: bCenter - Hcrotch - crotchDepth + crotchShift - (scale * 1.375), y: crotchLine};
   const bp13 = getPointAtY(bpx, bp12, crotchLine + (scale/2));
   const bp16 = getPointAtDistance(bp3, backHipLine, BHhip - hipOffset , "left");
   const bpa = getPointAtY(bp13, bp16, frontHipLine);
