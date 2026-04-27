@@ -572,6 +572,7 @@ function getPointAtX(p1, p2, x)
 //////////////////////////////////////////////
   function updatePattern() {
   const m = {
+    client: parseFloat(document.getElementById("client").value) || 0,
     waist: parseFloat(document.getElementById("waist").value) || 0,
     hip: parseFloat(document.getElementById("hip").value) || 0,
     rise: parseFloat(document.getElementById("rise").value) || 0,
