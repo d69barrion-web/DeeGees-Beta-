@@ -166,6 +166,32 @@
       height: 500px;
     }
   }
+
+  
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.header-buttons button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+.header-buttons button:hover {
+  background: #45a049;
+}
+
 </style>
 </head>
 
@@ -243,63 +269,37 @@
         </div>
     </div>
 
-    <!-- FRONT PART -->
     <div class="card">
-      <h2>(FRONT PART)</h2>
-      <svg id="svgCanvasFront"></svg> 
-      <div class="form-group">
-          <label>Front Crotch Curve: <span id="frontCrotchVal">0</span></label>
-          <input type="range" id="frontCrotchCurve" min="-50" max="50" value="0">
-      </div>
-      <div class="form-group">
-          <label>back Crotch Curve: <span id="backCrotchVal">0</span></label>
-          <input type="range" id="backCrotchCurve" min="-50" max="50" value="0">
-      </div>
-      <button class="btn" onclick="downloadFront()">Download as PNG</button>
-    </div>
 
-    
-    <!-- ADJUSTMENT CONTROLS -->
-    <div>
-       <div style="display: flex; justify-content: space-between; align-items: center;">
-          
-          <button id="savePatternBtn" style="
-              padding: 6px 12px;
-              border: none;
-              border-radius: 6px;
-              background: #4CAF50;
-              color: white;
-              cursor: pointer;
-              ">
-              💾 Save
-          </button>
-          <button onclick="deletePatternByTime()" style="
-              padding: 6px 12px;
-              border: none;
-              border-radius: 6px;
-              background: #4CAF50;
-              color: white;
-              cursor: pointer;
-              ">
-              🗑️
-          </button>
+  <!-- HEADER ROW -->
+  <div class="card-header">
+    <h2>(FRONT PART)</h2>
 
-          <!-- DELETE BUTTON -->
-<button id="deleteBtn" onclick="openDeleteModal()">
-  🗑️ Delete Pattern
-</button>
-
-<!-- MODAL -->
-<div id="deleteModal" class="modal">
-  <div class="modal-content">
-    <h3>Delete Pattern?</h3>
-    <p>Are you sure you want to delete this pattern?</p>
-
-    <div class="modal-actions">
-      <button class="cancel-btn" onclick="closeDeleteModal()">Cancel</button>
-      <button class="confirm-btn" onclick="confirmDelete()">Delete</button>
+    <div class="header-buttons">
+      <button id="savePatternBtn">💾</button>
+      <button onclick="deletePatternByTime()">🗑️</button>
+      <button id="deleteBtn" onclick="openDeleteModal()">Delete</button>
     </div>
   </div>
+
+  <svg id="svgCanvasFront"></svg> 
+
+  <div class="form-group">
+      <label>Front Crotch Curve: <span id="frontCrotchVal">0</span></label>
+      <input type="range" id="frontCrotchCurve" min="-50" max="50" value="0">
+  </div>
+
+  <div class="form-group">
+      <label>Back Crotch Curve: <span id="backCrotchVal">0</span></label>
+      <input type="range" id="backCrotchCurve" min="-50" max="50" value="0">
+  </div>
+
+  <button class="btn" onclick="downloadFront()">Download as PNG</button>
+
+    </div>
+
+    <!-- FRONT PART -->
+    
 </div>
          
           <button id="loadPatternBtn" style="
