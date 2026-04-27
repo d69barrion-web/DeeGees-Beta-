@@ -360,7 +360,8 @@ function renderPatternList() {
   const d = pattern.data;
 
 selectedCreatedAt = pattern.createdAt; // ⭐ important
-    
+
+document.getElementById("client").value = d.name;
 document.getElementById("waist").value = d.Waist;
 document.getElementById("hip").value = d.Hip;
 document.getElementById("rise").value = d.Crotch;
@@ -418,7 +419,7 @@ document.getElementById("leg_opening").value = d.Bottom;
 
 saveBtn.addEventListener("click", function () {
 
-  const name = prompt("Pattern name?");
+  const name = prompt("Pattern name?", document.getElementById("client").value);
   if (!name) return;
 
   const pattern = {
