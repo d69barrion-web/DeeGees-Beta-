@@ -941,7 +941,59 @@ function drawPattern(m) {
   const Rbdx = Rbottom.x - frontBottomCenterPoint.x;
   const Rbdy = Rbottom.y - frontBottomCenterPoint.y;
   const Rbdistance = Math.sqrt(Rbdx * Rbdx + Rbdy * Rbdy) / scale;
- 
+
+////////BACK PATTERN DRAWING//////////////////// 
+  
+  const backCrotchCurve = m.backCrotch_curve;
+  const backWaistLine = frontWaistLine - (2 * scale);
+  const backCrotchLine = crotchLine + (scale/2);
+  const backHipLine = backWaistLine + (frontHipLine - frontWaistLine);
+  
+  const backWaistLineXo = 0;
+  const backWaistLineXi = 300;
+  const backHipLineXo = 0;
+  const backHipLineXi = 300;
+  
+  const bp1 = {x: center - scale, y: backWaistLine};
+  const bp2 = getPointAtDistance(bp1, frontWaistLine, (BHwaist - waistOffset), "right");
+  const bp5 = {x: center + Hthigh - thighOffset + (1.25 * scale) , y: thighLine};
+  const bp3 = getPointAtY(bp2, bp5, frontHipLine);
+  const bp4 = getPointAtY(bp2, bp5, backCrotchLine);
+  const bp6 = {x: center + Hknee - kneeOffset + (1.125 * scale), y: kneeLine };
+  const bp7 = {x: center + Hbottom - bottomOffset + scale, y: bottomLine1};
+  const bp8 = {x: center + Hbottom - bottomOffset + scale, y: bottomLine0};
+  const bp9 = {x: center - Hbottom + bottomOffset - scale, y: bottomLine0};
+  const bp10 = {x: center - Hbottom + bottomOffset - scale, y: bottomLine1};
+  const bp11 = {x: center - Hknee + kneeOffset - (1.125 * scale), y: kneeLine };
+  const bp12 = {x: center - Hthigh + thighOffset - (1.25 * scale), y: thighLine };
+  const bpx =  {x: center - Hcrotch - crotchDepth + crotchShift - (scale * 1.375), y: crotchLine};
+  const bp13 = getPointAtY(bpx, bp12, crotchLine + (scale/2));
+  const bp16 = getPointAtDistance(bp3, backHipLine, BHhip - hipOffset , "left");
+  const bpa = getPointAtY(bp13, bp16, frontHipLine);
+  const bp15 = {x: bpa.x + backCrotchCurve, y: bpa.y};
+  const bpb = getPointAtY(bp13, bp15, frontHipLine + ((crotchLine - frontHipLine) /2));
+  const bp14 = {x: bpb.x + (backCrotchCurve / 2), y: bpb.y};
+  
+  const bpath = `
+    M ${bp1.x} ${bp1.y}
+    L ${bp2.x} ${bp2.y}
+    L ${bp3.x} ${bp3.y}
+    L ${bp4.x} ${bp4.y}
+    L ${bp5.x} ${bp5.y}
+    L ${bp6.x} ${bp6.y}
+    L ${bp7.x} ${bp7.y}
+    L ${bp8.x} ${bp8.y}
+    L ${bp9.x} ${bp9.y}
+    L ${bp10.x} ${bp10.y}
+    L ${bp11.x} ${bp11.y}
+    L ${bp12.x} ${bp12.y} 
+    L ${bp13.x} ${bp13.y} 
+    L ${bp14.x} ${bp14.y} 
+    L ${bp15.x} ${bp15.y}
+    L ${bp16.x} ${bp16.y}
+    Z
+    `;
+  
   svgFront.innerHTML = 
   `
   <line 
@@ -1286,57 +1338,7 @@ function drawPattern(m) {
   </text>
   `;
   
-  ////////BACK PATTERN DRAWING//////////////////// 
   
-  const backCrotchCurve = m.backCrotch_curve;
-  const backWaistLine = frontWaistLine - (2 * scale);
-  const backCrotchLine = crotchLine + (scale/2);
-  const backHipLine = backWaistLine + (frontHipLine - frontWaistLine);
-  
-  const backWaistLineXo = 0;
-  const backWaistLineXi = 300;
-  const backHipLineXo = 0;
-  const backHipLineXi = 300;
-  
-  const bp1 = {x: center - scale, y: backWaistLine};
-  const bp2 = getPointAtDistance(bp1, frontWaistLine, (BHwaist - waistOffset), "right");
-  const bp5 = {x: center + Hthigh - thighOffset + (1.25 * scale) , y: thighLine};
-  const bp3 = getPointAtY(bp2, bp5, frontHipLine);
-  const bp4 = getPointAtY(bp2, bp5, backCrotchLine);
-  const bp6 = {x: center + Hknee - kneeOffset + (1.125 * scale), y: kneeLine };
-  const bp7 = {x: center + Hbottom - bottomOffset + scale, y: bottomLine1};
-  const bp8 = {x: center + Hbottom - bottomOffset + scale, y: bottomLine0};
-  const bp9 = {x: center - Hbottom + bottomOffset - scale, y: bottomLine0};
-  const bp10 = {x: center - Hbottom + bottomOffset - scale, y: bottomLine1};
-  const bp11 = {x: center - Hknee + kneeOffset - (1.125 * scale), y: kneeLine };
-  const bp12 = {x: center - Hthigh + thighOffset - (1.25 * scale), y: thighLine };
-  const bpx =  {x: center - Hcrotch - crotchDepth + crotchShift - (scale * 1.375), y: crotchLine};
-  const bp13 = getPointAtY(bpx, bp12, crotchLine + (scale/2));
-  const bp16 = getPointAtDistance(bp3, backHipLine, BHhip - hipOffset , "left");
-  const bpa = getPointAtY(bp13, bp16, frontHipLine);
-  const bp15 = {x: bpa.x + backCrotchCurve, y: bpa.y};
-  const bpb = getPointAtY(bp13, bp15, frontHipLine + ((crotchLine - frontHipLine) /2));
-  const bp14 = {x: bpb.x + (backCrotchCurve / 2), y: bpb.y};
-  
-  const bpath = `
-    M ${bp1.x} ${bp1.y}
-    L ${bp2.x} ${bp2.y}
-    L ${bp3.x} ${bp3.y}
-    L ${bp4.x} ${bp4.y}
-    L ${bp5.x} ${bp5.y}
-    L ${bp6.x} ${bp6.y}
-    L ${bp7.x} ${bp7.y}
-    L ${bp8.x} ${bp8.y}
-    L ${bp9.x} ${bp9.y}
-    L ${bp10.x} ${bp10.y}
-    L ${bp11.x} ${bp11.y}
-    L ${bp12.x} ${bp12.y} 
-    L ${bp13.x} ${bp13.y} 
-    L ${bp14.x} ${bp14.y} 
-    L ${bp15.x} ${bp15.y}
-    L ${bp16.x} ${bp16.y}
-    Z
-    `;
   const totFrontHeightCenterPoint = ((m.outseam + 2) / 2) * scale;
   const backWaistToBackHipCenterPoint = backWaistLine + ((backHipLine - backWaistLine) / 2);
   const frontWaistToBackHipCenterPoint = frontWaistLine + ((backHipLine - frontWaistLine) / 2);
