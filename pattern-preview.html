@@ -386,8 +386,10 @@ function debug(msg) {
 }
   
 let showFrontMeasurements = false;
+let isFrontVisible = false
 toggleFront.addEventListener("change", function () {
   showFrontMeasurements = this.checked;
+  isFrontVisible = this.checked;
   updatePattern();
 });
   
@@ -1419,6 +1421,15 @@ function drawPattern(m) {
     ${Rbdistance.toFixed(2)} "
   </text>
 </g>
+
+<g id="isFrontVisible" opacity="${isFrontVisible ? 1 : 0}">
+<path 
+    d="${fpath}" 
+    fill="none" 
+    stroke="#38bdf8" 
+    stroke-width="2"
+  />
+</g>
   
   //back centerline
   <line 
@@ -1455,12 +1466,7 @@ function drawPattern(m) {
   </defs>
   
   
-  <path 
-    d="${fpath}" 
-    fill="none" 
-    stroke="#38bdf8" 
-    stroke-width="2"
-  />
+  
 
   <path 
     d="${bpath}" 
