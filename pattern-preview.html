@@ -446,6 +446,7 @@ patterns.push(pattern);
 });
   /////////////////////////////////////////////
   function loadData() {
+  document.getElementById("client").value = localStorage.getItem("client") || "";
   document.getElementById("waist").value = localStorage.getItem("waist") || "";
   document.getElementById("hip").value = localStorage.getItem("hip") || "";
   document.getElementById("rise").value = localStorage.getItem("rise") || "";
