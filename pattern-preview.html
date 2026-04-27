@@ -1176,59 +1176,6 @@ function drawPattern(m) {
     stroke-width="1"
     stroke-dasharray="5,5"
   />
-</g>
-  
-  //back centerline
-  <line 
-    x1="${bCenter}" 
-    y1="${topY}" 
-    x2="${bCenter}" 
-    y2="${bottomY}" 
-    stroke="white"
-    stroke-width="1"
-    stroke-dasharray="5,5"
-  />
-  <line 
-    x1="${backWaistLineXo}" 
-    y1="${backWaistLine}" 
-    x2="${backWaistLineXi}" 
-    y2="${backWaistLine}"
-    stroke="red" 
-    stroke-width="1"
-    stroke-dasharray="5,5"
-  />
-  <line 
-    x1="${backHipLineXo}" 
-    y1="${backHipLine}" 
-    x2="${backHipLineXi}" 
-    y2="${backHipLine}" 
-    stroke="red" 
-    stroke-width="1"
-    stroke-dasharray="5,5"
-  />
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-      <path d="M0,0 L10,5 L0,10 Z" fill="white" />
-    </marker>
-  </defs>
-  
-  
-  <path 
-    d="${fpath}" 
-    fill="none" 
-    stroke="#38bdf8" 
-    stroke-width="2"
-  />
-
-  <path 
-    d="${bpath}" 
-    fill="none" 
-    stroke="white" 
-    stroke-width="2"
-  /> 
-
-  
-
   <line
     x1="${230}" 
     y1="${frontWaistLine}" 
@@ -1318,7 +1265,7 @@ function drawPattern(m) {
     stroke-width="0.5"
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
-  />      
+  />
   <line 
     x1="${frontCrotchCenterPoint.x}" 
     y1="${frontCrotchCenterPoint.y}" 
@@ -1429,14 +1376,9 @@ function drawPattern(m) {
   <text x="${RcmidX}" y="${RcmidY}" fill="yellow" font-size="10">
     ${Rcdistance.toFixed(2)} "
   </text>
-
-
-  
   <text x="${230}" y="${waistToHipCenterPoint}" fill="yellow" font-size="10">
    ${hipY.toFixed(2)} "
   </text>
-  
-  
   <text x="${20}" y="${waistToCrotchCenterPoint}" fill="yellow" font-size="10">
     ${crotchY.toFixed(2)} "
   </text>
@@ -1458,7 +1400,6 @@ function drawPattern(m) {
   <text x="${20}" y="${kneeToBottomCenterPoint}" fill="yellow" font-size="10">
     ${bottomY0.toFixed(2)} "
   </text>
-  
   <text x="${300}" y="${LkmidY}" fill="white" font-size="10">
     kneeLine
   </text>
@@ -1477,6 +1418,75 @@ function drawPattern(m) {
   <text x="${RbmidX}" y="${RbmidY}" fill="yellow" font-size="10">
     ${Rbdistance.toFixed(2)} "
   </text>
+</g>
+  
+  //back centerline
+  <line 
+    x1="${bCenter}" 
+    y1="${topY}" 
+    x2="${bCenter}" 
+    y2="${bottomY}" 
+    stroke="white"
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line 
+    x1="${backWaistLineXo}" 
+    y1="${backWaistLine}" 
+    x2="${backWaistLineXi}" 
+    y2="${backWaistLine}"
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line 
+    x1="${backHipLineXo}" 
+    y1="${backHipLine}" 
+    x2="${backHipLineXi}" 
+    y2="${backHipLine}" 
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="white" />
+    </marker>
+  </defs>
+  
+  
+  <path 
+    d="${fpath}" 
+    fill="none" 
+    stroke="#38bdf8" 
+    stroke-width="2"
+  />
+
+  <path 
+    d="${bpath}" 
+    fill="none" 
+    stroke="white" 
+    stroke-width="2"
+  /> 
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+
+
+  
+  
+  
+  
+  
+  
+  
 
 
   
