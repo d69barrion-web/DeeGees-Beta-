@@ -1459,9 +1459,9 @@ function drawPattern(m) {
 
   
   <line 
-    x1="${10}" 
+    x1="${410}" 
     y1="${frontWaistLine}" 
-    x2="${10}" 
+    x2="${410}" 
     y2="${bottomLine0}"  
     stroke="white"
     stroke-width="0.5"
@@ -1469,9 +1469,9 @@ function drawPattern(m) {
     marker-end="url(#arrow)"
   />
   <line 
-    x1="${30}" 
+    x1="${430}" 
     y1="${backWaistLine}" 
-    x2="${30}" 
+    x2="${430}" 
     y2="${backHipLine}"  
     stroke="#38bdf8"
     stroke-width="0.5"
@@ -1479,9 +1479,9 @@ function drawPattern(m) {
     marker-end="url(#arrow)"
   />
   <line 
-    x1="${200}" 
+    x1="${600}" 
     y1="${frontWaistLine}" 
-    x2="${200}" 
+    x2="${600}" 
     y2="${backHipLine}"  
     stroke="#38bdf8"
     stroke-width="0.5"
@@ -1489,9 +1489,9 @@ function drawPattern(m) {
     marker-end="url(#arrow)"
   />
   <line 
-    x1="${260}" 
+    x1="${660}" 
     y1="${frontWaistLine}" 
-    x2="${260}" 
+    x2="${660}" 
     y2="${bottomLine1}"  
     stroke="#38bdf8"
     stroke-width="0.5"
@@ -1589,6 +1589,7 @@ function drawPattern(m) {
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
   />
+  
 
   <text x="${RbwmidX}" y="${RbwmidY}" fill="yellow" font-size="10">
     ${Rbwdistance.toFixed(2)} "
@@ -1599,13 +1600,13 @@ function drawPattern(m) {
   <text x="${RbhmidX}" y="${RbhmidY}" fill="yellow" font-size="10">
     ${Rbhdistance.toFixed(2)} "
   </text>
-  <text x="${200}" y="${LhmidY}" fill="white" font-size="10">
+  <text x="${600}" y="${LhmidY}" fill="white" font-size="10">
     front hipLine
   </text>
-  <text x="${200}" y="${LcmidY}" fill="white" font-size="10">
+  <text x="${600}" y="${LcmidY}" fill="white" font-size="10">
     crotchLine
   </text>
-  <text x="${200}" y="${LtmidY}" fill="white" font-size="10">
+  <text x="${600}" y="${LtmidY}" fill="white" font-size="10">
     thighLine
   </text>
   <text x="${LbtmidX}" y="${LbtmidY}" fill="yellow" font-size="10">
@@ -1614,7 +1615,7 @@ function drawPattern(m) {
   <text x="${RbtmidX}" y="${RbtmidY}" fill="yellow" font-size="10">
     ${Rbtdistance.toFixed(2)} "
   </text>
-  <text x="${200}" y="${LbkmidY}" fill="white" font-size="10">
+  <text x="${600}" y="${LbkmidY}" fill="white" font-size="10">
     kneeLine
   </text>
   <text x="${LbkmidX}" y="${LbkmidY}" fill="yellow" font-size="10">
@@ -1623,7 +1624,7 @@ function drawPattern(m) {
   <text x="${RbkmidX}" y="${RbkmidY}" fill="yellow" font-size="10">
     ${Rbkdistance.toFixed(2)} "
   </text>
-  <text x="${200}" y="${LbbmidY}" fill="white" font-size="10">
+  <text x="${600}" y="${LbbmidY}" fill="white" font-size="10">
     kneeLine
   </text>
   </text>
@@ -1634,17 +1635,17 @@ function drawPattern(m) {
     ${Rbbdistance.toFixed(2)} "
   </text>
   
-  <text x="${10}" y="${totFrontHeightCenterPoint}" fill="yellow" font-size="10">
+  <text x="${410}" y="${totFrontHeightCenterPoint}" fill="yellow" font-size="10">
     ${(m.outseam + 1).toFixed(2)} "
   </text>
-  <text x="${30}" y="${backWaistToBackHipCenterPoint}" fill="yellow" font-size="10">
+  <text x="${430}" y="${backWaistToBackHipCenterPoint}" fill="yellow" font-size="10">
     ${((backHipLine - backWaistLine) / scale).toFixed(1)} "
   </text>
   
-  <text x="${200}" y="${frontWaistToBackHipCenterPoint}" fill="yellow" font-size="10">
+  <text x="${600}" y="${frontWaistToBackHipCenterPoint}" fill="yellow" font-size="10">
     ${((backHipLine - frontWaistLine) / scale).toFixed(1)} "
   </text>
-  <text x="${260}" y="${pantsLengthCenterPoint}" fill="yellow" font-size="10">
+  <text x="${660}" y="${pantsLengthCenterPoint}" fill="yellow" font-size="10">
     ${((bottomLine1 - frontWaistLine) / scale).toFixed(1)} "
   </text>
 
@@ -1750,46 +1751,7 @@ svgBack.innerHTML =
     </marker>
   </defs>
 
-  <line 
-    x1="${10}" 
-    y1="${frontWaistLine}" 
-    x2="${10}" 
-    y2="${bottomLine0}"  
-    stroke="white"
-    stroke-width="0.5"
-    marker-start="url(#arrow)"
-    marker-end="url(#arrow)"
-  />
-  <line 
-    x1="${30}" 
-    y1="${backWaistLine}" 
-    x2="${30}" 
-    y2="${backHipLine}"  
-    stroke="#38bdf8"
-    stroke-width="0.5"
-    marker-start="url(#arrow)"
-    marker-end="url(#arrow)"
-  />
-  <line 
-    x1="${200}" 
-    y1="${frontWaistLine}" 
-    x2="${200}" 
-    y2="${backHipLine}"  
-    stroke="#38bdf8"
-    stroke-width="0.5"
-    marker-start="url(#arrow)"
-    marker-end="url(#arrow)"
-  />
-  <line 
-    x1="${260}" 
-    y1="${frontWaistLine}" 
-    x2="${260}" 
-    y2="${bottomLine1}"  
-    stroke="#38bdf8"
-    stroke-width="0.5"
-    marker-start="url(#arrow)"
-    marker-end="url(#arrow)"
-  />
+  
   
   <line 
     x1="${backWaistEndPoint.x}" 
