@@ -963,6 +963,11 @@ function drawPattern(m) {
   const Rbdistance = Math.sqrt(Rbdx * Rbdx + Rbdy * Rbdy) / scale;
 
 ////////BACK PATTERN DRAWING//////////////////// 
+  const backCrotchCurve = m.backCrotch_curve;
+  const backWaistLine = frontWaistLine - (2 * scale);
+  const backCrotchLine = crotchLine + (scale/2);
+  const backHipLine = backWaistLine + (frontHipLine - frontWaistLine);
+  
   //mBack
   const mbp1 = {x: center - scale, y: backWaistLine};
   const mbp2 = getPointAtDistance(bp1, frontWaistLine, (BHwaist - waistOffset), "right");
@@ -1004,10 +1009,6 @@ function drawPattern(m) {
     Z
     `;
   
-  const backCrotchCurve = m.backCrotch_curve;
-  const backWaistLine = frontWaistLine - (2 * scale);
-  const backCrotchLine = crotchLine + (scale/2);
-  const backHipLine = backWaistLine + (frontHipLine - frontWaistLine);
   
   const backWaistLineXo = 400;
   const backWaistLineXi = 700;
