@@ -1168,6 +1168,25 @@ function drawPattern(m) {
     stroke-width="1"
     stroke-dasharray="5,5"
   />
+
+  <line 
+    x1="${backWaistLineXo}" 
+    y1="${backWaistLine}" 
+    x2="${backWaistLineXi}" 
+    y2="${backWaistLine}"
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line 
+    x1="${backHipLineXo}" 
+    y1="${backHipLine}" 
+    x2="${backHipLineXi}" 
+    y2="${backHipLine}" 
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
   
   <path 
     d="${fpath}" 
@@ -1643,15 +1662,7 @@ svgBack.innerHTML =
     stroke-width="1"
     stroke-dasharray="5,5"
   />
-  <line 
-    x1="${backWaistLineXo}" 
-    y1="${backWaistLine}" 
-    x2="${backWaistLineXi}" 
-    y2="${backWaistLine}"
-    stroke="red" 
-    stroke-width="1"
-    stroke-dasharray="5,5"
-  />
+  
   <line 
     x1="${waistLineXo}" 
     y1="${frontWaistLine}" 
@@ -1661,16 +1672,8 @@ svgBack.innerHTML =
     stroke-width="1"
     stroke-dasharray="5,5"
   />
+
   
-  <line 
-    x1="${backHipLineXo}" 
-    y1="${backHipLine}" 
-    x2="${backHipLineXi}" 
-    y2="${backHipLine}" 
-    stroke="red" 
-    stroke-width="1"
-    stroke-dasharray="5,5"
-  />
   
   <line 
     x1="${frontHipLineXo}" 
