@@ -963,6 +963,46 @@ function drawPattern(m) {
   const Rbdistance = Math.sqrt(Rbdx * Rbdx + Rbdy * Rbdy) / scale;
 
 ////////BACK PATTERN DRAWING//////////////////// 
+  //mBack
+  const mbp1 = {x: Center - scale, y: backWaistLine};
+  const mbp2 = getPointAtDistance(bp1, frontWaistLine, (BHwaist - waistOffset), "right");
+  const mbp5 = {x: Center + Hthigh - thighOffset + (1.25 * scale) , y: thighLine};
+  const mbp3 = getPointAtY(bp2, bp5, frontHipLine);
+  const mbp4 = getPointAtY(bp2, bp5, backCrotchLine);
+  const mbp6 = {x: Center + Hknee - kneeOffset + (1.125 * scale), y: kneeLine };
+  const mbp7 = {x: Center + Hbottom - bottomOffset + scale, y: bottomLine1};
+  const mbp8 = {x: Center + Hbottom - bottomOffset + scale, y: bottomLine0};
+  const mbp9 = {x: Center - Hbottom + bottomOffset - scale, y: bottomLine0};
+  const mmbp10 = {x: Center - Hbottom + bottomOffset - scale, y: bottomLine1};
+  const mbp11 = {x: Center - Hknee + kneeOffset - (1.125 * scale), y: kneeLine };
+  const mbp12 = {x: Center - Hthigh + thighOffset - (1.25 * scale), y: thighLine };
+  const mbpx =  {x: Center - Hcrotch - crotchDepth + crotchShift - (scale * 1.375), y: crotchLine};
+  const mbp13 = getPointAtY(mbpx, mbp12, crotchLine + (scale/2));
+  const mbp16 = getPointAtDistance(mbp3, backHipLine, BHhip - hipOffset , "left");
+  const mbpa = getPointAtY(bp13, mbp16, frontHipLine);
+  const mbp15 = {x: mbpa.x + backCrotchCurve, y: mbpa.y};
+  const mbpb = getPointAtY(bp13, mbp15, frontHipLine + ((crotchLine - frontHipLine) /2));
+  const mbp14 = {x: mbpb.x + (backCrotchCurve / 2), y: mbpb.y};
+  
+  const mbpath = `
+    M ${mbp1.x} ${mbp1.y}
+    L ${mbp2.x} ${mbp2.y}
+    L ${mbp3.x} ${mbp3.y}
+    L ${mbp4.x} ${mbp4.y}
+    L ${mbp5.x} ${mbp5.y}
+    L ${mbp6.x} ${mbp6.y}
+    L ${mbp7.x} ${mbp7.y}
+    L ${mbp8.x} ${mbp8.y}
+    L ${mbp9.x} ${mbp9.y}
+    L ${mbp10.x} ${mbp10.y}
+    L ${mbp11.x} ${mbp11.y}
+    L ${mbp12.x} ${mbp12.y} 
+    L ${mbp13.x} ${mbp13.y} 
+    L ${mbp14.x} ${mbp14.y} 
+    L ${mbp15.x} ${mbp15.y}
+    L ${mbp16.x} ${mbp16.y}
+    Z
+    `;
   
   const backCrotchCurve = m.backCrotch_curve;
   const backWaistLine = frontWaistLine - (2 * scale);
@@ -1013,6 +1053,7 @@ function drawPattern(m) {
     L ${bp16.x} ${bp16.y}
     Z
     `;
+  
 
   const totFrontHeightCenterPoint = ((m.outseam + 2) / 2) * scale;
   const backWaistToBackHipCenterPoint = backWaistLine + ((backHipLine - backWaistLine) / 2);
@@ -1432,12 +1473,19 @@ function drawPattern(m) {
 
 <g id="isBackVisible" opacity="${isBackVisible ? 0 : 1}"> 
   <path 
-    d="${bpath}" 
+    d="${mbpath}" 
     fill="none" 
     stroke="white" 
     stroke-width="2"
   /> 
 </g>
+
+<path 
+    d="${bpath}" 
+    fill="none" 
+    stroke="white" 
+    stroke-width="2"
+  /> 
 
 
   
