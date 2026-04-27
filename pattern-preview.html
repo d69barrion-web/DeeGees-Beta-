@@ -1095,8 +1095,8 @@ function drawPattern(m) {
   const Rbbdistance = Math.sqrt(Rbbdx * Rbbdx + Rbbdy * Rbbdy) / scale;
  
   
-  svgFront.innerHTML = 
-  `
+  svgFront.innerHTML =  `
+  <g id="frontMeasurements" opacity="${showFrontMeasurements ? 1 : 0}">
   //front centerline
   <line 
     x1="${center}" 
@@ -1170,7 +1170,7 @@ function drawPattern(m) {
     stroke-width="1"
     stroke-dasharray="5,5"
   />
-  
+</g>
   
   //back centerline
   <line 
