@@ -384,7 +384,13 @@ function debug(msg) {
     panel.scrollTop = panel.scrollHeight;
   }
 }
-
+  
+let showFront = false;
+toggleFront.addEventListener("change", function () {
+  showFront = this.checked;
+  updatePattern();
+});
+  
 let selectedCreatedAt = null;
 
   
@@ -1096,7 +1102,7 @@ function drawPattern(m) {
  
   
   svgFront.innerHTML =  `
-  <g id="frontMeasurements" opacity="${showFrontMeasurements ? 1 : 0}">
+  <g id="showFront" opacity="${showFront ? 1 : 0}">
   //front centerline
   <line 
     x1="${center}" 
