@@ -385,9 +385,9 @@ function debug(msg) {
   }
 }
   
-let showFront = false;
+let showFrontMeasurements = false;
 toggleFront.addEventListener("change", function () {
-  showFront = this.checked;
+  showFrontMeasurements = this.checked;
   updatePattern();
 });
   
@@ -1102,7 +1102,7 @@ function drawPattern(m) {
  
   
   svgFront.innerHTML =  `
-  <g id="showFront" opacity="${showFront ? 1 : 0}">
+  <g id="showFrontMeasurements" opacity="${showFrontMeasurements ? 1 : 0}">
   //front centerline
   <line 
     x1="${center}" 
