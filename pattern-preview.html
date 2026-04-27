@@ -388,7 +388,16 @@ function debug(msg) {
 
   
 let selectedCreatedAt = null;
-
+let showFrontMeasurements = true;
+let isFrontVisible = true;
+let isBackVisible = false;
+toggleFront.addEventListener("change", function () {
+  showFrontMeasurements = this.checked;
+  isBackVisible = this.checked;
+  isFrontVisible = this.checked;
+  bCenter = center;
+  updatePattern();
+});
   
 /////////////////////////////////////////////////
 // Load from URL
@@ -723,6 +732,8 @@ function getPointAtX(p1, p2, x)
 
  drawPattern(m);
   } 
+  const center = 150;
+  const bCenter = 500;
   
 function drawPattern(m) {
   
@@ -730,8 +741,7 @@ function drawPattern(m) {
   const svgBack = document.getElementById("svgCanvasBack");
 
   const scale = 10;
-  const center = 150;
-  const bCenter = 500;
+  
   
   
   const waistShift = m.waist_shift;
@@ -1687,16 +1697,7 @@ function drawPattern(m) {
   // init
 loadData();
 
-  let showFrontMeasurements = true;
-let isFrontVisible = true;
-let isBackVisible = false;
-toggleFront.addEventListener("change", function () {
-  showFrontMeasurements = this.checked;
-  isBackVisible = this.checked;
-  isFrontVisible = this.checked;
   
-  updatePattern();
-});
 
 function downloadFront() {
   const svg = document.getElementById("svgCanvasFront");
