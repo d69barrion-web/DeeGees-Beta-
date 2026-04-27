@@ -984,9 +984,9 @@ function drawPattern(m) {
   const mbpx =  {x: center - Hcrotch - crotchDepth + crotchShift - (scale * 1.375), y: crotchLine};
   const mbp13 = getPointAtY(mbpx, mbp12, crotchLine + (scale/2));
   const mbp16 = getPointAtDistance(mbp3, backHipLine, BHhip - hipOffset , "left");
-  const mbpa = getPointAtY(bp13, mbp16, frontHipLine);
+  const mbpa = getPointAtY(mbp13, mbp16, frontHipLine);
   const mbp15 = {x: mbpa.x + backCrotchCurve, y: mbpa.y};
-  const mbpb = getPointAtY(bp13, mbp15, frontHipLine + ((crotchLine - frontHipLine) /2));
+  const mbpb = getPointAtY(mbp13, mbp15, frontHipLine + ((crotchLine - frontHipLine) /2));
   const mbp14 = {x: mbpb.x + (backCrotchCurve / 2), y: mbpb.y};
   
   const mbpath = `
