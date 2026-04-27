@@ -166,6 +166,18 @@
            <label>Leg Opening adj: <span id="bottomVal">0</span></label>
            <input type="range" id="bottomAdj" min="-20" max="20" value="0">
         </div>
+
+        <!-- FRONT & BACK PART -->
+    <div class="card">
+      <h2>(W/BACK PART)</h2>
+      <svg id="svgCanvasBack"></svg>
+      <div class="form-group">
+          <label>Back Crotch Curve: <span id="backCrotchVal">0</span></label>
+          <input type="range" id="backCrotchCurve" min="-50" max="50" value="0">
+      </div>
+      <button class="btn" onclick="downloadBack()">Download as PNG</button>
+    </div>
+      
       
     </div>
 
@@ -180,17 +192,7 @@
       <button class="btn" onclick="downloadFront()">Download as PNG</button>
     </div>
 
-    <!-- FRONT & BACK PART -->
-    <div class="card">
-      <h2>(W/BACK PART)</h2>
-      <svg id="svgCanvasBack"></svg>
-      <div class="form-group">
-          <label>Back Crotch Curve: <span id="backCrotchVal">0</span></label>
-          <input type="range" id="backCrotchCurve" min="-50" max="50" value="0">
-      </div>
-      <button class="btn" onclick="downloadBack()">Download as PNG</button>
-    </div>
-
+    
     <!-- ADJUSTMENT CONTROLS -->
     <div>
        <div style="display: flex; justify-content: space-between; align-items: center;">
