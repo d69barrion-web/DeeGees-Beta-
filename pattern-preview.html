@@ -964,19 +964,19 @@ function drawPattern(m) {
 
 ////////BACK PATTERN DRAWING//////////////////// 
   //mBack
-  const mbp1 = {x: Center - scale, y: backWaistLine};
+  const mbp1 = {x: center - scale, y: backWaistLine};
   const mbp2 = getPointAtDistance(bp1, frontWaistLine, (BHwaist - waistOffset), "right");
-  const mbp5 = {x: Center + Hthigh - thighOffset + (1.25 * scale) , y: thighLine};
+  const mbp5 = {x: center + Hthigh - thighOffset + (1.25 * scale) , y: thighLine};
   const mbp3 = getPointAtY(bp2, bp5, frontHipLine);
   const mbp4 = getPointAtY(bp2, bp5, backCrotchLine);
-  const mbp6 = {x: Center + Hknee - kneeOffset + (1.125 * scale), y: kneeLine };
-  const mbp7 = {x: Center + Hbottom - bottomOffset + scale, y: bottomLine1};
-  const mbp8 = {x: Center + Hbottom - bottomOffset + scale, y: bottomLine0};
-  const mbp9 = {x: Center - Hbottom + bottomOffset - scale, y: bottomLine0};
-  const mmbp10 = {x: Center - Hbottom + bottomOffset - scale, y: bottomLine1};
-  const mbp11 = {x: Center - Hknee + kneeOffset - (1.125 * scale), y: kneeLine };
-  const mbp12 = {x: Center - Hthigh + thighOffset - (1.25 * scale), y: thighLine };
-  const mbpx =  {x: Center - Hcrotch - crotchDepth + crotchShift - (scale * 1.375), y: crotchLine};
+  const mbp6 = {x: center + Hknee - kneeOffset + (1.125 * scale), y: kneeLine };
+  const mbp7 = {x: center + Hbottom - bottomOffset + scale, y: bottomLine1};
+  const mbp8 = {x: center + Hbottom - bottomOffset + scale, y: bottomLine0};
+  const mbp9 = {x: center - Hbottom + bottomOffset - scale, y: bottomLine0};
+  const mmbp10 = {x: center - Hbottom + bottomOffset - scale, y: bottomLine1};
+  const mbp11 = {x: center - Hknee + kneeOffset - (1.125 * scale), y: kneeLine };
+  const mbp12 = {x: center - Hthigh + thighOffset - (1.25 * scale), y: thighLine };
+  const mbpx =  {x: center - Hcrotch - crotchDepth + crotchShift - (scale * 1.375), y: crotchLine};
   const mbp13 = getPointAtY(mbpx, mbp12, crotchLine + (scale/2));
   const mbp16 = getPointAtDistance(mbp3, backHipLine, BHhip - hipOffset , "left");
   const mbpa = getPointAtY(bp13, mbp16, frontHipLine);
