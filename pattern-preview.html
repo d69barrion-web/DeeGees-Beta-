@@ -278,7 +278,6 @@
     <div class="header-buttons">
       <button id="savePatternBtn">💾</button>
       <button id="loadPatternBtn">📂</button>
-      <button onclick="deletePatternByTime()">🗑️</button>
       <button id="deleteBtn" onclick="openDeleteModal()">Delete</button>
     </div>
     <!-- MODAL -->
@@ -385,23 +384,7 @@ function debug(msg) {
 }
 
 let selectedCreatedAt = null;
-function deletePatternByTime() {
-  if (!selectedCreatedAt) {
-    alert("No pattern selected!");
-    return;
-  }
-  if (!confirm("Delete this pattern?")) return;
 
-  let patterns = JSON.parse(localStorage.getItem("patterns")) || [];
-
-  patterns = patterns.filter(p => p.createdAt !== selectedCreatedAt);
-
-  localStorage.setItem("patterns", JSON.stringify(patterns));
-  
-  selectedCreatedAt = null;
-
-  alert("Deleted! 🗑️");
-}
   
 /////////////////////////////////////////////////
 // Load from URL
