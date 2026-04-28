@@ -1332,7 +1332,7 @@ function drawPattern(m) {
     leg-opening Line
   </text>
 
-<g id="showFrontMeasurements" opacity="${showFrontMeasurements ? 1 : 0}">
+<g id="showFrontMeasurements" opacity="${showFrontMeasurements ? 0 : 1}">
   <line
     x1="${230}" 
     y1="${frontWaistLine}" 
@@ -1513,14 +1513,12 @@ function drawPattern(m) {
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
   />
-  
   <text x="${LwmidX}" y="${LwmidY}" fill="yellow" font-size="10">
     ${Lwdistance.toFixed(2)} "
   </text>
   <text x="${RwmidX}" y="${RwmidY}" fill="yellow" font-size="10">
     ${Rwdistance.toFixed(2)} "
   </text>
-  
   <text x="${LhmidX}" y="${LhmidY}" fill="yellow" font-size="10">
     ${Lhdistance.toFixed(2)} "
   </text>
@@ -1542,7 +1540,6 @@ function drawPattern(m) {
   <text x="${20}" y="${waistToCrotchCenterPoint}" fill="yellow" font-size="10">
     ${crotchY.toFixed(2)} "
   </text>
-  
   <text x="${LtmidX}" y="${LtmidY}" fill="yellow" font-size="10">
     ${Ltdistance.toFixed(2)} "
   </text>
@@ -1558,14 +1555,12 @@ function drawPattern(m) {
   <text x="${20}" y="${kneeToBottomCenterPoint}" fill="yellow" font-size="10">
     ${bottomY0.toFixed(2)} "
   </text>
-  
   <text x="${LkmidX}" y="${LkmidY}" fill="yellow" font-size="10">
     ${Lkdistance.toFixed(2)} "
   </text>
   <text x="${RkmidX}" y="${RkmidY}" fill="yellow" font-size="10">
     ${Rkdistance.toFixed(2)} "
   </text>
-  
   <text x="${LbmidX}" y="${LbmidY}" fill="yellow" font-size="10">
     ${Lbdistance.toFixed(2)} "
   </text>
@@ -1577,7 +1572,7 @@ function drawPattern(m) {
   </text>
 </g>
 
-<g id="isBackVisible" opacity="${isBackVisible ? 0 : 1}"> 
+<g id="isBackVisible" opacity="${isBackVisible ? 1 : 0}"> 
   <path 
     d="${mbpath}" 
     fill="none" 
