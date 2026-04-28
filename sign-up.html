@@ -190,7 +190,7 @@ function signup() {
     return;
   }
 
-  auth.createUserWithEmailAndPasswordd(email, password)
+  auth.createUserWithEmailAndPassword(email, password)
     .then(() => {
       alert("Account created!");
       window.location.href = "pattern-preview.html";
