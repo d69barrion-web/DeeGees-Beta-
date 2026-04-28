@@ -437,6 +437,7 @@ radios.forEach(radio => {
   });
 });
   
+let selectedCreatedAt = null;
 let showFrontMeasurements = false;
 let isBackVisible = false;
 toggleFront.addEventListener("change", function () {
@@ -496,7 +497,7 @@ function renderPatternList() {
   });
 }
 
-let selectedCreatedAt = null;
+
   
 function loadPattern(pattern) {
   const d = pattern.data;
