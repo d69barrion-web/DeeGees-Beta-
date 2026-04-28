@@ -1313,6 +1313,24 @@ function drawPattern(m) {
     stroke-width="1"
     stroke-dasharray="5,5"
   />
+  <text x="${center - 8}" y="${20}" fill="yellow" font-size="10">
+    center
+  </text>
+  <text x="${300}" y="${LwmidY}" fill="white" font-size="10">
+    front waistLine
+  </text>
+  <text x="${300}" y="${LhmidY}" fill="white" font-size="10">
+    front hipLine
+  </text>
+  <text x="${300}" y="${LtmidY}" fill="white" font-size="10">
+    thighLine
+  </text>
+  <text x="${300}" y="${LkmidY}" fill="white" font-size="10">
+    kneeLine
+  </text>
+  <text x="${300}" y="${LbmidY}" fill="white" font-size="10">
+    leg-opening Line
+  </text>
 
 <g id="showFrontMeasurements" opacity="${showFrontMeasurements ? 1 : 0}">
   <line
@@ -1495,21 +1513,14 @@ function drawPattern(m) {
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
   />
-  <text x="${center - 8}" y="${20}" fill="yellow" font-size="10">
-    center
-  </text>
-  <text x="${300}" y="${LwmidY}" fill="white" font-size="10">
-    front waistLine
-  </text>
+  
   <text x="${LwmidX}" y="${LwmidY}" fill="yellow" font-size="10">
     ${Lwdistance.toFixed(2)} "
   </text>
   <text x="${RwmidX}" y="${RwmidY}" fill="yellow" font-size="10">
     ${Rwdistance.toFixed(2)} "
   </text>
-  <text x="${300}" y="${LhmidY}" fill="white" font-size="10">
-    front hipLine
-  </text>
+  
   <text x="${LhmidX}" y="${LhmidY}" fill="yellow" font-size="10">
     ${Lhdistance.toFixed(2)} "
   </text>
@@ -1531,9 +1542,7 @@ function drawPattern(m) {
   <text x="${20}" y="${waistToCrotchCenterPoint}" fill="yellow" font-size="10">
     ${crotchY.toFixed(2)} "
   </text>
-  <text x="${300}" y="${LtmidY}" fill="white" font-size="10">
-    thighLine
-  </text>
+  
   <text x="${LtmidX}" y="${LtmidY}" fill="yellow" font-size="10">
     ${Ltdistance.toFixed(2)} "
   </text>
@@ -1549,18 +1558,14 @@ function drawPattern(m) {
   <text x="${20}" y="${kneeToBottomCenterPoint}" fill="yellow" font-size="10">
     ${bottomY0.toFixed(2)} "
   </text>
-  <text x="${300}" y="${LkmidY}" fill="white" font-size="10">
-    kneeLine
-  </text>
+  
   <text x="${LkmidX}" y="${LkmidY}" fill="yellow" font-size="10">
     ${Lkdistance.toFixed(2)} "
   </text>
   <text x="${RkmidX}" y="${RkmidY}" fill="yellow" font-size="10">
     ${Rkdistance.toFixed(2)} "
   </text>
-  <text x="${300}" y="${LbmidY}" fill="white" font-size="10">
-    leg-opening Line
-  </text>
+  
   <text x="${LbmidX}" y="${LbmidY}" fill="yellow" font-size="10">
     ${Lbdistance.toFixed(2)} "
   </text>
@@ -1579,6 +1584,7 @@ function drawPattern(m) {
     stroke="white" 
     stroke-width="2"
   /> 
+  <line
     x1="${mbackWaistLineXo}" 
     y1="${backWaistLine}" 
     x2="${mbackWaistLineXi}" 
@@ -1626,8 +1632,6 @@ function drawPattern(m) {
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
   />
-  
-  
   <line 
     x1="${mbackWaistEndPoint.x}" 
     y1="${mbackWaistEndPoint.y}" 
@@ -1721,21 +1725,11 @@ function drawPattern(m) {
   <text x="${mRbwmidX}" y="${mRbwmidY}" fill="yellow" font-size="10">
     ${mRbwdistance.toFixed(2)} "
   </text>
-  
   <text x="${mRbhmidX}" y="${mRbhmidY}" fill="yellow" font-size="10">
     ${mRbhdistance.toFixed(2)} "
   </text>
   <text x="${mRbEmidX}" y="${mRbEmidY}" fill="yellow" font-size="10">
     ${mRbEdistance.toFixed(2)} "
-  </text>
-  <text x="${200}" y="${LhmidY}" fill="white" font-size="10">
-    front hipLine
-  </text>
-  <text x="${200}" y="${LcmidY}" fill="white" font-size="10">
-    crotchLine
-  </text>
-  <text x="${200}" y="${LtmidY}" fill="white" font-size="10">
-    thighLine
   </text>
   <text x="${mLbtmidX}" y="${mLbtmidY}" fill="yellow" font-size="10">
     ${mLbtdistance.toFixed(2)} "
@@ -1752,17 +1746,12 @@ function drawPattern(m) {
   <text x="${mRbkmidX}" y="${mRbkmidY}" fill="yellow" font-size="10">
     ${mRbkdistance.toFixed(2)} "
   </text>
-  <text x="${200}" y="${mLbbmidY}" fill="white" font-size="10">
-    kneeLine
-  </text>
-  </text>
   <text x="${mLbbmidX}" y="${mLbbmidY}" fill="yellow" font-size="10">
     ${mLbbdistance.toFixed(2)} "
   </text>
   <text x="${mRbbmidX}" y="${mRbbmidY}" fill="yellow" font-size="10">
     ${mRbbdistance.toFixed(2)} "
   </text>
-  
   <text x="${10}" y="${totFrontHeightCenterPoint}" fill="yellow" font-size="10">
     ${(m.outseam + 1).toFixed(2)} "
   </text>
@@ -1776,15 +1765,13 @@ function drawPattern(m) {
   
 </g>
 
+//desktop back
 <path 
     d="${bpath}" 
     fill="none" 
     stroke="white" 
     stroke-width="2"
   /> 
-
-
-  
   //back centerline
   <line 
     x1="${bCenter}" 
@@ -1818,30 +1805,6 @@ function drawPattern(m) {
       <path d="M0,0 L10,5 L0,10 Z" fill="white" />
     </marker>
   </defs>
-  
-
-
-  
-
-  
-  
-  
-  
-  
-  
-  
-
-
-  
-  
-  
-  
-  
-  
-  
-
-
-  
   <line 
     x1="${410}" 
     y1="${frontWaistLine}" 
@@ -1882,7 +1845,6 @@ function drawPattern(m) {
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
   />
-  
   <line 
     x1="${backWaistEndPoint.x}" 
     y1="${backWaistEndPoint.y}" 
@@ -1973,8 +1935,6 @@ function drawPattern(m) {
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
   />
-  
-
   <text x="${RbwmidX}" y="${RbwmidY}" fill="yellow" font-size="10">
     ${Rbwdistance.toFixed(2)} "
   </text>
@@ -2011,28 +1971,24 @@ function drawPattern(m) {
   <text x="${600}" y="${LbbmidY}" fill="white" font-size="10">
     kneeLine
   </text>
-  </text>
   <text x="${LbbmidX}" y="${LbbmidY}" fill="yellow" font-size="10">
     ${Lbbdistance.toFixed(2)} "
   </text>
   <text x="${RbbmidX}" y="${RbbmidY}" fill="yellow" font-size="10">
     ${Rbbdistance.toFixed(2)} "
   </text>
-  
   <text x="${410}" y="${totFrontHeightCenterPoint}" fill="yellow" font-size="10">
     ${(m.outseam + 1).toFixed(2)} "
   </text>
   <text x="${430}" y="${backWaistToBackHipCenterPoint}" fill="yellow" font-size="10">
     ${((backHipLine - backWaistLine) / scale).toFixed(1)} "
   </text>
-  
   <text x="${600}" y="${frontWaistToBackHipCenterPoint}" fill="yellow" font-size="10">
     ${((backHipLine - frontWaistLine) / scale).toFixed(1)} "
   </text>
   <text x="${660}" y="${pantsLengthCenterPoint}" fill="yellow" font-size="10">
     ${((bottomLine1 - frontWaistLine) / scale).toFixed(1)} "
   </text>
-
   `;}
   // init
 loadData();
