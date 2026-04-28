@@ -560,12 +560,9 @@ function getPatternData() {
   const saveBtn = document.getElementById("savePatternBtn");
 
 
-  
+
 saveBtn.addEventListener("click", function () {
-  if (!isPremiumUser) {
-    alert("Unlock premium to use this feature.");
-    return;
-  }
+  
   const name = prompt("Pattern name?", document.getElementById("client").value);
   if (!name) return;
 
