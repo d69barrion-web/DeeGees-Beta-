@@ -533,10 +533,6 @@ document.getElementById("leg_opening").value = d.Bottom;
   }
   
   function getPatternData() {
-    if (!isPremium) {
-    alert("Unlock premium to use this feature.");
-    return;
-  }
   return {
     Client: document.getElementById("client").value,
     Waist: Number(document.getElementById("waist").value),
@@ -565,7 +561,10 @@ document.getElementById("leg_opening").value = d.Bottom;
   const saveBtn = document.getElementById("savePatternBtn");
 
 saveBtn.addEventListener("click", function () {
-
+if (!isPremium) {
+    alert("Unlock premium to use this feature.");
+    return;
+}
   const name = prompt("Pattern name?", document.getElementById("client").value);
   if (!name) return;
 
