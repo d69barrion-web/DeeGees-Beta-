@@ -73,6 +73,9 @@ m<!DOCTYPE html>
   .form-group {
     margin-bottom: 10px;
   }
+  .hidden {
+  display: none;
+  }
 
   svg {
     width: 100%;
@@ -223,33 +226,39 @@ m<!DOCTYPE html>
         <button class="btn" onclick="updatePattern()">Generate Pattern</button>
       </div>
       <h3 style="margin: 0;">Adjustments</h3>
-      
+
       <div>
-           <label><input type="radio" name="control" value="waist"> Waist Shift</label>
+           <label><input type="radio" name="control" value="frontCrotchCurve"> Front Crotch Curve</label>
       </div>
       <div>
-           <label><input type="radio" name="control" value="hip"> Hip Shift</label>
+           <label><input type="radio" name="control" value="backCrotchCurve"> Back Crotch Curve</label>
       </div>
       <div>
-           <label><input type="radio" name="control" value="rise"> Crotch Shift</label>
+           <label><input type="radio" name="control" value="waistShift"> Waist Shift</label>
       </div>
       <div>
-           <label><input type="radio" name="control" value="rise"> Crotch Tip</label>
+           <label><input type="radio" name="control" value="hipShift"> Hip Shift</label>
       </div>
       <div>
-           <label><input type="radio" name="control" value="rise"> Front Waist adj</label>
+           <label><input type="radio" name="control" value="crotchShift"> Crotch Shift</label>
       </div>
       <div>
-           <label><input type="radio" name="control" value="rise"> Front Hip adj</label>
+           <label><input type="radio" name="control" value="crotchDepth"> Crotch Depth</label>
       </div>
       <div>
-           <label><input type="radio" name="control" value="rise"> Thigh adj</label>
+           <label><input type="radio" name="control" value="frontWaistAdj"> Front Waist adj</label>
       </div>
       <div>
-           <label><input type="radio" name="control" value="rise"> Knee adj adj</label>
+           <label><input type="radio" name="control" value="frontHipAdj"> Front Hip adj</label>
       </div>
       <div>
-           <label><input type="radio" name="control" value="rise"> Leg Opening adj adj</label>
+           <label><input type="radio" name="control" value="thighAdj"> Thigh adj</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="kneeAdj"> Knee adj adj</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="bottomAdj"> Leg Opening adj adj</label>
       </div>
       
       
@@ -287,68 +296,51 @@ m<!DOCTYPE html>
 
       
   <svg id="svgCanvasFront"></svg> 
-  <div id="sliderContainer">
-
-  <input type="range" id="waistSlider" class="slider hidden">
-  <input type="range" id="hipSlider" class="slider hidden">
-  <input type="range" id="riseSlider" class="slider hidden">
-
+  <div class="form-group slider-group hidden" data-control="frontCrotchCurve">
+     <label>Front Crotch Curve: <span id="frontCrotchVal">0</span></label>
+     <input type="range" id="frontCrotchCurve" min="-50" max="50" value="0">
   </div>
-
-  <div class="form-group">
-      <label>Front Crotch Curve: <span id="frontCrotchVal">0</span></label>
-      <input type="range" id="frontCrotchCurve" min="-50" max="50" value="0">
+  <div class="form-group slider-group hidden" data-control="backCrotchCurve">
+     <label>Back Crotch Curve: <span id="backCrotchVal">0</span></label>
+     <input type="range" id="backCrotchCurve" min="-50" max="50" value="0">
   </div>
-
-  <div class="form-group">
-      <label>Back Crotch Curve: <span id="backCrotchVal">0</span></label>
-      <input type="range" id="backCrotchCurve" min="-50" max="50" value="0">
+  <div class="form-group slider-group hidden" data-control="waistShift">
+     <label>Waist Shift: <span id="waistShiftVal">0</span></label>
+     <input type="range" id="waistShift" min="-50" max="50" value="0">
   </div>
-  <div class="form-group">
-          <label>Waist Shift: <span id="waistShiftVal">0</span></label>
-          <input type="range" id="waistShift" min="-50" max="50" value="0">
-        </div>
-
-        <div class="form-group">
-          <label>Hip Shift: <span id="hipShiftVal">0</span></label>
-          <input type="range" id="hipShift" min="-50" max="50" value="0">
-        </div>
-
-        <div class="form-group">
-           <label>Crotch Shift: <span id="crotchShiftVal">0</span></label>
-           <input type="range" id="crotchShift" min="-20" max="20" value="0">
-        </div>
-
-        <div class="form-group">
-           <label>Crotch Tip: <span id="crotchVal">0</span></label>
-           <input type="range" id="crotchDepth" min="-20" max="20" value="0">
-        </div>
-
-        <div class="form-group">
-           <label>Front Waist adj: <span id="frontWaistVal">0</span></label>
-           <input type="range" id="frontWaistAdj" min="-20" max="20" value="0">
-        </div>
-
-        <div class="form-group">
-           <label>Front Hip adj: <span id="frontHipVal">0</span></label>
-           <input type="range" id="frontHipAdj" min="-20" max="20" value="0">
-        </div>
-
-        <div class="form-group">
-           <label>Thigh adj: <span id="thighVal">0</span></label>
-           <input type="range" id="thighAdj" min="-20" max="20" value="0">
-        </div>
-
-        <div class="form-group">
+  <div class="form-group slider-group hidden" data-control="hipShift">
+     <label>Hip Shift: <span id="hipShiftVal">0</span></label>
+     <input type="range" id="hipShift" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="crotchShift">
+     <label>Crotch Shift: <span id="crotchShiftVal">0</span></label>
+     <input type="range" id="crotchShift" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="crotchDepth">
+     <label>Crotch Tip: <span id="crotchVal">0</span></label>
+     <input type="range" id="crotchDepth" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="frontWaistAdj">
+     <label>Front Waist adj: <span id="frontWaistVal">0</span></label>
+     <input type="range" id="frontWaistAdj" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="frontHipAdj">
+     <label>Front Hip adj: <span id="frontHipVal">0</span></label>
+     <input type="range" id="frontHipAdj" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="thighAdj">
+     <label>Thigh adj: <span id="thighVal">0</span></label>
+     <input type="range" id="thighAdj" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="kneeAdj">
            <label>Knee adj: <span id="kneeVal">0</span></label>
            <input type="range" id="kneeAdj" min="-20" max="20" value="0">
-        </div>
-
-        <div class="form-group">
+  </div>
+  <div class="form-group slider-group hidden" data-control="bottomAdj">
            <label>Leg Opening adj: <span id="bottomVal">0</span></label>
            <input type="range" id="bottomAdj" min="-20" max="20" value="0">
-        </div>
-
+  </div>
+      
   <button class="btn" onclick="downloadFront()">Download as PNG</button>
 
     </div>
@@ -421,7 +413,29 @@ function debug(msg) {
   }
 }
   
+const radios = document.querySelectorAll('input[name="control"]');
+const groups = document.querySelectorAll('.slider-group');
 
+radios.forEach(radio => {
+  radio.addEventListener("change", () => {
+
+    // hide all
+    groups.forEach(g => g.classList.add("hidden"));
+
+    // show selected
+    const active = document.querySelector(
+      `.slider-group[data-control="${radio.value}"]`
+    );
+
+    if (active) {
+      active.classList.remove("hidden");
+
+      // optional: scroll into view
+      active.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+  });
+});
   
 let selectedCreatedAt = null;
 let showFrontMeasurements = false;
