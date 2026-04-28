@@ -390,9 +390,12 @@ m<!DOCTYPE html>
 ">
   <b>DEBUG:</b><br>
 </div>
+  
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <script>
-
 window.onerror = function (message, source, lineno, colno, error) {
   debug("❌ ERROR: " + message);
   debug("📄 File: " + source);
@@ -437,7 +440,6 @@ radios.forEach(radio => {
   });
 });
   
-let selectedCreatedAt = null;
 let showFrontMeasurements = false;
 let isBackVisible = false;
 toggleFront.addEventListener("change", function () {
@@ -446,7 +448,6 @@ toggleFront.addEventListener("change", function () {
   updatePattern();
 });
   
-/////////////////////////////////////////////////
 // Load from URL
 const fields = ["client", "waist", "hip", "rise", "outseam", "inseam", "thigh", "knee", "leg_opening"];
 
@@ -457,8 +458,9 @@ fields.forEach(id => {
     localStorage.setItem(id, this.value);
   });
 });
-/////////////////////////////////////////////////
-  const loadBtn = document.getElementById("loadPatternBtn");
+  
+//Loading Saved Patterns feature (for premiumUsers only)
+const loadBtn = document.getElementById("loadPatternBtn");
 const container = document.getElementById("patternListContainer");
 
 loadBtn.addEventListener("click", () => {
@@ -467,7 +469,7 @@ loadBtn.addEventListener("click", () => {
 
   renderPatternList();
 });
-/////////////////////////////////////////////////////
+
 function renderPatternList() {
   const list = document.getElementById("patternList");
   list.innerHTML = "";
@@ -496,8 +498,10 @@ function renderPatternList() {
     list.appendChild(item);
   });
 }
-///////////////////////////////////////////////
-  function loadPattern(pattern) {
+
+let selectedCreatedAt = null;
+  
+function loadPattern(pattern) {
   const d = pattern.data;
 
 selectedCreatedAt = pattern.createdAt; // ⭐ important
@@ -526,12 +530,11 @@ document.getElementById("leg_opening").value = d.Bottom;
   kneeSlider.value = d.kneeAdj;
   bottomSlider.value = d.bottomAdj;
     
+updatePattern(); // redraw
+}
   
-
-  updatePattern(); // redraw
-  }
-  ///////////////////////////////////////////
-  function getPatternData() {
+//Saving pattern feature (for premiumUsers only)
+function getPatternData() {
   return {
     Client: document.getElementById("client").value,
     Waist: Number(document.getElementById("waist").value),
@@ -559,6 +562,8 @@ document.getElementById("leg_opening").value = d.Bottom;
 
   const saveBtn = document.getElementById("savePatternBtn");
 
+let isPremiumUsers = false;
+  
 saveBtn.addEventListener("click", function () {
   if (!isPremiumUser) {
     alert("Unlock premium to use this feature.");
@@ -2118,15 +2123,10 @@ function downloadFront() {
   img.src = url;
 }
 
-
 </script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  
 <script>
-
-
-  const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyAdQ7By9HrCbNhy2pT9cEVVcD-YCdHEuSs",
   authDomain: "deegees-a23ec.firebaseapp.com",
   projectId: "deegees-a23ec",
@@ -2134,7 +2134,6 @@ function downloadFront() {
   messagingSenderId: "8167578850",
   appId: "1:8167578850:web:a5d3dd989aec5bd83d92bb"
 };
-
 
 firebase.initializeApp(firebaseConfig);
 
