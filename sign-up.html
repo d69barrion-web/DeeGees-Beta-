@@ -180,17 +180,17 @@ function signup() {
   const createPassword = document.getElementById("createPassword").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
 
-  if (!email || !password || !confirmPassword) {
+  if (!email || !createPassword || !confirmPassword) {
     alert("Please fill in all fields");
     return;
   }
 
-  if (password !== confirmPassword) {
+  if (createPassword !== confirmPassword) {
     alert("Passwords do not match");
     return;
   }
 
-  auth.createUserWithEmailAndPassword(email, password)
+  auth.createUserWithEmailAndPassword(email, createPassword)
     .then(() => {
       alert("Account created!");
       window.location.href = "pattern-preview.html";
