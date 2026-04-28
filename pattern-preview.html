@@ -1314,7 +1314,7 @@ function drawPattern(m) {
     stroke-dasharray="5,5"
   />
 
-<g id="showFrontMeasurements" opacity="${showFrontMeasurements ? 0 : 1}">
+<g id="showFrontMeasurements" opacity="${showFrontMeasurements ? 1 : 0}">
   <line
     x1="${230}" 
     y1="${frontWaistLine}" 
@@ -1559,7 +1559,7 @@ function drawPattern(m) {
   </text>
 </g>
 
-<g id="isBackVisible" opacity="${isBackVisible ? 1 : 0}"> 
+<g id="isBackVisible" opacity="${isBackVisible ? 0 : 1}"> 
   <path 
     d="${mbpath}" 
     fill="none" 
