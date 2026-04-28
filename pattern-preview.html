@@ -531,8 +531,12 @@ document.getElementById("leg_opening").value = d.Bottom;
 
   updatePattern(); // redraw
   }
-  ///////////////////////////////////////////
+  
   function getPatternData() {
+    if (!isPremium) {
+    alert("Unlock premium to use this feature.");
+    return;
+  }
   return {
     Client: document.getElementById("client").value,
     Waist: Number(document.getElementById("waist").value),
