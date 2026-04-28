@@ -1050,8 +1050,8 @@ function drawPattern(m) {
   const mbackThighCenterPoint = { x: center, y: thighLine };
   //LEFT END-POINT 
   const mLbthigh = { x: bCenter - Hthigh + thighOffset - (1.25 * scale), y: thighLine };
-  const mLbtmidX = (mbackThighCenterPoint.x + Lbthigh.x) / 2;
-  const mLbtmidY = (mbackThighCenterPoint.y + Lbthigh.y) / 2;
+  const mLbtmidX = (mbackThighCenterPoint.x + mLbthigh.x) / 2;
+  const mLbtmidY = (mbackThighCenterPoint.y + mLbthigh.y) / 2;
   const mLbtdx = mLbthigh.x - mbackThighCenterPoint.x;
   const mLbtdy = mLbthigh.y - mbackThighCenterPoint.y;
   const mLbtdistance = Math.sqrt(mLbtdx * mLbtdx + mLbtdy * mLbtdy) / scale;
@@ -1083,7 +1083,7 @@ function drawPattern(m) {
   const mRbkdistance = Math.sqrt(mRbkdx * mRbkdx + mRbkdy * mRbkdy) / scale;
 
   //DISTANCE FROM CENTER TO BACK LEG-OPENING END-POINTS 
-  const mbackBottomCenterPoint = { x: bCenter, y: bottomLine0 };
+  const mbackBottomCenterPoint = { x: center, y: bottomLine0 };
   //LEFT END-POINT 
   const mLbbottom = { x: center - Hbottom + bottomOffset - scale, y: bottomLine0 };
   const mLbbmidX = (mbackBottomCenterPoint.x + mLbbottom.x) / 2;
