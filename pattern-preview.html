@@ -1485,6 +1485,16 @@ function drawPattern(m) {
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
   />
+  <line 
+    x1="${260}" 
+    y1="${frontWaistLine}" 
+    x2="${260}" 
+    y2="${bottomLine1}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
   <text x="${center - 8}" y="${20}" fill="yellow" font-size="10">
     center
   </text>
@@ -1557,6 +1567,9 @@ function drawPattern(m) {
   <text x="${RbmidX}" y="${RbmidY}" fill="yellow" font-size="10">
     ${Rbdistance.toFixed(2)} "
   </text>
+  <text x="${260}" y="${pantsLengthCenterPoint}" fill="yellow" font-size="10">
+    ${((bottomLine1 - frontWaistLine) / scale).toFixed(1)} "
+  </text>
 </g>
 
 <g id="isBackVisible" opacity="${isBackVisible ? 0 : 1}"> 
@@ -1613,16 +1626,7 @@ function drawPattern(m) {
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
   />
-  <line 
-    x1="${260}" 
-    y1="${frontWaistLine}" 
-    x2="${260}" 
-    y2="${bottomLine1}"  
-    stroke="#38bdf8"
-    stroke-width="0.5"
-    marker-start="url(#arrow)"
-    marker-end="url(#arrow)"
-  />
+  
   
   <line 
     x1="${mbackWaistEndPoint.x}" 
@@ -1769,9 +1773,7 @@ function drawPattern(m) {
   <text x="${270}" y="${frontWaistToBackHipCenterPoint}" fill="yellow" font-size="10">
     ${((backHipLine - frontWaistLine) / scale).toFixed(1)} "
   </text>
-  <text x="${260}" y="${pantsLengthCenterPoint}" fill="yellow" font-size="10">
-    ${((bottomLine1 - frontWaistLine) / scale).toFixed(1)} "
-  </text>
+  
 </g>
 
 <path 
