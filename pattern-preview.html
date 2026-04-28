@@ -967,7 +967,15 @@ function drawPattern(m) {
   const backWaistLine = frontWaistLine - (2 * scale);
   const backCrotchLine = crotchLine + (scale/2);
   const backHipLine = backWaistLine + (frontHipLine - frontWaistLine);
-  
+  const mbackWaistLineXo = 400;
+  const mbackWaistLineXi = 700;
+  const mbackHipLineXo = 400;
+  const mbackHipLineXi = 700;
+  const totFrontHeightCenterPoint = ((m.outseam + 2) / 2) * scale;
+  const backWaistToBackHipCenterPoint = backWaistLine + ((backHipLine - backWaistLine) / 2);
+  const frontWaistToBackHipCenterPoint = frontWaistLine + ((backHipLine - frontWaistLine) / 2);
+  const pantsLengthCenterPoint = frontWaistLine + ((bottomLine1 - frontWaistLine) / 2);
+    
   //mBack
   const mbp1 = {x: center - scale, y: backWaistLine};
   const mbp2 = getPointAtDistance(mbp1, frontWaistLine, (BHwaist - waistOffset), "right");
@@ -1056,11 +1064,7 @@ function drawPattern(m) {
     `;
   
 
-  const totFrontHeightCenterPoint = ((m.outseam + 2) / 2) * scale;
-  const backWaistToBackHipCenterPoint = backWaistLine + ((backHipLine - backWaistLine) / 2);
-  const frontWaistToBackHipCenterPoint = frontWaistLine + ((backHipLine - frontWaistLine) / 2);
-  const pantsLengthCenterPoint = frontWaistLine + ((bottomLine1 - frontWaistLine) / 2);
-
+  
   //BACK HIP LENGTH
   const backWaistEndPoint = { x: bp2.x , y: frontWaistLine };
   //RIGHT END-POINT 
