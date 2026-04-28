@@ -225,59 +225,34 @@ m<!DOCTYPE html>
       <h3 style="margin: 0;">Adjustments</h3>
       
       <div>
-           <label><input type="radio" name="control" value="waist"> Waist</label>
+           <label><input type="radio" name="control" value="waist"> Waist Shift</label>
       </div>
       <div>
-           <label><input type="radio" name="control" value="hip"> Hip</label>
+           <label><input type="radio" name="control" value="hip"> Hip Shift</label>
       </div>
       <div>
-           <label><input type="radio" name="control" value="rise"> Rise</label>
+           <label><input type="radio" name="control" value="rise"> Crotch Shift</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="rise"> Crotch Tip</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="rise"> Front Waist adj</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="rise"> Front Hip adj</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="rise"> Thigh adj</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="rise"> Knee adj adj</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="rise"> Leg Opening adj adj</label>
       </div>
       
-      <div class="form-group">
-          <label>Waist Shift: <span id="waistShiftVal">0</span></label>
-          <input type="range" id="waistShift" min="-50" max="50" value="0">
-        </div>
-
-        <div class="form-group">
-          <label>Hip Shift: <span id="hipShiftVal">0</span></label>
-          <input type="range" id="hipShift" min="-50" max="50" value="0">
-        </div>
-
-        <div class="form-group">
-           <label>Crotch Shift: <span id="crotchShiftVal">0</span></label>
-           <input type="range" id="crotchShift" min="-20" max="20" value="0">
-        </div>
-
-        <div class="form-group">
-           <label>Crotch Tip: <span id="crotchVal">0</span></label>
-           <input type="range" id="crotchDepth" min="-20" max="20" value="0">
-        </div>
-
-        <div class="form-group">
-           <label>Front Waist adj: <span id="frontWaistVal">0</span></label>
-           <input type="range" id="frontWaistAdj" min="-20" max="20" value="0">
-        </div>
-
-        <div class="form-group">
-           <label>Front Hip adj: <span id="frontHipVal">0</span></label>
-           <input type="range" id="frontHipAdj" min="-20" max="20" value="0">
-        </div>
-
-        <div class="form-group">
-           <label>Thigh adj: <span id="thighVal">0</span></label>
-           <input type="range" id="thighAdj" min="-20" max="20" value="0">
-        </div>
-
-        <div class="form-group">
-           <label>Knee adj: <span id="kneeVal">0</span></label>
-           <input type="range" id="kneeAdj" min="-20" max="20" value="0">
-        </div>
-
-        <div class="form-group">
-           <label>Leg Opening adj: <span id="bottomVal">0</span></label>
-           <input type="range" id="bottomAdj" min="-20" max="20" value="0">
-        </div>
+      
     </div>
 
     <div class="card">
@@ -322,6 +297,50 @@ m<!DOCTYPE html>
       <label>Back Crotch Curve: <span id="backCrotchVal">0</span></label>
       <input type="range" id="backCrotchCurve" min="-50" max="50" value="0">
   </div>
+  <div class="form-group">
+          <label>Waist Shift: <span id="waistShiftVal">0</span></label>
+          <input type="range" id="waistShift" min="-50" max="50" value="0">
+        </div>
+
+        <div class="form-group">
+          <label>Hip Shift: <span id="hipShiftVal">0</span></label>
+          <input type="range" id="hipShift" min="-50" max="50" value="0">
+        </div>
+
+        <div class="form-group">
+           <label>Crotch Shift: <span id="crotchShiftVal">0</span></label>
+           <input type="range" id="crotchShift" min="-20" max="20" value="0">
+        </div>
+
+        <div class="form-group">
+           <label>Crotch Tip: <span id="crotchVal">0</span></label>
+           <input type="range" id="crotchDepth" min="-20" max="20" value="0">
+        </div>
+
+        <div class="form-group">
+           <label>Front Waist adj: <span id="frontWaistVal">0</span></label>
+           <input type="range" id="frontWaistAdj" min="-20" max="20" value="0">
+        </div>
+
+        <div class="form-group">
+           <label>Front Hip adj: <span id="frontHipVal">0</span></label>
+           <input type="range" id="frontHipAdj" min="-20" max="20" value="0">
+        </div>
+
+        <div class="form-group">
+           <label>Thigh adj: <span id="thighVal">0</span></label>
+           <input type="range" id="thighAdj" min="-20" max="20" value="0">
+        </div>
+
+        <div class="form-group">
+           <label>Knee adj: <span id="kneeVal">0</span></label>
+           <input type="range" id="kneeAdj" min="-20" max="20" value="0">
+        </div>
+
+        <div class="form-group">
+           <label>Leg Opening adj: <span id="bottomVal">0</span></label>
+           <input type="range" id="bottomAdj" min="-20" max="20" value="0">
+        </div>
 
   <button class="btn" onclick="downloadFront()">Download as PNG</button>
 
