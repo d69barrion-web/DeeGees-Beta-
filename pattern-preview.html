@@ -560,7 +560,10 @@ document.getElementById("leg_opening").value = d.Bottom;
   const saveBtn = document.getElementById("savePatternBtn");
 
 saveBtn.addEventListener("click", function () {
-
+  if (!isPremiumUser) {
+    alert("Unlock premium to use this feature.");
+    return;
+  }
   const name = prompt("Pattern name?", document.getElementById("client").value);
   if (!name) return;
 
@@ -568,7 +571,7 @@ saveBtn.addEventListener("click", function () {
     name: name,
     data: getPatternData(),
     createdAt: Date.now()
-  };
+  }};
 
   let patterns = JSON.parse(localStorage.getItem("patterns")) || [];
 
