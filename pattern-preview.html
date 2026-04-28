@@ -490,6 +490,10 @@ function renderPatternList() {
     item.textContent = p.name;
 
     item.addEventListener("click", () => {
+      if (!isPremium) {
+    alert("Unlock premium to use this feature.");
+    return;
+  }
       loadPattern(p);
       container.style.display = "none";
     });
