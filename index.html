@@ -263,22 +263,23 @@ toggleBtn.addEventListener("click", function () {
 function login() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
+  const remember = document.getElementById("rememberMe").checked;
 
-  auth.signInWithEmailAndPassword(email, password)
+  const persistence = remember
+    ? firebase.auth.Auth.Persistence.LOCAL
+    : firebase.auth.Auth.Persistence.SESSION;
+
+  auth.setPersistence(persistence)
+    .then(() => {
+      return auth.signInWithEmailAndPassword(email, password);
+    })
     .then(() => {
       window.location.href = "pattern-preview.html";
     })
     .catch(error => {
       alert(error.message);
     });
-}
-  const rememberMe = document.getElementById("rememberMe").checked;
-  firebase.auth().onAuthStateChanged(user => {
-  if (user) {
-    // naka-login pa
-    window.location.href = "pattern-preview.html";
-  } 
-});
+  }
 </script>
 
 </body>
