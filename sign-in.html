@@ -146,8 +146,9 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 </script>
  <!-- existing script mo (login/signup functions) -->
+<!-- existing script mo (login/signup functions) -->
+<script>
 
- <script>
 const passwordInput = document.getElementById("password");
 const toggleBtn = document.getElementById("togglePassword");
 
@@ -160,7 +161,7 @@ toggleBtn.addEventListener("click", function () {
     this.textContent = "👁️";
   }
 });
- 
+  
 function login() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -170,40 +171,17 @@ function login() {
       window.location.href = "pattern-preview.html";
     })
     .catch(error => {
-  console.log(error); // para makita mo sa console
-
-  let message = "";
-
-  const code = error.code || "";
-  const msg = error.message || "";
-
-  if (
-    code === "auth/user-not-found" ||
-    code === "auth/wrong-password" ||
-    msg.includes("INVALID_LOGIN_CREDENTIALS")
-  ) {
-    message = "Maling email o password.";
-  } 
-  else if (code === "auth/invalid-email") {
-    message = "Hindi valid ang email format.";
-  } 
-  else if (code === "auth/too-many-requests") {
-    message = "Masyadong maraming attempts. Subukan ulit mamaya.";
-  } 
-  else {
-    message = "Hindi makapag-login. Subukan muli.";
-  }
-
-  alert(message);
-});
+      alert(error.message);
+    });
 }
- const rememberMe = document.getElementById("rememberMe").checked;
+  const rememberMe = document.getElementById("rememberMe").checked;
   firebase.auth().onAuthStateChanged(user => {
   if (user) {
     // naka-login pa
     window.location.href = "pattern-preview.html";
   } 
- </script>
+});
+</script>
 
 
 </body>
