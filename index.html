@@ -276,7 +276,7 @@ function login() {
   firebase.auth().onAuthStateChanged(user => {
   if (user) {
     // naka-login pa
-    window.location.href = "dashboard.html";
+    window.location.href = "pattern-preview.html";
   } else {
     // hindi naka-login
   }
