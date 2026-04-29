@@ -250,13 +250,20 @@ const auth = firebase.auth();
 const passwordInput = document.getElementById("password");
 const toggleBtn = document.getElementById("togglePassword");
 
-toggleBtn.addEventListener("click", function () {
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    this.textContent = "🙈"; // optional icon change
-  } else {
-    passwordInput.type = "password";
-    this.textContent = "👁️";
+document.addEventListener("DOMContentLoaded", function () {
+  const passwordInput = document.getElementById("password");
+  const toggleBtn = document.getElementById("togglePassword");
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", function () {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        this.textContent = "🙈";
+      } else {
+        passwordInput.type = "password";
+        this.textContent = "👁️";
+      }
+    });
   }
 });
   
