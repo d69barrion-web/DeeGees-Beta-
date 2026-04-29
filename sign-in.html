@@ -188,6 +188,19 @@ function login() {
       alert(error.message);
     });
  }
+
+ function loginWithGoogle() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  auth.signInWithPopup(provider)
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+      
+    })
+    .catch(err => alert(err.message));
+ }
+ 
   const rememberMe = document.getElementById("rememberMe").checked;
   firebase.auth().onAuthStateChanged(user => {
   if (user) {
