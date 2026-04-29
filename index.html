@@ -287,6 +287,18 @@ function login() {
       alert(error.message);
     });
   }
+
+  function loginWithGoogle() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  auth.signInWithPopup(provider)
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+      alert("Google login successful!");
+    })
+    .catch(err => alert(err.message));
+  }
   
   const rememberMe = document.getElementById("rememberMe").checked;
   firebase.auth().onAuthStateChanged(user => {
