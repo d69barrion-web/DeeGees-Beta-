@@ -285,6 +285,14 @@ function login() {
       alert(error.message);
     });
   }
+  
+  const rememberMe = document.getElementById("rememberMe").checked;
+  firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    // naka-login pa
+    window.location.href = "pattern-preview.html";
+  } 
+});
 </script>
 
 </body>
