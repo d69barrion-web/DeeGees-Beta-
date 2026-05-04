@@ -483,19 +483,34 @@ loadBtn.addEventListener("click", () => {
 
   renderPatternList();
 });
-/////////////////////////////////////////////////////
-function renderPatternList() {
+
+//SHOWS ALL SAVED PATTERNS///////////////////
+ let selectedPatternId = null;
+  async function renderPatternList() {
   const list = document.getElementById("patternList");
+  list.innerHTML = "Loading...";
+
+  const user = firebase.auth().currentUser;
+
+  if (!user) {
+    list.innerHTML = "<p>Please log in</p>";
+    return;
+  }
+
+  const snapshot = await db.collection("patterns")
+    .where("uid", "==", user.uid)
+    .get();
+
   list.innerHTML = "";
 
-  const patterns = JSON.parse(localStorage.getItem("patterns")) || [];
-
-  if (patterns.length === 0) {
+  if (snapshot.empty) {
     list.innerHTML = "<p>No saved patterns</p>";
     return;
   }
 
-  patterns.forEach((p, index) => {
+  snapshot.forEach((doc) => {
+    const p = doc.data();
+
     const item = document.createElement("div");
 
     item.style.padding = "6px";
@@ -505,20 +520,25 @@ function renderPatternList() {
     item.textContent = p.name;
 
     item.addEventListener("click", () => {
+      selectedPatternId = p.id;
       if (!isPremium) {
-    alert("Unlock premium to use this feature.");
-    return;
-  }
+        alert("Unlock premium to use this feature.");
+        return;
+      }
+
       loadPattern(p);
       container.style.display = "none";
     });
 
     list.appendChild(item);
   });
-}
+  }
+  
+  
 ///////////////////////////////////////////////
-  function loadPattern(pattern) {
-  const d = pattern.data;
+let selectedCreatedAt = null;
+function loadPattern(pattern) {
+const d = pattern.data;
 
 selectedCreatedAt = pattern.createdAt; // ⭐ important
 
@@ -532,23 +552,23 @@ document.getElementById("thigh").value = d.Thigh;
 document.getElementById("knee").value = d.Knee;
 document.getElementById("leg_opening").value = d.Bottom;
     
-  waistSlider.value = d.waistShift;
-  hipSlider.value = d.hipShift;
+  frontWaistShiftSlider.value = d.frontWaistShift;
+  backWaistShiftSlider.value = d.backWaistShift;
+  frontHipShiftSlider.value = d.frontHipShift;
+  backHipShiftSlider.value = d.backHipShift;
   crotchSlider.value = d.crotchDepth;
   crotchShiftSlider.value = d.crotchShift;
   frontCrotchSlider.value = d.frontCrotch;
   backCrotchSlider.value = d.backCrotch;
   
-  frontWaistSlider.value = d.frontWaistAdj;
-  frontHipSlider.value = d.frontHipAdj;
+  frontWaistAdjSlider.value = d.frontWaistAdj;
+  frontHipAdjSlider.value = d.frontHipAdj;
 
-  thighSlider.value = d.thighAdj;
-  kneeSlider.value = d.kneeAdj;
-  bottomSlider.value = d.bottomAdj;
+  thighAdjSlider.value = d.thighAdj;
+  kneeAdjSlider.value = d.kneeAdj;
+  bottomAdjSlider.value = d.bottomAdj;
     
-  
-
-  updatePattern(); // redraw
+  updatePattern(); // to redraw selected saved pattern
   }
   
   function getPatternData() {
