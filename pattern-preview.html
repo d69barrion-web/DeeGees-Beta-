@@ -578,10 +578,10 @@ document.getElementById("leg_opening").value = d.Bottom;
   }
 
   const saveBtn = document.getElementById("savePatternBtn");
-
+const saveBtn = document.getElementById("savePatternBtn");
 saveBtn.addEventListener("click", function () {
 if (!isPremium) {
-    alert("Unlock premium to use this feature.");
+    showPremiumModal();
     return;
 }
   const name = prompt("Pattern name?", document.getElementById("client").value);
@@ -606,10 +606,37 @@ if (exists) {
 
 patterns.push(pattern);
 
-  localStorage.setItem("patterns", JSON.stringify(patterns));
+const user = firebase.auth().currentUser;
 
-  alert("Saved! ✅");
+if (!user) {
+  alert("Not logged in");
+  return;
+}
+
+//db.collection("patterns").add({
+//  uid: user.id,
+//  name: name,
+//  data: getPatternData(),
+//  createdAt: Date.now()
+//});
+db.collection("patterns").doc(pattern.createdAt.toString()).set({
+  uid: user.uid,
+  name: name,
+  data: getPatternData(),
+  createdAt: pattern.createdAt
 });
+  
+alert("Saved to cloud! ☁️");
+  
+});
+
+function showPremiumModal() {
+  document.getElementById("premiumModal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("premiumModal").style.display = "none";
+}
   /////////////////////////////////////////////
   function loadData() {
   document.getElementById("client").value = localStorage.getItem("client") || "";
