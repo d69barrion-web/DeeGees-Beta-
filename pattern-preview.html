@@ -321,13 +321,21 @@ background:rgba(0,0,0,0.6); justify-content:center; align-items:center;">
      <label>Back Crotch Curve: <span id="backCrotchVal">0</span></label>
      <input type="range" id="backCrotchCurve" min="-50" max="50" value="0">
   </div>
-  <div class="form-group slider-group hidden" data-control="waistShift">
-     <label>Waist Shift: <span id="waistShiftVal">0</span></label>
-     <input type="range" id="waistShift" min="-50" max="50" value="0">
+  <div class="form-group slider-group hidden" data-control="frontWaistShift">
+     <label>Front Waist Shift: <span id="frontWaistShiftVal">0</span></label>
+     <input type="range" id="frontWaistShift" min="-50" max="50" value="0">
   </div>
-  <div class="form-group slider-group hidden" data-control="hipShift">
-     <label>Hip Shift: <span id="hipShiftVal">0</span></label>
-     <input type="range" id="hipShift" min="-50" max="50" value="0">
+  <div class="form-group slider-group hidden" data-control="backWaistShift">
+     <label>Back Waist Shift: <span id="backWaistShiftVal">0</span></label>
+     <input type="range" id="backWaistShift" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="frontHipShift">
+     <label>Front Hip Shift: <span id="frontHipShiftVal">0</span></label>
+     <input type="range" id="frontHipShift" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="backHipShift">
+     <label>Back Hip Shift: <span id="backHipShiftVal">0</span></label>
+     <input type="range" id="backHipShift" min="-50" max="50" value="0">
   </div>
   <div class="form-group slider-group hidden" data-control="crotchShift">
      <label>Crotch Shift: <span id="crotchShiftVal">0</span></label>
@@ -338,29 +346,25 @@ background:rgba(0,0,0,0.6); justify-content:center; align-items:center;">
      <input type="range" id="crotchDepth" min="-50" max="50" value="0">
   </div>
   <div class="form-group slider-group hidden" data-control="frontWaistAdj">
-     <label>Front Waist adj: <span id="frontWaistVal">0</span></label>
+     <label>Front Waist adj: <span id="frontWaistAdjVal">0</span></label>
      <input type="range" id="frontWaistAdj" min="-50" max="50" value="0">
   </div>
   <div class="form-group slider-group hidden" data-control="frontHipAdj">
-     <label>Front Hip adj: <span id="frontHipVal">0</span></label>
+     <label>Front Hip adj: <span id="frontHipAdjVal">0</span></label>
      <input type="range" id="frontHipAdj" min="-50" max="50" value="0">
   </div>
   <div class="form-group slider-group hidden" data-control="thighAdj">
-     <label>Thigh adj: <span id="thighVal">0</span></label>
+     <label>Thigh adj: <span id="thighAdjVal">0</span></label>
      <input type="range" id="thighAdj" min="-50" max="50" value="0">
   </div>
   <div class="form-group slider-group hidden" data-control="kneeAdj">
-           <label>Knee adj: <span id="kneeVal">0</span></label>
+           <label>Knee adj: <span id="kneeAdjVal">0</span></label>
            <input type="range" id="kneeAdj" min="-20" max="20" value="0">
   </div>
   <div class="form-group slider-group hidden" data-control="bottomAdj">
-           <label>Leg Opening adj: <span id="bottomVal">0</span></label>
+           <label>Leg Opening adj: <span id="bottomAdjVal">0</span></label>
            <input type="range" id="bottomAdj" min="-20" max="20" value="0">
   </div>
-      
-  <button class="btn" onclick="downloadFront()">Download as PNG</button>
-  <button class="btn" onclick="logout()">Logout</button>
-    </div>
 
     <!-- FRONT PART -->
     
