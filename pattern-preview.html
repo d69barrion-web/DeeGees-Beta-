@@ -2126,9 +2126,6 @@ function downloadFront() {
 
 
 </script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-
 <script>
 
 
@@ -2142,8 +2139,57 @@ function downloadFront() {
 };
 
 
-firebase.initializeApp(firebaseConfig);
 
+
+
+  firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+let isPremium = false;
+
+firebase.auth().onAuthStateChanged(async (user) => {
+  if (!user) return;
+
+  const doc = await db.collection("users").doc(user.uid).get();
+
+  if (!doc.exists) return;
+
+  const data = doc.data();
+
+  if (!data.isPremium) {
+    isPremium = false;
+    return;
+  }
+
+  if (!data.premiumUntil) {
+    isPremium = true;
+    console.log("Premium active (legacy user)");
+    return;
+  }
+
+  const premiumUntil = data.premiumUntil.toDate();
+  const now = new Date();
+
+  if (now > premiumUntil) {
+  isPremium = false;
+  console.log("Premium expired");
+
+  try {
+    await db.collection("users").doc(user.uid).update({
+      isPremium: false
+    });
+    console.log("Firestore premium downgraded");
+  } catch (err) {
+    console.error("Firestore downgrade failed:", err);
+  }
+
+} else {
+  isPremium = true;
+  console.log("Premium active until:", premiumUntil);
+}
+});
+  
 // 🔒 PROTECTION
 firebase.auth().onAuthStateChanged(function(user) {
   if (!user) {
@@ -2156,6 +2202,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       window.location.href = "index.html";
     });
   }
+    
 </script>
 </body>
 </html>
