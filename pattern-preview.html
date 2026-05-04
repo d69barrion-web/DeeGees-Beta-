@@ -831,31 +831,36 @@ function getPointAtX(p1, p2, x)
     knee: parseFloat(document.getElementById("knee").value) || 0,
     leg_opening: parseFloat(document.getElementById("leg_opening").value) || 0,
 
-    frontCrotch_curve: parseInt(frontCrotchSlider.value),
-    backCrotch_curve: parseInt(backCrotchSlider.value),
-    waist_shift: parseInt(waistSlider.value),
-    hip_shift: parseInt(hipSlider.value),
-    crotch_shift: parseInt(crotchShiftSlider.value),
-    crotch_depth: parseInt(crotchSlider.value),
-    thigh_adj: parseInt(thighSlider.value),
-    knee_adj: parseInt(kneeSlider.value),
-    bottom_adj: parseInt(bottomSlider.value),
-    frontHip_adj: parseInt(frontHipSlider.value),
-    frontWaist_adj: parseInt(frontWaistSlider.value)
+    frontCrotch_curve: parseInt(frontCrotchSlider.value) || 0,
+    backCrotch_curve: parseInt(backCrotchSlider.value) || 0,
+    frontWaist_shift: parseInt(frontWaistShiftSlider.value) || 0,
+    backWaist_shift: parseInt(backWaistShiftSlider.value) || 0,
+    frontHip_shift: parseInt(frontHipShiftSlider.value) || 0,
+    backHip_shift: parseInt(backHipShiftSlider.value) || 0,
+    crotch_shift: parseInt(crotchShiftSlider.value) || 0,
+    crotch_depth: parseInt(crotchSlider.value) || 0,
+    thigh_adj: parseInt(thighAdjSlider.value) || 0,
+    knee_adj: parseInt(kneeAdjSlider.value) || 0,
+    bottom_adj: parseInt(bottomAdjSlider.value) || 0,
+    frontHip_adj: parseInt(frontHipAdjSlider.value) || 0,
+    frontWaist_adj: parseInt(frontWaistAdjSlider.value) || 0
   };
 
   document.getElementById("frontCrotchVal").textContent = m.frontCrotch_curve;
   document.getElementById("backCrotchVal").textContent = m.backCrotch_curve;
-  document.getElementById("waistShiftVal").textContent = m.waist_shift;
-  document.getElementById("hipShiftVal").textContent = m.hip_shift;
+  document.getElementById("frontWaistShiftVal").textContent = m.frontWaist_shift;
+  document.getElementById("backWaistShiftVal").textContent = m.backWaist_shift;
+  document.getElementById("frontHipShiftVal").textContent = m.frontHip_shift;
+  document.getElementById("backHipShiftVal").textContent = m.backHip_shift;
   document.getElementById("crotchShiftVal").textContent = m.crotch_shift;
   document.getElementById("crotchVal").textContent = m.crotch_depth;
-  document.getElementById("thighVal").textContent = m.thigh_adj;
-  document.getElementById("kneeVal").textContent = m.knee_adj;
-  document.getElementById("bottomVal").textContent = m.bottom_adj;
-  document.getElementById("frontHipVal").textContent = m.frontHip_adj;
-  document.getElementById("frontWaistVal").textContent = m.frontWaist_adj;
+  document.getElementById("thighAdjVal").textContent = m.thigh_adj;
+  document.getElementById("kneeAdjVal").textContent = m.knee_adj;
+  document.getElementById("bottomAdjVal").textContent = m.bottom_adj;
+  document.getElementById("frontHipAdjVal").textContent = m.frontHip_adj;
+  document.getElementById("frontWaistAdjVal").textContent = m.frontWaist_adj;
 
+ 
  drawPattern(m);
   } 
   
