@@ -1,1 +1,2424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeeGees - Pattern Preview</title>
 
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #38bdf8;
+  }
+
+  h2 {
+    text-align: center;
+    color: #38bdf8;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .card {
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+  }
+
+  input[type="range"] {
+    width: 100%;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+  }
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #38bdf8;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .form-group {
+    margin-bottom: 10px;
+  }
+  .hidden {
+  display: none;
+  }
+
+  svg {
+    width: 100%;
+    height: 500px;
+    background: #0f172a;
+    border-radius: 10px;
+  }
+
+
+  /* Delete button */
+  #deleteBtn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    transition: 0.2s;
+  }
+
+  #deleteBtn:hover {
+    background: #c0392b;
+  }
+
+  /* Modal overlay */
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  /* Modal box */
+  .modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 280px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    animation: fadeIn 0.2s ease;
+  }
+
+  .modal-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .cancel-btn {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: #bdc3c7;
+    cursor: pointer;
+  }
+
+  .confirm-btn {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: #e74c3c;
+    color: white;
+    cursor: pointer;
+  }
+
+  .confirm-btn:hover {
+    background: #c0392b;
+  }
+
+  @keyframes fadeIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  
+  /* ✅ MOBILE FIX */
+  @media (max-width: 768px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+
+    svg {
+      height: 500px;
+    }
+  }
+
+  
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.header-buttons button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+.header-buttons button:hover {
+  background: #45a049;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-area {
+  position: relative;
+}
+
+.icon-btn {
+  background: #38bdf8;
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.profile-menu {
+  display: none;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background: #1e293b;
+  border-radius: 8px;
+  padding: 6px;
+  z-index: 100;
+}
+
+.profile-menu button {
+  background: #38bdf8;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Pattern Preview</h1>
+  <div class="profile-area">
+      <button id="profileBtn" class="icon-btn">👤</button>
+
+      <div id="profileMenu" class="profile-menu">
+        <button onclick="logout()">Logout</button>
+      </div>
+    </div>
+</div>
+  <div class="layout">
+
+    <!-- LEFT SIDE -->
+    <div>
+
+      <!-- Measurements -->
+      <div class="card">
+        
+        <input type="text" id="client" placeholder="Name"/>
+        <h3>Measurements</h3>
+
+        <input type="number" id="waist" placeholder="Waist">
+        <input type="number" id="hip" placeholder="Hip">
+        <input type="number" id="rise" placeholder="Rise">
+        <input type="number" id="outseam" placeholder="Outseam">
+        <input type="number" id="inseam" placeholder="Inseam">
+        <input type="number" id="thigh" placeholder="Thigh">
+        <input type="number" id="knee" placeholder="Knee">
+        <input type="number" id="leg_opening" placeholder="Leg Opening">
+
+        <button class="btn" onclick="updatePattern()">Generate Pattern</button>
+      </div>
+      <h3 style="margin: 0;">Adjustments</h3>
+
+      <div>
+           <label><input type="radio" name="control" value="frontCrotchCurve"> Front Crotch Curve</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="backCrotchCurve"> Back Crotch Curve</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="frontWaistShift"> Front Waist Shift</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="backWaistShift"> Back Waist Shift</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="frontHipShift"> Front Hip Shift</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="backHipShift"> Back Hip Shift</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="crotchShift"> Crotch Shift</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="crotchTip"> Crotch Tip</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="frontWaistAdj"> Front Waist adj</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="frontHipAdj"> Front Hip adj</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="thighAdj"> Thigh adj</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="kneeAdj"> Knee adj</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="bottomAdj"> Leg Opening adj</label>
+      </div>
+      <div>
+           <label><input type="radio" name="control" value="backFBAdj"> Back Fishbowl adj</label>
+      </div>
+      
+    </div>
+
+    <div class="card">
+
+  <!-- HEADER ROW -->
+  <div class="card-header">
+    <h2>(FRONT PART)</h2>
+
+    <div class="header-buttons">
+      <label style="margin-left:10px;"><input type="checkbox" id="toggleFront">back</label>
+      <button id="savePatternBtn">💾</button>
+      <button id="loadPatternBtn">📂</button>
+      <button onclick="openDeleteModal(selectedCreatedAt)">Delete</button>
+    </div>
+    <!-- MODAL -->
+<div id="deleteModal" class="modal">
+  <div class="modal-content">
+    <h3>Delete Pattern?</h3>
+    <p>Are you sure you want to delete this pattern?</p>
+
+    <div class="modal-actions">
+      <button class="cancel-btn" onclick="closeDeleteModal()">Cancel</button>
+      <button class="confirm-btn" onclick="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <!-- DELETE BUTTON -->
+<div id="premiumModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+background:rgba(0,0,0,0.6); justify-content:center; align-items:center;">
+
+  <div style="background:white; padding:20px; border-radius:10px; text-align:center;">
+    <h3>Premium Required</h3>
+    <p>Unlock premium to save your pattern.</p>
+
+    <a href="unlockv2.html" class="btn">Unlock</a>
+    <button class="cancel-btn" onclick="closeModal()" style="margin:5px;">Cancel</button>
+  </div>
+
+</div>
+
+
+      
+  <svg id="svgCanvasFront"></svg> 
+  <div class="form-group slider-group hidden" data-control="frontCrotchCurve">
+     <label>Front Crotch Curve: <span id="frontCrotchVal">0</span></label>
+     <input type="range" id="frontCrotchCurve" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="backCrotchCurve">
+     <label>Back Crotch Curve: <span id="backCrotchVal">0</span></label>
+     <input type="range" id="backCrotchCurve" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="frontWaistShift">
+     <label>Front Waist Shift: <span id="frontWaistShiftVal">0</span></label>
+     <input type="range" id="frontWaistShift" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="backWaistShift">
+     <label>Back Waist Shift: <span id="backWaistShiftVal">0</span></label>
+     <input type="range" id="backWaistShift" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="frontHipShift">
+     <label>Front Hip Shift: <span id="frontHipShiftVal">0</span></label>
+     <input type="range" id="frontHipShift" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="backHipShift">
+     <label>Back Hip Shift: <span id="backHipShiftVal">0</span></label>
+     <input type="range" id="backHipShift" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="crotchShift">
+     <label>Crotch Shift: <span id="crotchShiftVal">0</span></label>
+     <input type="range" id="crotchShift" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="crotchTip">
+     <label>Crotch Tip: <span id="crotchTipVal">0</span></label>
+     <input type="range" id="crotchTip" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="frontWaistAdj">
+     <label>Front Waist adj: <span id="frontWaistAdjVal">0</span></label>
+     <input type="range" id="frontWaistAdj" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="frontHipAdj">
+     <label>Front Hip adj: <span id="frontHipAdjVal">0</span></label>
+     <input type="range" id="frontHipAdj" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="thighAdj">
+     <label>Thigh adj: <span id="thighAdjVal">0</span></label>
+     <input type="range" id="thighAdj" min="-50" max="50" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="kneeAdj">
+           <label>Knee adj: <span id="kneeAdjVal">0</span></label>
+           <input type="range" id="kneeAdj" min="-20" max="20" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="bottomAdj">
+           <label>Leg Opening adj: <span id="bottomAdjVal">0</span></label>
+           <input type="range" id="bottomAdj" min="-20" max="20" value="0">
+  </div>
+  <div class="form-group slider-group hidden" data-control="backFBAdj">
+           <label>Back Fishbowl adj: <span id="backFBVal">0</span></label>
+           <input type="range" id="backFBAdj" min="-20" max="20" value="0">
+  </div>
+      
+  <button class="btn" onclick="downloadFront()">Download as PNG</button>
+  </div>
+
+    <!-- FRONT PART -->
+    
+</div>
+         
+          
+      
+      
+       
+
+      <div id="patternListContainer" style="
+  display:none;
+  position: fixed;
+  top: 160px;
+  right: 20px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+">
+  <h4>Saved Patterns</h4>
+  <div id="patternList"></div>
+      </div>
+    
+    </div>
+  </div>
+</div>
+  
+<div id="debugPanel" style="
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  background: black;
+  color: #00ff00;
+  font-size: 12px;
+  padding: 5px;
+  z-index: 9999;
+  font-family: monospace;
+">
+  <b>DEBUG:</b><br>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+
+
+  
+  
+<script>
+
+window.onerror = function (message, source, lineno, colno, error) {
+  debug("❌ ERROR: " + message);
+  debug("📄 File: " + source);
+  debug("📍 Line: " + lineno + ":" + colno);
+
+  if (error && error.stack) {
+    debug("📚 Stack: " + error.stack);
+  }
+
+  return true; // para hindi na default browser error lang
+};
+
+function debug(msg) {
+  const panel = document.getElementById("debugPanel");
+  if (panel) {
+    panel.innerHTML += msg + "<br>";
+    panel.scrollTop = panel.scrollHeight;
+  }
+}
+
+//RADIO BUTTONS CODE
+const radios = document.querySelectorAll('input[name="control"]');
+const groups = document.querySelectorAll('.slider-group');
+
+radios.forEach(radio => {
+  radio.addEventListener("change", () => {
+
+    // hide all
+    groups.forEach(g => g.classList.add("hidden"));
+
+    // show selected
+    const active = document.querySelector(
+      `.slider-group[data-control="${radio.value}"]`
+    );
+
+    if (active) {
+      active.classList.remove("hidden");
+
+      // optional: scroll into view
+      active.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+  });
+});
+
+// THIS CODE SHOW/HIDE BACK PART
+let showFrontMeasurements = false;
+let isBackVisible = false;
+toggleFront.addEventListener("change", function () {
+  showFrontMeasurements = this.checked;
+  isBackVisible = this.checked;
+  updatePattern();
+});
+  
+///////////////////////////////////////////////
+//////// LOCALSTORAGE SAVING FOR REFRESH LOADING////////////////
+const fields = ["client", "waist", "hip", "rise", "outseam", "inseam", "thigh", "knee", "leg_opening"];
+
+fields.forEach(id => {
+  const input = document.getElementById(id);
+
+  input.addEventListener("input", function() {
+    localStorage.setItem(id, this.value);
+  });
+});
+//////SAVE PATTERN SYSTEM/////////  
+const saveBtn = document.getElementById("savePatternBtn");
+saveBtn.addEventListener("click", function () {
+if (!isPremium) {
+    showPremiumModal();
+    return;
+}
+  const name = prompt("Pattern name?", document.getElementById("client").value);
+  if (!name) return;
+
+  const pattern = {
+    name: name,
+    data: getPatternData(),
+    createdAt: Date.now()
+  };
+
+  let patterns = JSON.parse(localStorage.getItem("patterns")) || [];
+
+// check duplicate
+const exists = patterns.some(p => p.name === name);
+
+if (exists) {
+  if (!confirm("Pattern exists. Overwrite?")) return;
+
+  patterns = patterns.filter(p => p.name !== name);
+}
+
+patterns.push(pattern);
+
+const user = firebase.auth().currentUser;
+
+if (!user) {
+  alert("Not logged in");
+  return;
+}
+
+//db.collection("patterns").add({
+//  uid: user.id,
+//  name: name,
+//  data: getPatternData(),
+//  createdAt: Date.now()
+//});
+db.collection("patterns").doc(pattern.createdAt.toString()).set({
+  uid: user.uid,
+  name: name,
+  data: getPatternData(),
+  createdAt: pattern.createdAt
+});
+  
+alert("Saved to cloud! ☁️");
+  
+});
+
+function showPremiumModal() {
+  document.getElementById("premiumModal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("premiumModal").style.display = "none";
+}
+
+function getPatternData() {
+  return {
+    Client: document.getElementById("client").value,
+    Waist: Number(document.getElementById("waist").value),
+    Hip: Number(document.getElementById("hip").value),
+    Crotch: Number(document.getElementById("rise").value),
+    Length: Number(document.getElementById("outseam").value),
+    Inseam: Number(document.getElementById("inseam").value),
+    Thigh: Number(document.getElementById("thigh").value),
+    Knee: Number(document.getElementById("knee").value),
+    Bottom: Number(document.getElementById("leg_opening").value),
+
+    frontCrotch: Number(frontCrotchSlider.value),
+    backCrotch: Number(backCrotchSlider.value),
+    frontWaistShift: Number(frontWaistShiftSlider.value),
+    backWaistShift: Number(backWaistShiftSlider.value),
+    frontHipShift: Number(frontHipShiftSlider.value),
+    backHipShift: Number(backHipShiftSlider.value),
+    crotchShift: Number(crotchShiftSlider.value),
+    crotchTip: Number(crotchTipSlider.value),
+    frontWaistAdj: Number(frontWaistAdjSlider.value),
+    frontHipAdj: Number(frontHipAdjSlider.value),
+    thighAdj: Number(thighAdjSlider.value),
+    kneeAdj: Number(kneeAdjSlider.value),
+    bottomAdj: Number(bottomAdjSlider.value),
+    backFBAdj: Number(backFBSlider.value)
+  };
+  }
+//////////////LOADING SAVED PATTERN SYSTEM/////////////////////
+const loadBtn = document.getElementById("loadPatternBtn");
+const container = document.getElementById("patternListContainer");
+
+loadBtn.addEventListener("click", () => {
+  container.style.display =
+    container.style.display === "none" ? "block" : "none";
+
+  renderPatternList();
+});
+
+//SHOWS ALL SAVED PATTERNS///////////////////
+ let selectedPatternId = null;
+  async function renderPatternList() {
+  const list = document.getElementById("patternList");
+  list.innerHTML = "Loading...";
+
+  const user = firebase.auth().currentUser;
+
+  if (!user) {
+    list.innerHTML = "<p>Please log in</p>";
+    return;
+  }
+
+  const snapshot = await db.collection("patterns")
+    .where("uid", "==", user.uid)
+    .get();
+
+  list.innerHTML = "";
+
+  if (snapshot.empty) {
+    list.innerHTML = "<p>No saved patterns</p>";
+    return;
+  }
+
+  snapshot.forEach((doc) => {
+    const p = doc.data();
+
+    const item = document.createElement("div");
+
+    item.style.padding = "6px";
+    item.style.borderBottom = "1px solid #ddd";
+    item.style.cursor = "pointer";
+
+    item.textContent = p.name;
+
+    item.addEventListener("click", () => {
+      selectedPatternId = p.id;
+      if (!isPremium) {
+        alert("Unlock premium to use this feature.");
+        return;
+      }
+
+      
+     loadPattern(p);
+
+      container.style.display = "none";
+    });
+
+    list.appendChild(item);
+  });
+  }
+  
+  
+///////////////////////////////////////////////
+let selectedCreatedAt = null;
+function loadPattern(pattern) {
+const d = pattern.data;
+
+selectedCreatedAt = pattern.createdAt; // ⭐ important
+
+document.getElementById("client").value = d.Client;
+document.getElementById("waist").value = d.Waist;
+document.getElementById("hip").value = d.Hip;
+document.getElementById("rise").value = d.Crotch;
+document.getElementById("outseam").value = d.Length;
+document.getElementById("inseam").value = d.Inseam;
+document.getElementById("thigh").value = d.Thigh;
+document.getElementById("knee").value = d.Knee;
+document.getElementById("leg_opening").value = d.Bottom;
+    
+  frontWaistShiftSlider.value = d.frontWaistShift;
+  backWaistShiftSlider.value = d.backWaistShift;
+  frontHipShiftSlider.value = d.frontHipShift;
+  backHipShiftSlider.value = Number(d.backHipShift) || 0;
+  crotchTipSlider.value = d.crotchTip;
+  crotchShiftSlider.value = d.crotchShift;
+  frontCrotchSlider.value = d.frontCrotch;
+  backCrotchSlider.value = d.backCrotch;
+  
+  frontWaistAdjSlider.value = d.frontWaistAdj;
+  frontHipAdjSlider.value = d.frontHipAdj;
+
+  thighAdjSlider.value = d.thighAdj;
+  kneeAdjSlider.value = d.kneeAdj;
+  bottomAdjSlider.value = d.bottomAdj;
+  backFBSlider.value = d.backFBAdj;
+    
+  updatePattern(); // to redraw selected saved pattern
+  }
+  
+  //THIS FUNCTION LOADS LOCALSTORAGE DATA
+  //SAVED REALTIME
+  function loadData() {
+  document.getElementById("client").value = localStorage.getItem("client") || "";
+  document.getElementById("waist").value = localStorage.getItem("waist") || "";
+  document.getElementById("hip").value = localStorage.getItem("hip") || "";
+  document.getElementById("rise").value = localStorage.getItem("rise") || "";
+  document.getElementById("outseam").value = localStorage.getItem("outseam") || "";
+  document.getElementById("inseam").value = localStorage.getItem("inseam") || "";
+  document.getElementById("thigh").value = localStorage.getItem("thigh") || "";
+  document.getElementById("knee").value = localStorage.getItem("knee") || "";
+  document.getElementById("leg_opening").value = localStorage.getItem("leg_opening") || "";
+ updatePattern();
+}
+////////////////////////////////////////////////
+// Sliders
+const frontCrotchSlider = document.getElementById("frontCrotchCurve");
+const backCrotchSlider = document.getElementById("backCrotchCurve");
+const frontWaistShiftSlider = document.getElementById("frontWaistShift");
+const backWaistShiftSlider = document.getElementById("backWaistShift");
+const frontHipShiftSlider = document.getElementById("frontHipShift");
+const backHipShiftSlider = document.getElementById("backHipShift");
+const crotchShiftSlider = document.getElementById("crotchShift");
+const crotchTipSlider = document.getElementById("crotchTip");
+const thighAdjSlider = document.getElementById("thighAdj");
+const kneeAdjSlider = document.getElementById("kneeAdj");
+const bottomAdjSlider = document.getElementById("bottomAdj");
+const frontHipAdjSlider = document.getElementById("frontHipAdj");
+const frontWaistAdjSlider = document.getElementById("frontWaistAdj");
+const backFBSlider = document.getElementById("backFBAdj");
+
+
+frontCrotchSlider.value = Number(localStorage.getItem("frontCrotchCurve")) || 0;
+backCrotchSlider.value = Number(localStorage.getItem("backCrotchCurve")) || 0;
+frontWaistShiftSlider.value = Number(localStorage.getItem("frontWaistShift")) || 0;
+backWaistShiftSlider.value = Number(localStorage.getItem("backWaistShift")) || 0;
+frontHipShiftSlider.value = Number(localStorage.getItem("frontHipShift")) || 0;
+backHipShiftSlider.value = Number(localStorage.getItem("backHipShift")) || 0;
+crotchShiftSlider.value = Number(localStorage.getItem("crotchShift")) || 0;
+crotchTipSlider.value = Number(localStorage.getItem("crotchTip")) || 0;
+thighAdjSlider.value = Number(localStorage.getItem("thighAdj")) || 0;
+kneeAdjSlider.value = Number(localStorage.getItem("kneeAdj")) || 0;
+bottomAdjSlider.value = Number(localStorage.getItem("bottomAdj")) || 0;
+frontHipAdjSlider.value = Number(localStorage.getItem("frontHipAdj")) || 0;
+frontWaistAdjSlider.value = Number(localStorage.getItem("frontWaistAdj")) || 0;
+backFBSlider.value = Number(localStorage.getItem("backFBAdj")) || 0;
+  
+
+frontCrotchSlider.addEventListener("input", function() {
+  localStorage.setItem("frontCrotchCurve", this.value);
+  updatePattern();
+});
+backCrotchSlider.addEventListener("input", function() {
+  localStorage.setItem("backCrotchCurve", this.value);
+  updatePattern();
+});
+frontWaistShiftSlider.addEventListener("input", function() {
+  localStorage.setItem("frontWaistShift", this.value);
+  updatePattern();
+});
+backWaistShiftSlider.addEventListener("input", function() {
+  localStorage.setItem("backWaistShift", this.value);
+  updatePattern();
+});
+frontHipShiftSlider.addEventListener("input", function() {
+  localStorage.setItem("frontHipShift", this.value);
+  updatePattern();
+});
+backHipShiftSlider.addEventListener("input", function() {
+  localStorage.setItem("backHipShift", this.value);
+  updatePattern();
+});
+crotchShiftSlider.addEventListener("input", function() {
+  localStorage.setItem("crotchShift", this.value);
+  updatePattern();
+});
+crotchTipSlider.addEventListener("input", function() {
+  localStorage.setItem("crotchTip", this.value);
+  updatePattern();
+});
+thighAdjSlider.addEventListener("input", function() {
+  localStorage.setItem("thighAdj", this.value);
+  updatePattern();
+});
+kneeAdjSlider.addEventListener("input", function() {
+  localStorage.setItem("kneeAdj", this.value);
+  updatePattern();
+});
+bottomAdjSlider.addEventListener("input", function() {
+  localStorage.setItem("bottomAdj", this.value);
+  updatePattern();
+});
+frontHipAdjSlider.addEventListener("input", function() {
+  localStorage.setItem("frontHipAdj", this.value);
+  updatePattern();
+});
+frontWaistAdjSlider.addEventListener("input", function() {
+  localStorage.setItem("frontWaistAdj", this.value);
+  updatePattern();
+});
+backFBSlider.addEventListener("input", function() {
+  localStorage.setItem("backFBAdj", this.value);
+  updatePattern();
+});
+
+//DELETE SAVED PATTERN SYSTEM
+function openDeleteModal(patternId) {
+  selectedPatternId = patternId;
+  
+  if (!selectedPatternId) {
+    alert("No pattern selected");
+    return;
+  }
+  
+  document.getElementById("deleteModal").style.display = "flex";
+  }
+
+  async function confirmDelete() {
+  
+  const user = firebase.auth().currentUser;
+
+  if (!user) {
+    alert("Not logged in");
+    return;
+  }
+
+  try {
+    // 🔥 DELETE SA FIRESTORE
+    await db.collection("patterns")
+      .doc(selectedPatternId.toString())
+      .delete();
+
+    // 🔥 DELETE SA LOCAL STORAGE
+    let patterns = JSON.parse(localStorage.getItem("patterns")) || [];
+    patterns = patterns.filter(p => p.createdAt != selectedPatternId);
+    localStorage.setItem("patterns", JSON.stringify(patterns));
+
+    alert("Deleted successfully 🗑️");
+    selectedCreatedAt = null;
+    
+    closeDeleteModal();
+
+  } catch (error) {
+    console.error(error);
+    alert("Delete failed");
+  }
+}
+ 
+function closeDeleteModal() {
+  document.getElementById("deleteModal").style.display = "none";
+  selectedPatternId = null;
+}
+  
+//////////////////////////////////////////////
+function getPointAtDistance(p1, y2, d, side = "left") {
+  const dy = y2 - p1.y;
+  const dx = Math.sqrt(d * d - dy * dy);
+
+  return {
+    x: side === "right" ? p1.x + dx : p1.x - dx,
+    y: y2
+  };
+}
+/////////////////////////////////////////////
+function getPointAtY(p1, p2, y) 
+{
+   const t = (y - p1.y) / (p2.y - p1.y);
+
+   return {
+     x: p1.x + (p2.x - p1.x) * t,
+     y: y
+   };
+}
+//Usage of function getPointAyY(p1, p2, y)
+  //const p1 = { x: 50, y: 50 };
+  //const p2 = { x: 10, y: 100 };
+
+  //const px = getPointAtY(p1, p2, 75);
+//////////////////////////////////////////////
+function getPointAtX(p1, p2, x) 
+{
+   const t = (x - p1.x) / (p2.x - p1.x);
+
+   return {
+     x: x,
+     y: p1.y + (p2.y - p1.y) * t,
+   };
+}
+  //Usage of function getPointAyY(p1, p2, y)
+  //const p1 = { x: 50, y: 50 };
+  //const p2 = { x: 10, y: 100 };
+
+  //const px = getPointAtY(p1, p2, 75);
+//////////////////////////////////////////////
+  function updatePattern() {
+  const m = {
+    client: parseFloat(document.getElementById("client").value) || 0,
+    waist: parseFloat(document.getElementById("waist").value) || 0,
+    hip: parseFloat(document.getElementById("hip").value) || 0,
+    rise: parseFloat(document.getElementById("rise").value) || 0,
+    outseam: parseFloat(document.getElementById("outseam").value) || 0,
+    inseam: parseFloat(document.getElementById("inseam").value) || 0,
+    thigh: parseFloat(document.getElementById("thigh").value) || 0,
+    knee: parseFloat(document.getElementById("knee").value) || 0,
+    leg_opening: parseFloat(document.getElementById("leg_opening").value) || 0,
+
+    frontCrotch_curve: parseInt(frontCrotchSlider.value) || 0,
+    backCrotch_curve: parseInt(backCrotchSlider.value) || 0,
+    frontWaist_shift: parseInt(frontWaistShiftSlider.value) || 0,
+    backWaist_shift: parseInt(backWaistShiftSlider.value) || 0,
+    frontHip_shift: parseInt(frontHipShiftSlider.value) || 0,
+    backHip_shift: parseInt(backHipShiftSlider.value) || 0,
+    crotch_shift: parseInt(crotchShiftSlider.value) || 0,
+    crotch_tip: parseInt(crotchTipSlider.value) || 0,
+    thigh_adj: parseInt(thighAdjSlider.value) || 0,
+    knee_adj: parseInt(kneeAdjSlider.value) || 0,
+    bottom_adj: parseInt(bottomAdjSlider.value) || 0,
+    frontHip_adj: parseInt(frontHipAdjSlider.value) || 0,
+    frontWaist_adj: parseInt(frontWaistAdjSlider.value) || 0,
+    backFB_adj: parseInt(backFBSlider.value) || 0
+  
+  };
+
+  document.getElementById("frontCrotchVal").textContent = m.frontCrotch_curve;
+  document.getElementById("backCrotchVal").textContent = m.backCrotch_curve;
+  document.getElementById("frontWaistShiftVal").textContent = m.frontWaist_shift;
+  document.getElementById("backWaistShiftVal").textContent = m.backWaist_shift;
+  document.getElementById("frontHipShiftVal").textContent = m.frontHip_shift;
+  document.getElementById("backHipShiftVal").textContent = m.backHip_shift;
+  document.getElementById("crotchShiftVal").textContent = m.crotch_shift;
+  document.getElementById("crotchTipVal").textContent = m.crotch_tip;
+  document.getElementById("thighAdjVal").textContent = m.thigh_adj;
+  document.getElementById("kneeAdjVal").textContent = m.knee_adj;
+  document.getElementById("bottomAdjVal").textContent = m.bottom_adj;
+  document.getElementById("frontHipAdjVal").textContent = m.frontHip_adj;
+  document.getElementById("frontWaistAdjVal").textContent = m.frontWaist_adj;
+  document.getElementById("backFBVal").textContent = m.backFB_adj;
+  
+ drawPattern(m);
+  } 
+  
+  
+function drawPattern(m) {
+  
+  const svgFront = document.getElementById("svgCanvasFront");
+  const svgBack = document.getElementById("svgCanvasBack");
+
+  const scale = 10;
+  const center = 150;
+  const bCenter = 500;
+  
+  
+  const frontWaistShift = Number(m.frontWaist_shift) || 0 ;
+  const backWaistShift = Number(m.backWaist_shift) || 0;
+  const frontHipShift = Number(m.frontHip_shift) || 0;
+  const backHipShift = Number(m.backHip_shift) || 0;
+  const frontCrotchCurve = Number(m.frontCrotch_curve) || 0;
+  const crotchShift = Number(m.crotch_shift) || 0;
+  const thighOffset = Number(m.thigh_adj) || 0;
+  const kneeOffset = Number(m.knee_adj) || 0;
+  const bottomOffset = Number(m.bottom_adj) || 0;
+  const hipOffset = Number(m.frontHip_adj) || 0;
+  const waistOffset = Number(m.frontWaist_adj) || 0;
+  const backFBOffset = Number(m.backFB_adj) || 0;
+  const Length = m.outseam * scale;
+  const frontWaistLine = 50;
+  const crotchLine = frontWaistLine + ((m.rise - 1) * scale);
+  const frontHipLine = crotchLine - (2 * scale);
+  const thighLine = crotchLine + (4 * scale);
+  const kneeLine = crotchLine + (((m.outseam - m.rise) / 2) * scale);
+  const bottomLine1 = frontWaistLine + (Length - scale);
+  const bottomLine0 = bottomLine1 + (2 * scale);
+
+  const Hwaist = (m.waist / 8) * scale;
+  const BHwaist = ((m.waist / 2) * scale) - (Hwaist * 2) + (2 * scale);
+  const HFhip = (m.hip / 8) * scale;
+  const BHhip = ((m.hip / 2) * scale) - (HFhip * 2) + (1.5 * scale);
+  const Hthigh = (m.thigh / 4) * scale;
+  const Hknee = (m.knee / 4) * scale;
+  const Hbottom = (m.leg_opening / 4) * scale;
+  const Hcrotch = ((m.hip / 6) + 1) * scale;
+  const HRcrotch = (m.hip / 6) * scale;
+
+  const crotchTip = m.crotch_tip || 0;
+      
+  ////////FRONT PATTERN DRAWING////////////////
+  
+  const fp1 = { x: center + frontWaistShift - waistOffset, y: frontWaistLine };
+  const fp2 = { x: center + Hwaist + frontWaistShift + waistOffset + (Hwaist - (3 * scale)), y: frontWaistLine };
+  const fp3 = { x: center + Hthigh + frontHipShift + thighOffset, y: frontHipLine };
+  const fp4 = { x: center + Hthigh + thighOffset + crotchShift, y: crotchLine};
+  const fp5 = { x: center + Hthigh + thighOffset - (0.125 * scale), y: thighLine };
+  const fp6 = { x: center + Hknee + kneeOffset - (0.125 * scale), y: kneeLine };
+  const fp7 = { x: center + Hbottom + bottomOffset, y: bottomLine1 };
+  const fp8 = { x: center + Hbottom + bottomOffset, y: bottomLine0 };
+  const fp9 = { x: center - Hbottom - bottomOffset, y: bottomLine0 };
+  const fp10 = { x: center - Hbottom - bottomOffset, y: bottomLine1 };
+  const fp11 = { x: center - Hknee - kneeOffset, y: kneeLine };
+  const fp12 = { x: center - Hthigh - thighOffset, y: thighLine };
+  // adjust crotch point
+  const fp13 = { x: center - Hcrotch - crotchTip + crotchShift, y: crotchLine};
+  const fp16 = { x: center - HFhip + frontHipShift - hipOffset - (HFhip - Hthigh), y: frontHipLine };
+  const fc2h = getPointAtY(fp13, fp16, frontHipLine + (((crotchLine - frontHipLine) / 3) * 2))
+  const fp14 = { x: fc2h.x + frontCrotchCurve, y: fc2h.y };
+  const fc2h2 = getPointAtY(fp14, fp16, frontHipLine + ((fc2h.y - frontHipLine) / 2));
+  const fp15 = { x: fc2h2.x + (frontCrotchCurve/2), y: fc2h2.y };
+  const fp17 = { x: center - (3 * scale) + frontWaistShift, y: frontWaistLine };
+  
+  
+  const fpath = `
+    M ${fp1.x} ${fp1.y}
+    L ${fp2.x} ${fp2.y}
+    Q ${fp3.x} ${fp3.y} ${fp4.x} ${fp4.y}
+    Q ${fp4.x} ${fp4.y} ${fp5.x} ${fp5.y}
+    L ${fp6.x} ${fp6.y}
+    L ${fp7.x} ${fp7.y}
+    L ${fp8.x} ${fp8.y}
+    L ${fp9.x} ${fp9.y}
+    L ${fp10.x} ${fp10.y}
+    Q ${fp11.x} ${fp11.y} ${fp12.x} ${fp12.y}
+    Q ${fp12.x} ${fp12.y} ${fp13.x} ${fp13.y}
+    L ${fp14.x} ${fp14.y}
+    L ${fp15.x} ${fp15.y}
+    L ${fp16.x} ${fp16.y}
+    L ${fp17.x} ${fp17.y}
+    Z
+  `;
+  
+  
+  
+  const topY = 0;
+  const bottomY = bottomLine0 + 20; // konting allowance
+  const waistLineXo = 0;
+  const waistLineXi = 700;
+  const frontHipLineXo = 0;
+  const frontHipLineXi = 700;
+  const crotchLineXo = 0;
+  const crotchLineXi = 700;
+  const thighLineXo = 0;
+  const thighLineXi = 700;
+  const kneeLineXo = 0;
+  const kneeLineXi = 700;
+  const bottomLine1Xo = 0; 
+  const bottomLine1Xi = 700;
+  const bottomLine0Xo = 0; 
+  const bottomLine0Xi = 700;
+  
+  
+  //DISTANCE FROM WAIST TO HIP
+  const waistToHipCenterPoint = frontWaistLine + ((frontHipLine - frontWaistLine) / 2);
+  const hipY = (frontHipLine - frontWaistLine) / scale;
+
+  //DISTANCE FROM WAIST TO CROTCH
+  const waistToCrotchCenterPoint = frontWaistLine + ((crotchLine - frontWaistLine) / 2);
+  const crotchY = (crotchLine - frontWaistLine) / scale;
+
+  //DISTANCE FROM CROTCH TO THIGH
+  const crotchToThighCenterPoint = crotchLine + ((thighLine - crotchLine) / 2);
+  const thighY = (thighLine - crotchLine) / scale;
+  
+  //DISTANCE FROM THIGH TO KNEE
+  const thighToKneeCenterPoint = thighLine + ((kneeLine - thighLine) / 2);
+  const kneeY = (kneeLine - thighLine) / scale;
+
+  //DISTANCE FROM KNEE TO LEG OPENING 
+  const kneeToBottomCenterPoint = kneeLine + ((bottomLine0 - kneeLine) / 2);
+  const bottomY0 = (bottomLine0 - kneeLine) / scale;
+  
+  //DISTANCE FROM CENTER TO WAIST END-POINTS 
+  const waistCenterPoint = { x: center, y: frontWaistLine };
+  //LEFT END-POINT 
+  const Lwaist = { x: center - (3 * scale) + frontWaistShift, y: frontWaistLine };
+  const LwmidX = (waistCenterPoint.x + Lwaist.x) / 2;
+  const LwmidY = (waistCenterPoint.y + Lwaist.y) / 2;
+  const Lwdx = Lwaist.x - waistCenterPoint.x;
+  const Lwdy = Lwaist.y - waistCenterPoint.y;
+  const Lwdistance = Math.sqrt(Lwdx * Lwdx + Lwdy * Lwdy) / scale;
+
+  //RIGHT END-POINT 
+  const Rwaist = { x: center + Hwaist + frontWaistShift + waistOffset + (Hwaist - (3 * scale)), y: frontWaistLine };
+  const RwmidX = (waistCenterPoint.x + Rwaist.x) / 2;
+  const RwmidY = (waistCenterPoint.y + Rwaist.y) / 2;
+  const Rwdx = Rwaist.x - waistCenterPoint.x;
+  const Rwdy = Rwaist.y - waistCenterPoint.y;
+  const Rwdistance = Math.sqrt(Rwdx * Rwdx + Rwdy * Rwdy) / scale;
+
+  //DISTANCE FROM CENTER TO FRONTHIP END-POINTS 
+  const frontHipCenterPoint = { x: center, y: frontHipLine };
+  //LEFT END-POINT 
+  const Lhip = { x: center - HFhip + frontHipShift - hipOffset - (HFhip - Hthigh), y: frontHipLine };
+  const LhmidX = (frontHipCenterPoint.x + Lhip.x) / 2;
+  const LhmidY = (frontHipCenterPoint.y + Lhip.y) / 2;
+  const Lhdx = Lhip.x - frontHipCenterPoint.x;
+  const Lhdy = Lhip.y - frontHipCenterPoint.y;
+  const Lhdistance = Math.sqrt(Lhdx * Lhdx + Lhdy * Lhdy) / scale;
+
+  //RIGHT END-POINT 
+  const Rhip = { x: center + Hthigh + frontHipShift + thighOffset, y: frontHipLine };
+  const RhmidX = (frontHipCenterPoint.x + Rhip.x) / 2;
+  const RhmidY = (frontHipCenterPoint.y + Rhip.y) / 2;
+  const Rhdx = Rhip.x - frontHipCenterPoint.x;
+  const Rhdy = Rhip.y - frontHipCenterPoint.y;
+  const Rhdistance = Math.sqrt(Rhdx * Rhdx + Rhdy * Rhdy) / scale;
+ 
+  //CROTCH TIP computation 
+  const frontCrotchCenterPoint = { x: center, y: crotchLine };
+  //LEFT + CROTCHTIP +- CROTCHDEPTH
+  const Lcrotch = { x: center - Hcrotch - crotchTip + crotchShift, y: crotchLine };
+  const LcmidX = (frontCrotchCenterPoint.x + Lcrotch.x) / 2;
+  const LcmidY = (frontCrotchCenterPoint.y + Lcrotch.y) / 2;
+  const Lcdx = Lcrotch.x - frontCrotchCenterPoint.x;
+  const Lcdy = Lcrotch.y - frontCrotchCenterPoint.y;
+  const Lcdistance = Math.sqrt(Lcdx * Lcdx + Lcdy * Lcdy) / scale;
+
+  //RIGHT
+  const Rcrotch = { x: center + Hthigh + thighOffset + crotchShift, y: crotchLine};
+  const RcmidX = (frontCrotchCenterPoint.x + Rcrotch.x) / 2;
+  const RcmidY = (frontCrotchCenterPoint.y + Rcrotch.y) / 2;
+  const Rcdx = Rcrotch.x - frontCrotchCenterPoint.x;
+  const Rcdy = Rcrotch.y - frontCrotchCenterPoint.y;
+  const Rcdistance = Math.sqrt(Rcdx * Rcdx + Rcdy * Rcdy) / scale;
+
+  //DISTANCE FROM CENTER TO FRONT THIGH END-POINTS 
+  const frontThighCenterPoint = { x: center, y: thighLine };
+  //LEFT END-POINT 
+  const Lthigh = { x: center - Hthigh - thighOffset, y: thighLine };
+  const LtmidX = (frontThighCenterPoint.x + Lthigh.x) / 2;
+  const LtmidY = (frontThighCenterPoint.y + Lthigh.y) / 2;
+  const Ltdx = Lthigh.x - frontThighCenterPoint.x;
+  const Ltdy = Lthigh.y - frontThighCenterPoint.y;
+  const Ltdistance = Math.sqrt(Ltdx * Ltdx + Ltdy * Ltdy) / scale;
+
+  //RIGHT END-POINT 
+  const Rthigh = { x: center + Hthigh + thighOffset, y: thighLine };
+  const RtmidX = (frontThighCenterPoint.x + Rthigh.x) / 2;
+  const RtmidY = (frontThighCenterPoint.y + Rthigh.y) / 2;
+  const Rtdx = Rthigh.x - frontThighCenterPoint.x;
+  const Rtdy = Rthigh.y - frontThighCenterPoint.y;
+  const Rtdistance = Math.sqrt(Rtdx * Rtdx + Rtdy * Rtdy) / scale;
+
+  //DISTANCE FROM CENTER TO FRONT KNEE END-POINTS 
+  const frontkneeCenterPoint = { x: center, y: kneeLine };
+  //LEFT END-POINT 
+  const Lknee = { x: center - Hknee - kneeOffset, y: kneeLine };
+  const LkmidX = (frontkneeCenterPoint.x + Lknee.x) / 2;
+  const LkmidY = (frontkneeCenterPoint.y + Lknee.y) / 2;
+  const Lkdx = Lknee.x - frontkneeCenterPoint.x;
+  const Lkdy = Lknee.y - frontkneeCenterPoint.y;
+  const Lkdistance = Math.sqrt(Lkdx * Lkdx + Lkdy * Lkdy) / scale;
+
+  //RIGHT END-POINT 
+  const Rknee = { x: center + Hknee + kneeOffset, y: kneeLine };
+  const RkmidX = (frontkneeCenterPoint.x + Rknee.x) / 2;
+  const RkmidY = (frontkneeCenterPoint.y + Rknee.y) / 2;
+  const Rkdx = Rknee.x - frontkneeCenterPoint.x;
+  const Rkdy = Rknee.y - frontkneeCenterPoint.y;
+  const Rkdistance = Math.sqrt(Rkdx * Rkdx + Rkdy * Rkdy) / scale;
+
+  //DISTANCE FROM CENTER TO FRONT LEG-OPENING END-POINTS 
+  const frontBottomCenterPoint = { x: center, y: bottomLine0 };
+  //LEFT END-POINT 
+  const Lbottom = { x: center - Hbottom - bottomOffset, y: bottomLine0 };
+  const LbmidX = (frontBottomCenterPoint.x + Lbottom.x) / 2;
+  const LbmidY = (frontBottomCenterPoint.y + Lbottom.y) / 2;
+  const Lbdx = Lbottom.x - frontBottomCenterPoint.x;
+  const Lbdy = Lbottom.y - frontBottomCenterPoint.y;
+  const Lbdistance = Math.sqrt(Lbdx * Lbdx + Lbdy * Lbdy) / scale;
+
+  //RIGHT END-POINT 
+  const Rbottom = { x: center + Hbottom + bottomOffset, y: bottomLine0 };
+  const RbmidX = (frontBottomCenterPoint.x + Rbottom.x) / 2;
+  const RbmidY = (frontBottomCenterPoint.y + Rbottom.y) / 2;
+  const Rbdx = Rbottom.x - frontBottomCenterPoint.x;
+  const Rbdy = Rbottom.y - frontBottomCenterPoint.y;
+  const Rbdistance = Math.sqrt(Rbdx * Rbdx + Rbdy * Rbdy) / scale;
+
+////////BACK PATTERN DRAWING//////////////////// 
+  const backCrotchCurve = m.backCrotch_curve;
+  const backWaistLine = frontWaistLine - (2 * scale) + backFBOffset;
+  const backCrotchLine = crotchLine + (scale/2);
+  const backHipLine = backWaistLine + (frontHipLine - frontWaistLine);
+  const mbackWaistLineXo = 0;
+  const mbackWaistLineXi = 300;
+  const mbackHipLineXo = 0;
+  const mbackHipLineXi = 300;
+  const totFrontHeightCenterPoint = ((m.outseam + 2) / 2) * scale;
+  const backWaistToBackHipCenterPoint = backWaistLine + ((backHipLine - backWaistLine) / 2);
+  const frontWaistToBackHipCenterPoint = frontWaistLine + ((backHipLine - frontWaistLine) / 2);
+  const pantsLengthCenterPoint = frontWaistLine + ((bottomLine1 - frontWaistLine) / 2);
+    
+  //mBack
+  const mbp1 = {x: center - scale + backWaistShift, y: backWaistLine};
+  const mbp2 = getPointAtDistance(mbp1, frontWaistLine, (BHwaist - waistOffset), "right");
+  const mbp5 = {x: center + Hthigh - thighOffset + (1.25 * scale) , y: thighLine};
+  const mrBackHipSP = getPointAtY(mbp2, mbp5, frontHipLine);
+  const mbp3 = {x: mrBackHipSP.x + backHipShift , y: mrBackHipSP.y};
+  const mrBackCrotch = getPointAtY(mbp2, mbp5, backCrotchLine);
+  const mbp4 = {x: mrBackCrotch.x + (backHipShift / 2), y: mrBackCrotch.y};
+  const mbp6 = {x: center + Hknee - kneeOffset + (1.125 * scale), y: kneeLine };
+  const mbp7 = {x: center + Hbottom - bottomOffset + scale, y: bottomLine1};
+  const mbp8 = {x: center + Hbottom - bottomOffset + scale, y: bottomLine0};
+  const mbp9 = {x: center - Hbottom + bottomOffset - scale, y: bottomLine0};
+  const mbp10 = {x: center - Hbottom + bottomOffset - scale, y: bottomLine1};
+  const mbp11 = {x: center - Hknee + kneeOffset - (1.125 * scale), y: kneeLine };
+  const mbp12 = {x: center - Hthigh + thighOffset - (1.25 * scale), y: thighLine };
+  const mbpx =  {x: center - Hcrotch - crotchTip + crotchShift - (scale * 1.375), y: crotchLine};
+  const mbp13 = getPointAtY(mbpx, mbp12, crotchLine + (scale/2));
+  const mlBackHipEP = getPointAtDistance(mbp3, backHipLine, BHhip - hipOffset , "left");
+  const mbp16 = {x: mlBackHipEP.x + backHipShift  , y: mlBackHipEP.y};
+  const mbpa = getPointAtY(mbp13, mbp16, frontHipLine);
+  const mbp15 = {x: mbpa.x + backCrotchCurve, y: mbpa.y};
+  const mbpb = getPointAtY(mbp13, mbp15, frontHipLine + ((crotchLine - frontHipLine) /2));
+  const mbp14 = {x: mbpb.x + (backCrotchCurve / 2), y: mbpb.y};
+  
+  const mbpath = `
+    M ${mbp1.x} ${mbp1.y}
+    L ${mbp2.x} ${mbp2.y}
+    L ${mbp3.x} ${mbp3.y}
+    L ${mbp4.x} ${mbp4.y}
+    L ${mbp5.x} ${mbp5.y}
+    L ${mbp6.x} ${mbp6.y}
+    L ${mbp7.x} ${mbp7.y}
+    L ${mbp8.x} ${mbp8.y}
+    L ${mbp9.x} ${mbp9.y}
+    L ${mbp10.x} ${mbp10.y}
+    L ${mbp11.x} ${mbp11.y}
+    L ${mbp12.x} ${mbp12.y} 
+    L ${mbp13.x} ${mbp13.y} 
+    L ${mbp14.x} ${mbp14.y} 
+    L ${mbp15.x} ${mbp15.y}
+    L ${mbp16.x} ${mbp16.y}
+    Z
+    `;
+  //BACK HIP LENGTH
+  const mbackWaistEndPoint = { x: mbp2.x , y: frontWaistLine };
+  //RIGHT END-POINT 
+  const mRbwaist = { x: mbp1.x , y: mbp1.y };
+  const mRbwmidX = (mbackWaistEndPoint.x + mRbwaist.x) / 2;
+  const mRbwmidY = (mbackWaistEndPoint.y + mRbwaist.y) / 2;
+  const mRbwdx = mRbwaist.x - mbackWaistEndPoint.x;
+  const mRbwdy = mRbwaist.y - mbackWaistEndPoint.y;
+  const mRbwdistance = Math.sqrt(mRbwdx * mRbwdx + mRbwdy * mRbwdy) / scale;
+  
+  //BACK HIP LENGTH
+  const mbackHipEndPoint = { x: mbp3.x , y: frontHipLine };
+  //RIGHT END-POINT 
+  const mRbEhip = { x: mbp16.x , y: mbp16.y };
+  const mRbEmidX = (mbackHipEndPoint.x + mRbEhip.x) / 2;
+  const mRbEmidY = (mbackHipEndPoint.y + mRbEhip.y) / 2;
+  const mRbEdx = mRbEhip.x - mbackHipEndPoint.x;
+  const mRbEdy = mRbEhip.y - mbackHipEndPoint.y;
+  const mRbEdistance = Math.sqrt(mRbEdx * mRbEdx + mRbEdy * mRbEdy) / scale;
+  
+  //DISTANCE FROM CENTER TO BACK HIP END-POINT
+  const mbackHipCenterPoint = { x: center, y: frontHipLine };
+  //RIGHT END-POINT 
+  const mRbhip = { x: mbp3.x, y: frontHipLine };
+  const mRbhmidX = (mbackHipCenterPoint.x + mRbhip.x) / 2;
+  const mRbhmidY = (mbackHipCenterPoint.y + mRbhip.y) / 2;
+  const mRbhdx = mRbhip.x - mbackHipCenterPoint.x;
+  const mRbhdy = mRbhip.y - mbackHipCenterPoint.y;
+  const mRbhdistance = Math.sqrt(mRbhdx * mRbhdx + mRbhdy * mRbhdy) / scale;
+
+  //DISTANCE FROM CENTER TO BACK THIGH END-POINTS 
+  const mbackThighCenterPoint = { x: center, y: thighLine };
+  //LEFT END-POINT 
+  const mLbthigh = { x: center - Hthigh + thighOffset - (1.25 * scale), y: thighLine };
+  const mLbtmidX = (mbackThighCenterPoint.x + mLbthigh.x) / 2;
+  const mLbtmidY = (mbackThighCenterPoint.y + mLbthigh.y) / 2;
+  const mLbtdx = mLbthigh.x - mbackThighCenterPoint.x;
+  const mLbtdy = mLbthigh.y - mbackThighCenterPoint.y;
+  const mLbtdistance = Math.sqrt(mLbtdx * mLbtdx + mLbtdy * mLbtdy) / scale;
+
+  //RIGHT END-POINT 
+  const mRbthigh = { x: center + Hthigh - thighOffset + (1.25 * scale), y: thighLine };
+  const mRbtmidX = (mbackThighCenterPoint.x + mRbthigh.x) / 2;
+  const mRbtmidY = (mbackThighCenterPoint.y + mRbthigh.y) / 2;
+  const mRbtdx = mRbthigh.x - mbackThighCenterPoint.x;
+  const mRbtdy = mRbthigh.y - mbackThighCenterPoint.y;
+  const mRbtdistance = Math.sqrt(mRbtdx * mRbtdx + mRbtdy * mRbtdy) / scale;
+
+  //DISTANCE FROM CENTER TO BACK KNEE END-POINTS
+  const mbackKneeCenterPoint = { x: center, y: kneeLine };
+  //LEFT END-POINT 
+  const mLbknee = { x: center - Hknee + kneeOffset - (1.125 * scale), y: kneeLine };
+  const mLbkmidX = (mbackKneeCenterPoint.x + mLbknee.x) / 2;
+  const mLbkmidY = (mbackKneeCenterPoint.y + mLbknee.y) / 2;
+  const mLbkdx = mLbknee.x - mbackKneeCenterPoint.x;
+  const mLbkdy = mLbknee.y - mbackKneeCenterPoint.y;
+  const mLbkdistance = Math.sqrt(mLbkdx * mLbkdx + mLbkdy * mLbkdy) / scale;
+
+  //RIGHT END-POINT 
+  const mRbknee = { x: center + Hknee - kneeOffset + (1.125 * scale), y: kneeLine };
+  const mRbkmidX = (mbackKneeCenterPoint.x + mRbknee.x) / 2;
+  const mRbkmidY = (mbackKneeCenterPoint.y + mRbknee.y) / 2;
+  const mRbkdx = mRbknee.x - mbackKneeCenterPoint.x;
+  const mRbkdy = mRbknee.y - mbackKneeCenterPoint.y;
+  const mRbkdistance = Math.sqrt(mRbkdx * mRbkdx + mRbkdy * mRbkdy) / scale;
+
+  //DISTANCE FROM CENTER TO BACK LEG-OPENING END-POINTS 
+  const mbackBottomCenterPoint = { x: center, y: bottomLine0 };
+  //LEFT END-POINT 
+  const mLbbottom = { x: center - Hbottom + bottomOffset - scale, y: bottomLine0 };
+  const mLbbmidX = (mbackBottomCenterPoint.x + mLbbottom.x) / 2;
+  const mLbbmidY = (mbackBottomCenterPoint.y + mLbbottom.y) / 2;
+  const mLbbdx = mLbbottom.x - mbackBottomCenterPoint.x;
+  const mLbbdy = mLbbottom.y - mbackBottomCenterPoint.y;
+  const mLbbdistance = Math.sqrt(mLbbdx * mLbbdx + mLbbdy * mLbbdy) / scale;
+
+  //RIGHT END-POINT 
+  const mRbbottom = { x: center + Hbottom - bottomOffset + scale, y: bottomLine0 };
+  const mRbbmidX = (mbackBottomCenterPoint.x + mRbbottom.x) / 2;
+  const mRbbmidY = (mbackBottomCenterPoint.y + mRbbottom.y) / 2;
+  const mRbbdx = mRbbottom.x - mbackBottomCenterPoint.x;
+  const mRbbdy = mRbbottom.y - mbackBottomCenterPoint.y;
+  const mRbbdistance = Math.sqrt(mRbbdx * mRbbdx + mRbbdy * mRbbdy) / scale;
+ 
+  
+  const backWaistLineXo = 400;
+  const backWaistLineXi = 700;
+  const backHipLineXo = 400;
+  const backHipLineXi = 700;
+  
+  const bp1 = {x: bCenter - scale + backWaistShift, y: backWaistLine};
+  const bp2 = getPointAtDistance(bp1, frontWaistLine, (BHwaist - waistOffset), "right");
+  const bp5 = {x: bCenter + Hthigh - thighOffset + (1.25 * scale) , y: thighLine};
+  const rBackHipSP = getPointAtY(bp2, bp5, frontHipLine);
+  const bp3 = {x: rBackHipSP.x + backHipShift , y: rBackHipSP.y};
+  const rBackCrotch = getPointAtY(bp2, bp5, backCrotchLine);
+  const bp4 = {x: rBackCrotch.x + (backHipShift / 2), y: rBackCrotch.y};
+  const bp6 = {x: bCenter + Hknee - kneeOffset + (1.125 * scale), y: kneeLine };
+  const bp7 = {x: bCenter + Hbottom - bottomOffset + scale, y: bottomLine1};
+  const bp8 = {x: bCenter + Hbottom - bottomOffset + scale, y: bottomLine0};
+  const bp9 = {x: bCenter - Hbottom + bottomOffset - scale, y: bottomLine0};
+  const bp10 = {x: bCenter - Hbottom + bottomOffset - scale, y: bottomLine1};
+  const bp11 = {x: bCenter - Hknee + kneeOffset - (1.125 * scale), y: kneeLine };
+  const bp12 = {x: bCenter - Hthigh + thighOffset - (1.25 * scale), y: thighLine };
+  const bpx =  {x: bCenter - Hcrotch - crotchTip + crotchShift - (scale * 1.375), y: crotchLine};
+  const bp13 = getPointAtY(bpx, bp12, crotchLine + (scale/2));
+  const lBackHipEP = getPointAtDistance(bp3, backHipLine, BHhip - hipOffset , "left");
+  const bp16 = {x: lBackHipEP.x + backHipShift , y: lBackHipEP.y};
+  const bpa = getPointAtY(bp13, bp16, frontHipLine);
+  const bp15 = {x: bpa.x + backCrotchCurve, y: bpa.y};
+  const bpb = getPointAtY(bp13, bp15, frontHipLine + ((crotchLine - frontHipLine) /2));
+  const bp14 = {x: bpb.x + (backCrotchCurve / 2), y: bpb.y};
+  
+  const bpath = `
+    M ${bp1.x} ${bp1.y}
+    L ${bp2.x} ${bp2.y}
+    L ${bp3.x} ${bp3.y}
+    L ${bp4.x} ${bp4.y}
+    L ${bp5.x} ${bp5.y}
+    L ${bp6.x} ${bp6.y}
+    L ${bp7.x} ${bp7.y}
+    L ${bp8.x} ${bp8.y}
+    L ${bp9.x} ${bp9.y}
+    L ${bp10.x} ${bp10.y}
+    L ${bp11.x} ${bp11.y}
+    L ${bp12.x} ${bp12.y} 
+    L ${bp13.x} ${bp13.y} 
+    L ${bp14.x} ${bp14.y} 
+    L ${bp15.x} ${bp15.y}
+    L ${bp16.x} ${bp16.y}
+    Z
+    `;
+  
+
+  
+  //BACK HIP LENGTH
+  const backWaistEndPoint = { x: bp2.x , y: frontWaistLine };
+  //RIGHT END-POINT 
+  const Rbwaist = { x: bp1.x , y: bp1.y };
+  const RbwmidX = (backWaistEndPoint.x + Rbwaist.x) / 2;
+  const RbwmidY = (backWaistEndPoint.y + Rbwaist.y) / 2;
+  const Rbwdx = Rbwaist.x - backWaistEndPoint.x;
+  const Rbwdy = Rbwaist.y - backWaistEndPoint.y;
+  const Rbwdistance = Math.sqrt(Rbwdx * Rbwdx + Rbwdy * Rbwdy) / scale;
+  
+  //BACK HIP LENGTH
+  const backHipEndPoint = { x: bp3.x , y: frontHipLine };
+  //RIGHT END-POINT 
+  const RbEhip = { x: bp16.x , y: bp16.y };
+  const RbEmidX = (backHipEndPoint.x + RbEhip.x) / 2;
+  const RbEmidY = (backHipEndPoint.y + RbEhip.y) / 2;
+  const RbEdx = RbEhip.x - backHipEndPoint.x;
+  const RbEdy = RbEhip.y - backHipEndPoint.y;
+  const RbEdistance = Math.sqrt(RbEdx * RbEdx + RbEdy * RbEdy) / scale;
+  
+  //DISTANCE FROM CENTER TO BACK HIP END-POINT
+  const backHipCenterPoint = { x: bCenter, y: frontHipLine };
+  //RIGHT END-POINT 
+  const Rbhip = { x: bp3.x, y: frontHipLine };
+  const RbhmidX = (backHipCenterPoint.x + Rbhip.x) / 2;
+  const RbhmidY = (backHipCenterPoint.y + Rbhip.y) / 2;
+  const Rbhdx = Rbhip.x - backHipCenterPoint.x;
+  const Rbhdy = Rbhip.y - backHipCenterPoint.y;
+  const Rbhdistance = Math.sqrt(Rbhdx * Rbhdx + Rbhdy * Rbhdy) / scale;
+
+  //DISTANCE FROM CENTER TO BACK THIGH END-POINTS 
+  const backThighCenterPoint = { x: bCenter, y: thighLine };
+  //LEFT END-POINT 
+  const Lbthigh = { x: bCenter - Hthigh + thighOffset - (1.25 * scale), y: thighLine };
+  const LbtmidX = (backThighCenterPoint.x + Lbthigh.x) / 2;
+  const LbtmidY = (backThighCenterPoint.y + Lbthigh.y) / 2;
+  const Lbtdx = Lbthigh.x - backThighCenterPoint.x;
+  const Lbtdy = Lbthigh.y - backThighCenterPoint.y;
+  const Lbtdistance = Math.sqrt(Lbtdx * Lbtdx + Lbtdy * Lbtdy) / scale;
+
+  //RIGHT END-POINT 
+  const Rbthigh = { x: bCenter + Hthigh - thighOffset + (1.25 * scale), y: thighLine };
+  const RbtmidX = (backThighCenterPoint.x + Rbthigh.x) / 2;
+  const RbtmidY = (backThighCenterPoint.y + Rbthigh.y) / 2;
+  const Rbtdx = Rbthigh.x - backThighCenterPoint.x;
+  const Rbtdy = Rbthigh.y - backThighCenterPoint.y;
+  const Rbtdistance = Math.sqrt(Rbtdx * Rbtdx + Rbtdy * Rbtdy) / scale;
+
+  //DISTANCE FROM CENTER TO BACK KNEE END-POINTS
+  const backKneeCenterPoint = { x: bCenter, y: kneeLine };
+  //LEFT END-POINT 
+  const Lbknee = { x: bCenter - Hknee + kneeOffset - (1.125 * scale), y: kneeLine };
+  const LbkmidX = (backKneeCenterPoint.x + Lbknee.x) / 2;
+  const LbkmidY = (backKneeCenterPoint.y + Lbknee.y) / 2;
+  const Lbkdx = Lbknee.x - backKneeCenterPoint.x;
+  const Lbkdy = Lbknee.y - backKneeCenterPoint.y;
+  const Lbkdistance = Math.sqrt(Lbkdx * Lbkdx + Lbkdy * Lbkdy) / scale;
+
+  //RIGHT END-POINT 
+  const Rbknee = { x: bCenter + Hknee - kneeOffset + (1.125 * scale), y: kneeLine };
+  const RbkmidX = (backKneeCenterPoint.x + Rbknee.x) / 2;
+  const RbkmidY = (backKneeCenterPoint.y + Rbknee.y) / 2;
+  const Rbkdx = Rbknee.x - backKneeCenterPoint.x;
+  const Rbkdy = Rbknee.y - backKneeCenterPoint.y;
+  const Rbkdistance = Math.sqrt(Rbkdx * Rbkdx + Rbkdy * Rbkdy) / scale;
+
+  //DISTANCE FROM CENTER TO BACK LEG-OPENING END-POINTS 
+  const backBottomCenterPoint = { x: bCenter, y: bottomLine0 };
+  //LEFT END-POINT 
+  const Lbbottom = { x: bCenter - Hbottom + bottomOffset - scale, y: bottomLine0 };
+  const LbbmidX = (backBottomCenterPoint.x + Lbbottom.x) / 2;
+  const LbbmidY = (backBottomCenterPoint.y + Lbbottom.y) / 2;
+  const Lbbdx = Lbbottom.x - backBottomCenterPoint.x;
+  const Lbbdy = Lbbottom.y - backBottomCenterPoint.y;
+  const Lbbdistance = Math.sqrt(Lbbdx * Lbbdx + Lbbdy * Lbbdy) / scale;
+
+  //RIGHT END-POINT 
+  const Rbbottom = { x: bCenter + Hbottom - bottomOffset + scale, y: bottomLine0 };
+  const RbbmidX = (backBottomCenterPoint.x + Rbbottom.x) / 2;
+  const RbbmidY = (backBottomCenterPoint.y + Rbbottom.y) / 2;
+  const Rbbdx = Rbbottom.x - backBottomCenterPoint.x;
+  const Rbbdy = Rbbottom.y - backBottomCenterPoint.y;
+  const Rbbdistance = Math.sqrt(Rbbdx * Rbbdx + Rbbdy * Rbbdy) / scale;
+ 
+  
+  svgFront.innerHTML =  `
+<path 
+    d="${fpath}" 
+    fill="none" 
+    stroke="#38bdf8" 
+    stroke-width="2"
+  />
+  //front centerline
+  <line 
+    x1="${center}" 
+    y1="${topY}" 
+    x2="${center}" 
+    y2="${bottomY}" 
+    stroke="white"
+    stroke-width="1"
+    stroke-dasharray="5,5"
+/>
+<line 
+    x1="${waistLineXo}" 
+    y1="${frontWaistLine}" 
+    x2="${waistLineXi}" 
+    y2="${frontWaistLine}" 
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line 
+    x1="${frontHipLineXo}" 
+    y1="${frontHipLine}" 
+    x2="${frontHipLineXi}" 
+    y2="${frontHipLine}" 
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line 
+    x1="${crotchLineXo}" 
+    y1="${crotchLine}" 
+    x2="${crotchLineXi}" 
+    y2="${crotchLine}" 
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line
+    x1="${thighLineXo}" 
+    y1="${thighLine}" 
+    x2="${thighLineXi}" 
+    y2="${thighLine}" 
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line 
+    x1="${kneeLineXo}" 
+    y1="${kneeLine}" 
+    x2="${kneeLineXi}" 
+    y2="${kneeLine}" 
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line 
+    x1="${bottomLine1Xo}" 
+    y1="${bottomLine1}" 
+    x2="${bottomLine1Xi}" 
+    y2="${bottomLine1}" 
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line 
+    x1="${bottomLine0Xo}" 
+    y1="${bottomLine0}" 
+    x2="${bottomLine0Xi}" 
+    y2="${bottomLine0}" 
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <text x="${center - 8}" y="${20}" fill="yellow" font-size="10">
+    center
+  </text>
+  <text x="${300}" y="${LwmidY}" fill="white" font-size="10">
+    front waistLine
+  </text>
+  <text x="${300}" y="${LhmidY}" fill="white" font-size="10">
+    front hipLine
+  </text>
+  <text x="${300}" y="${LtmidY}" fill="white" font-size="10">
+    thighLine
+  </text>
+  <text x="${300}" y="${LkmidY}" fill="white" font-size="10">
+    kneeLine
+  </text>
+  <text x="${300}" y="${LbmidY}" fill="white" font-size="10">
+    leg-opening Line
+  </text>
+
+<g id="showFrontMeasurements" opacity="${showFrontMeasurements ? 0 : 1}">
+  <line
+    x1="${230}" 
+    y1="${frontWaistLine}" 
+    x2="${230}" 
+    y2="${frontHipLine}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line
+    x1="${20}" 
+    y1="${frontWaistLine}" 
+    x2="${20}" 
+    y2="${crotchLine}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line
+    x1="${20}" 
+    y1="${crotchLine}" 
+    x2="${20}" 
+    y2="${thighLine}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line
+    x1="${20}" 
+    y1="${thighLine}" 
+    x2="${20}" 
+    y2="${kneeLine}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line
+    x1="${20}" 
+    y1="${kneeLine}" 
+    x2="${20}" 
+    y2="${bottomLine0}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${waistCenterPoint.x}" 
+    y1="${waistCenterPoint.y}" 
+    x2="${Lwaist.x}" 
+    y2="${Lwaist.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${waistCenterPoint.x}" 
+    y1="${waistCenterPoint.y}" 
+    x2="${Rwaist.x}" 
+    y2="${Rwaist.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${frontHipCenterPoint.x}" 
+    y1="${frontHipCenterPoint.y}" 
+    x2="${Lhip.x}" 
+    y2="${Lhip.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${frontHipCenterPoint.x}" 
+    y1="${frontHipCenterPoint.y}" 
+    x2="${Rhip.x}" 
+    y2="${Rhip.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${frontCrotchCenterPoint.x}" 
+    y1="${frontCrotchCenterPoint.y}" 
+    x2="${Lcrotch.x}" 
+    y2="${Lcrotch.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${frontCrotchCenterPoint.x}" 
+    y1="${frontCrotchCenterPoint.y}" 
+    x2="${Rcrotch.x}" 
+    y2="${Rcrotch.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${frontThighCenterPoint.x}" 
+    y1="${frontThighCenterPoint.y}" 
+    x2="${Lthigh.x}" 
+    y2="${Lthigh.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${frontThighCenterPoint.x}" 
+    y1="${frontThighCenterPoint.y}" 
+    x2="${Rthigh.x}" 
+    y2="${Rthigh.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${frontkneeCenterPoint.x}" 
+    y1="${frontkneeCenterPoint.y}" 
+    x2="${Lknee.x}" 
+    y2="${Lknee.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${frontkneeCenterPoint.x}" 
+    y1="${frontkneeCenterPoint.y}" 
+    x2="${Rknee.x}" 
+    y2="${Rknee.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${frontBottomCenterPoint.x}" 
+    y1="${frontBottomCenterPoint.y}"
+    x2="${Lbottom.x}" 
+    y2="${Lbottom.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${frontBottomCenterPoint.x}" 
+    y1="${frontBottomCenterPoint.y}" 
+    x2="${Rbottom.x}" 
+    y2="${Rbottom.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${260}" 
+    y1="${frontWaistLine}" 
+    x2="${260}" 
+    y2="${bottomLine1}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <text x="${LwmidX}" y="${LwmidY}" fill="yellow" font-size="10">
+    ${Lwdistance.toFixed(2)} "
+  </text>
+  <text x="${RwmidX}" y="${RwmidY}" fill="yellow" font-size="10">
+    ${Rwdistance.toFixed(2)} "
+  </text>
+  <text x="${LhmidX}" y="${LhmidY}" fill="yellow" font-size="10">
+    ${Lhdistance.toFixed(2)} "
+  </text>
+  <text x="${RhmidX}" y="${RhmidY}" fill="yellow" font-size="10">
+    ${Rhdistance.toFixed(2)} "
+  </text>
+  <text x="${300}" y="${LcmidY}" fill="white" font-size="10">
+    crotchLine
+  </text>
+  <text x="${LcmidX}" y="${LcmidY}" fill="yellow" font-size="10">
+    ${Lcdistance.toFixed(2)} "
+  </text>
+  <text x="${RcmidX}" y="${RcmidY}" fill="yellow" font-size="10">
+    ${Rcdistance.toFixed(2)} "
+  </text>
+  <text x="${230}" y="${waistToHipCenterPoint}" fill="yellow" font-size="10">
+   ${hipY.toFixed(2)} "
+  </text>
+  <text x="${20}" y="${waistToCrotchCenterPoint}" fill="yellow" font-size="10">
+    ${crotchY.toFixed(2)} "
+  </text>
+  <text x="${LtmidX}" y="${LtmidY}" fill="yellow" font-size="10">
+    ${Ltdistance.toFixed(2)} "
+  </text>
+  <text x="${RtmidX}" y="${RtmidY}" fill="yellow" font-size="10">
+    ${Rtdistance.toFixed(2)} "
+  </text>
+  <text x="${20}" y="${crotchToThighCenterPoint}" fill="yellow" font-size="10">
+    ${thighY.toFixed(2)} "
+  </text>
+  <text x="${20}" y="${thighToKneeCenterPoint}" fill="yellow" font-size="10">
+    ${kneeY.toFixed(2)} "
+  </text>
+  <text x="${20}" y="${kneeToBottomCenterPoint}" fill="yellow" font-size="10">
+    ${bottomY0.toFixed(2)} "
+  </text>
+  <text x="${LkmidX}" y="${LkmidY}" fill="yellow" font-size="10">
+    ${Lkdistance.toFixed(2)} "
+  </text>
+  <text x="${RkmidX}" y="${RkmidY}" fill="yellow" font-size="10">
+    ${Rkdistance.toFixed(2)} "
+  </text>
+  <text x="${LbmidX}" y="${LbmidY}" fill="yellow" font-size="10">
+    ${Lbdistance.toFixed(2)} "
+  </text>
+  <text x="${RbmidX}" y="${RbmidY}" fill="yellow" font-size="10">
+    ${Rbdistance.toFixed(2)} "
+  </text>
+  <text x="${260}" y="${pantsLengthCenterPoint}" fill="yellow" font-size="10">
+    ${((bottomLine1 - frontWaistLine) / scale).toFixed(1)} "
+  </text>
+</g>
+
+<g id="isBackVisible" opacity="${isBackVisible ? 1 : 0}"> 
+  <path 
+    d="${mbpath}" 
+    fill="none" 
+    stroke="white" 
+    stroke-width="2"
+  /> 
+  <line
+    x1="${mbackWaistLineXo}" 
+    y1="${backWaistLine}" 
+    x2="${mbackWaistLineXi}" 
+    y2="${backWaistLine}"
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line 
+    x1="${mbackHipLineXo}" 
+    y1="${backHipLine}" 
+    x2="${mbackHipLineXi}" 
+    y2="${backHipLine}" 
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line 
+    x1="${10}" 
+    y1="${frontWaistLine}" 
+    x2="${10}" 
+    y2="${bottomLine0}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${30}" 
+    y1="${backWaistLine}" 
+    x2="${30}" 
+    y2="${backHipLine}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${270}" 
+    y1="${frontWaistLine}" 
+    x2="${270}" 
+    y2="${backHipLine}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${mbackWaistEndPoint.x}" 
+    y1="${mbackWaistEndPoint.y}" 
+    x2="${mRbwaist.x}" 
+    y2="${mRbwaist.y}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${mbackHipEndPoint.x}" 
+    y1="${mbackHipEndPoint.y}" 
+    x2="${mRbEhip.x}" 
+    y2="${mRbEhip.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${mbackHipCenterPoint.x}" 
+    y1="${mbackHipCenterPoint.y}" 
+    x2="${mRbhip.x}" 
+    y2="${mRbhip.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${mbackThighCenterPoint.x}" 
+    y1="${mbackThighCenterPoint.y}" 
+    x2="${mLbthigh.x}" 
+    y2="${mLbthigh.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${mbackThighCenterPoint.x}" 
+    y1="${mbackThighCenterPoint.y}" 
+    x2="${mRbthigh.x}" 
+    y2="${mRbthigh.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${mbackKneeCenterPoint.x}" 
+    y1="${mbackKneeCenterPoint.y}" 
+    x2="${mLbknee.x}" 
+    y2="${mLbknee.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="$m{backKneeCenterPoint.x}" 
+    y1="${mbackKneeCenterPoint.y}" 
+    x2="${mRbknee.x}" 
+    y2="${mRbknee.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${mbackBottomCenterPoint.x}" 
+    y1="${mbackBottomCenterPoint.y}"
+    x2="${mLbbottom.x}" 
+    y2="${mLbbottom.y}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${mbackBottomCenterPoint.x}" 
+    y1="${mbackBottomCenterPoint.y}" 
+    x2="${mRbbottom.x}" 
+    y2="${mRbbottom.y}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <text x="${mRbwmidX}" y="${mRbwmidY}" fill="yellow" font-size="10">
+    ${mRbwdistance.toFixed(2)} "
+  </text>
+  <text x="${mRbhmidX}" y="${mRbhmidY}" fill="yellow" font-size="10">
+    ${mRbhdistance.toFixed(2)} "
+  </text>
+  <text x="${mRbEmidX}" y="${mRbEmidY}" fill="yellow" font-size="10">
+    ${mRbEdistance.toFixed(2)} "
+  </text>
+  <text x="${mLbtmidX}" y="${mLbtmidY}" fill="yellow" font-size="10">
+    ${mLbtdistance.toFixed(2)} "
+  </text>
+  <text x="${mRbtmidX}" y="${mRbtmidY}" fill="yellow" font-size="10">
+    ${mRbtdistance.toFixed(2)} "
+  </text>
+  <text x="${mLbkmidX}" y="${mLbkmidY}" fill="yellow" font-size="10">
+    ${mLbkdistance.toFixed(2)} "
+  </text>
+  <text x="${mRbkmidX}" y="${mRbkmidY}" fill="yellow" font-size="10">
+    ${mRbkdistance.toFixed(2)} "
+  </text>
+  <text x="${mLbbmidX}" y="${mLbbmidY}" fill="yellow" font-size="10">
+    ${mLbbdistance.toFixed(2)} "
+  </text>
+  <text x="${mRbbmidX}" y="${mRbbmidY}" fill="yellow" font-size="10">
+    ${mRbbdistance.toFixed(2)} "
+  </text>
+  <text x="${10}" y="${totFrontHeightCenterPoint}" fill="yellow" font-size="10">
+    ${(m.outseam + 1).toFixed(2)} "
+  </text>
+  <text x="${30}" y="${backWaistToBackHipCenterPoint}" fill="yellow" font-size="10">
+    ${((backHipLine - backWaistLine) / scale).toFixed(1)} "
+  </text>
+  
+  <text x="${270}" y="${frontWaistToBackHipCenterPoint}" fill="yellow" font-size="10">
+    ${((backHipLine - frontWaistLine) / scale).toFixed(1)} "
+  </text>
+  
+</g>
+
+//desktop back
+<path 
+    d="${bpath}" 
+    fill="none" 
+    stroke="white" 
+    stroke-width="2"
+  /> 
+  //back centerline
+  <line 
+    x1="${bCenter}" 
+    y1="${topY}" 
+    x2="${bCenter}" 
+    y2="${bottomY}" 
+    stroke="white"
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line 
+    x1="${backWaistLineXo}" 
+    y1="${backWaistLine}" 
+    x2="${backWaistLineXi}" 
+    y2="${backWaistLine}"
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <line 
+    x1="${backHipLineXo}" 
+    y1="${backHipLine}" 
+    x2="${backHipLineXi}" 
+    y2="${backHipLine}" 
+    stroke="red" 
+    stroke-width="1"
+    stroke-dasharray="5,5"
+  />
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="white" />
+    </marker>
+  </defs>
+  <line 
+    x1="${410}" 
+    y1="${frontWaistLine}" 
+    x2="${410}" 
+    y2="${bottomLine0}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${430}" 
+    y1="${backWaistLine}" 
+    x2="${430}" 
+    y2="${backHipLine}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${600}" 
+    y1="${frontWaistLine}" 
+    x2="${600}" 
+    y2="${backHipLine}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${660}" 
+    y1="${frontWaistLine}" 
+    x2="${660}" 
+    y2="${bottomLine1}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${backWaistEndPoint.x}" 
+    y1="${backWaistEndPoint.y}" 
+    x2="${Rbwaist.x}" 
+    y2="${Rbwaist.y}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${backHipEndPoint.x}" 
+    y1="${backHipEndPoint.y}" 
+    x2="${RbEhip.x}" 
+    y2="${RbEhip.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${backHipCenterPoint.x}" 
+    y1="${backHipCenterPoint.y}" 
+    x2="${Rbhip.x}" 
+    y2="${Rbhip.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${backThighCenterPoint.x}" 
+    y1="${backThighCenterPoint.y}" 
+    x2="${Lbthigh.x}" 
+    y2="${Lbthigh.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${backThighCenterPoint.x}" 
+    y1="${backThighCenterPoint.y}" 
+    x2="${Rbthigh.x}" 
+    y2="${Rbthigh.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${backKneeCenterPoint.x}" 
+    y1="${backKneeCenterPoint.y}" 
+    x2="${Lbknee.x}" 
+    y2="${Lbknee.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${backKneeCenterPoint.x}" 
+    y1="${backKneeCenterPoint.y}" 
+    x2="${Rbknee.x}" 
+    y2="${Rbknee.y}"  
+    stroke="white"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${backBottomCenterPoint.x}" 
+    y1="${backBottomCenterPoint.y}"
+    x2="${Lbbottom.x}" 
+    y2="${Lbbottom.y}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <line 
+    x1="${backBottomCenterPoint.x}" 
+    y1="${backBottomCenterPoint.y}" 
+    x2="${Rbbottom.x}" 
+    y2="${Rbbottom.y}"  
+    stroke="#38bdf8"
+    stroke-width="0.5"
+    marker-start="url(#arrow)"
+    marker-end="url(#arrow)"
+  />
+  <text x="${RbwmidX}" y="${RbwmidY}" fill="yellow" font-size="10">
+    ${Rbwdistance.toFixed(2)} "
+  </text>
+  <text x="${RbEmidX}" y="${RbEmidY}" fill="yellow" font-size="10">
+    ${RbEdistance.toFixed(2)} "
+  </text>
+  <text x="${RbhmidX}" y="${RbhmidY}" fill="yellow" font-size="10">
+    ${Rbhdistance.toFixed(2)} "
+  </text>
+  <text x="${600}" y="${LhmidY}" fill="white" font-size="10">
+    front hipLine
+  </text>
+  <text x="${600}" y="${LcmidY}" fill="white" font-size="10">
+    crotchLine
+  </text>
+  <text x="${600}" y="${LtmidY}" fill="white" font-size="10">
+    thighLine
+  </text>
+  <text x="${LbtmidX}" y="${LbtmidY}" fill="yellow" font-size="10">
+    ${Lbtdistance.toFixed(2)} "
+  </text>
+  <text x="${RbtmidX}" y="${RbtmidY}" fill="yellow" font-size="10">
+    ${Rbtdistance.toFixed(2)} "
+  </text>
+  <text x="${600}" y="${LbkmidY}" fill="white" font-size="10">
+    kneeLine
+  </text>
+  <text x="${LbkmidX}" y="${LbkmidY}" fill="yellow" font-size="10">
+    ${Lbkdistance.toFixed(2)} "
+  </text>
+  <text x="${RbkmidX}" y="${RbkmidY}" fill="yellow" font-size="10">
+    ${Rbkdistance.toFixed(2)} "
+  </text>
+  <text x="${600}" y="${LbbmidY}" fill="white" font-size="10">
+    kneeLine
+  </text>
+  <text x="${LbbmidX}" y="${LbbmidY}" fill="yellow" font-size="10">
+    ${Lbbdistance.toFixed(2)} "
+  </text>
+  <text x="${RbbmidX}" y="${RbbmidY}" fill="yellow" font-size="10">
+    ${Rbbdistance.toFixed(2)} "
+  </text>
+  <text x="${410}" y="${totFrontHeightCenterPoint}" fill="yellow" font-size="10">
+    ${(m.outseam + 1).toFixed(2)} "
+  </text>
+  <text x="${430}" y="${backWaistToBackHipCenterPoint}" fill="yellow" font-size="10">
+    ${((backHipLine - backWaistLine) / scale).toFixed(1)} "
+  </text>
+  <text x="${600}" y="${frontWaistToBackHipCenterPoint}" fill="yellow" font-size="10">
+    ${((backHipLine - frontWaistLine) / scale).toFixed(1)} "
+  </text>
+  <text x="${660}" y="${pantsLengthCenterPoint}" fill="yellow" font-size="10">
+    ${((bottomLine1 - frontWaistLine) / scale).toFixed(1)} "
+  </text>
+  `;}
+  // init
+  
+loadData();
+
+  
+
+function downloadFront() {
+  const svg = document.getElementById("svgCanvasFront");
+if (!isPremium) {
+    showPremiumModal();
+    return;
+}
+  // ✅ CHECK KUNG WALANG LAMAN
+  if (!svg || svg.children.length === 0) {
+    alert("Walang pattern na naka-draw.");
+    return;
+  }
+
+  const serializer = new XMLSerializer();
+  const source = serializer.serializeToString(svg);
+
+  const img = new Image();
+  const svgBlob = new Blob([source], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(svgBlob);
+
+  img.onload = function () {
+    const canvas = document.createElement("canvas");
+    canvas.width = svg.clientWidth;
+    canvas.height = svg.clientHeight;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    URL.revokeObjectURL(url);
+
+    const imgURI = canvas.toDataURL("image/png");
+
+    const a = document.createElement("a");
+    a.href = imgURI;
+    a.download = "pattern.png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  img.src = url;
+}
+
+  function downloadBack() {
+  const svg = document.getElementById("svgCanvasBack");
+  
+    
+    
+  // ✅ CHECK KUNG WALANG LAMAN
+  if (!svg || svg.children.length === 0) {
+    alert("Walang pattern na naka-draw.");
+    return;
+  }
+
+  const serializer = new XMLSerializer();
+  const source = serializer.serializeToString(svg);
+
+  const img = new Image();
+  const svgBlob = new Blob([source], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(svgBlob);
+
+  img.onload = function () {
+    const canvas = document.createElement("canvas");
+    canvas.width = svg.clientWidth;
+    canvas.height = svg.clientHeight;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    URL.revokeObjectURL(url);
+
+    const imgURI = canvas.toDataURL("image/png");
+
+    const a = document.createElement("a");
+    a.href = imgURI;
+    a.download = "pattern.png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  img.src = url;
+}
+
+
+</script>
+ <script>
+const profileBtn = document.getElementById("profileBtn");
+const profileMenu = document.getElementById("profileMenu");
+
+profileBtn.addEventListener("click", () => {
+  profileMenu.style.display =
+    profileMenu.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", (e) => {
+  if (!profileBtn.contains(e.target) && !profileMenu.contains(e.target)) {
+    profileMenu.style.display = "none";
+  }
+});
+ </script>
+<script>
+
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyAdQ7By9HrCbNhy2pT9cEVVcD-YCdHEuSs",
+  authDomain: "deegees-a23ec.firebaseapp.com",
+  projectId: "deegees-a23ec",
+  storageBucket: "deegees-a23ec.firebasestorage.app",
+  messagingSenderId: "8167578850",
+  appId: "1:8167578850:web:a5d3dd989aec5bd83d92bb"
+};
+
+
+
+
+
+  firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+let isPremium = false;
+
+firebase.auth().onAuthStateChanged(async (user) => {
+  if (!user) return;
+
+  const doc = await db.collection("users").doc(user.uid).get();
+
+  if (!doc.exists) return;
+
+  const data = doc.data();
+
+  if (!data.isPremium) {
+    isPremium = false;
+    return;
+  }
+
+  if (!data.premiumUntil) {
+    isPremium = true;
+    console.log("Premium active (legacy user)");
+    return;
+  }
+
+  const premiumUntil = data.premiumUntil.toDate();
+  const now = new Date();
+
+  if (now > premiumUntil) {
+  isPremium = false;
+  //console.log("Premium expired");
+  showPremiumModal();
+
+  try {
+    await db.collection("users").doc(user.uid).update({
+      isPremium: false
+    });
+    console.log("Firestore premium downgraded");
+  } catch (err) {
+    console.error("Firestore downgrade failed:", err);
+  }
+
+} else {
+  isPremium = true;
+  console.log("Premium active until:", premiumUntil);
+}
+});
+  
+// 🔒 PROTECTION
+firebase.auth().onAuthStateChanged(function(user) {
+  if (!user) {
+    window.location.href = "index.html";
+  }
+});
+  function logout() {
+  firebase.auth().signOut()
+    .then(() => {
+      window.location.href = "index.html";
+    });
+  }
+    
+</script>
+</body>
+</html>
