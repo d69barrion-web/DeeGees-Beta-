@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payment Successful</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      font-family: Arial;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .box {
+      background: #1e293b;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    h1 {
+      color: #4ade80;
+    }
+
+    p {
+      opacity: 0.8;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #22c55e;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+    <h1>Payment Successful 🎉</h1>
+    <p>Your premium access is being activated...</p>
+
+    <button onclick="goBack()">Go Back</button>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "/pattern-preview.html";
+    }
+  </script>
+
+</body>
+</html>
