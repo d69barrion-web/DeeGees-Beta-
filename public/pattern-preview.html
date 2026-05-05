@@ -2309,8 +2309,8 @@ firebase.auth().onAuthStateChanged(async (user) => {
 
   if (now > premiumUntil) {
   isPremium = false;
-  console.log("Premium expired");
-
+  //console.log("Premium expired");
+  showPremiumModal();
   try {
     await db.collection("users").doc(user.uid).update({
       isPremium: false
