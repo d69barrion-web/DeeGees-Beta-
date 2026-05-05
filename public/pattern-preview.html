@@ -196,6 +196,45 @@
   background: #45a049;
 }
 
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-area {
+  position: relative;
+}
+
+.icon-btn {
+  background: #38bdf8;
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.profile-menu {
+  display: none;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background: #1e293b;
+  border-radius: 8px;
+  padding: 6px;
+  z-index: 100;
+}
+
+.profile-menu button {
+  background: #38bdf8;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 </style>
 </head>
 
@@ -203,7 +242,14 @@
 
 <div class="container">
   <h1>Pattern Preview</h1>
+  <div class="profile-area">
+      <button id="profileBtn" class="icon-btn">👤</button>
 
+      <div id="profileMenu" class="profile-menu">
+        <button onclick="logout()">Logout</button>
+      </div>
+    </div>
+</div>
   <div class="layout">
 
     <!-- LEFT SIDE -->
@@ -368,8 +414,7 @@ background:rgba(0,0,0,0.6); justify-content:center; align-items:center;">
   </div>
       
   <button class="btn" onclick="downloadFront()">Download as PNG</button>
-  <button class="btn" onclick="logout()">Logout</button>
-    </div>
+  </div>
 
     <!-- FRONT PART -->
     
@@ -583,7 +628,7 @@ function getPatternData() {
 //////////////LOADING SAVED PATTERN SYSTEM/////////////////////
 const loadBtn = document.getElementById("loadPatternBtn");
 const container = document.getElementById("patternListContainer");
-debug("loadPattern start");
+
 loadBtn.addEventListener("click", () => {
   container.style.display =
     container.style.display === "none" ? "block" : "none";
@@ -2261,7 +2306,21 @@ if (!isPremium) {
 
 
 </script>
- 
+ <script>
+const profileBtn = document.getElementById("profileBtn");
+const profileMenu = document.getElementById("profileMenu");
+
+profileBtn.addEventListener("click", () => {
+  profileMenu.style.display =
+    profileMenu.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", (e) => {
+  if (!profileBtn.contains(e.target) && !profileMenu.contains(e.target)) {
+    profileMenu.style.display = "none";
+  }
+});
+ </script>
 <script>
 
 
@@ -2311,6 +2370,7 @@ firebase.auth().onAuthStateChanged(async (user) => {
   isPremium = false;
   //console.log("Premium expired");
   showPremiumModal();
+
   try {
     await db.collection("users").doc(user.uid).update({
       isPremium: false
